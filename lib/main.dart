@@ -1,3 +1,4 @@
+import 'package:fitbull/screens/explore/view/explore_view.dart';
 import 'package:flutter/material.dart';
 import 'package:fitbull/screens/home/view/home_view.dart';
 
@@ -44,7 +45,7 @@ class _MyTabBarState extends State<MyTabBar> with SingleTickerProviderStateMixin
         controller: _tabController,
         children: const[
            HomeView(),
-           HomeView(),
+           ExploreView(),
            HomeView(),
            HomeView(),
            HomeView(),
