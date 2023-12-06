@@ -38,6 +38,7 @@ class _ExploreViewState extends State<ExploreView> {
                       SizedBox(height: 2),
                       Text(
                         "Muğla, Turkey",
+
                         style: TextStyle(color: Colors.black, fontSize: 14),
                         textAlign: TextAlign.center,
 
