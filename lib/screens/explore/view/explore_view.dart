@@ -40,6 +40,7 @@ class _ExploreViewState extends State<ExploreView> {
                         "Muğla, Turkey",
                         style: TextStyle(color: Colors.black, fontSize: 14),
                         textAlign: TextAlign.center,
+
                       ),
                     ],
                   ),

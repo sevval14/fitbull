@@ -119,6 +119,7 @@ class ExploreCard extends StatelessWidget {
               ),
             )
             ,
+
             Expanded(
               child: Container(
                 margin: EdgeInsets.all(20),
