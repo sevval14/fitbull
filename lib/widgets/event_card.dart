@@ -22,7 +22,7 @@ class _ExploreListState extends State<ExploreList> {
           children: [
             Expanded(
               child: Container(
-                height: 340.0,
+                height: 300.0,
                 child: ListView.builder(
                   scrollDirection: Axis.vertical,
                   itemCount: widget.items.length,
@@ -84,8 +84,8 @@ class ExploreCard extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start, // Yazıların sola hizalanması için
                   children: [
                     Container(
-                      margin: EdgeInsets.only(left:30,right:5,top:15,bottom:2), // İstenilen margin değerleri
-                      child: Text(item.name, style: TextStyle(color: Colors.black, fontSize: 18))
+                        margin: EdgeInsets.only(left:30,right:5,top:15,bottom:2), // İstenilen margin değerleri
+                        child: Text(item.name, style: TextStyle(color: Colors.black, fontSize: 18))
                     ),
                     Container(
                       margin: EdgeInsets.only(left:30,right:5,top:5,bottom: 2), // İstenilen margin değerleri
@@ -99,8 +99,8 @@ class ExploreCard extends StatelessWidget {
                       child: Row(
                         children: [
                           IconButton(
-                            onPressed: () {},
-                            icon: const Icon(Icons.star, color: Colors.yellow), padding:  EdgeInsets.only(left:25, right: 5)
+                              onPressed: () {},
+                              icon: const Icon(Icons.star, color: Colors.yellow), padding:  EdgeInsets.only(left:25, right: 5)
                           ),
                           Padding(
                             padding: const EdgeInsets.only(top: 5, bottom: 2),
