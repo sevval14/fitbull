@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-import '../../../widgets/card_list.dart';
+import '../../../widgets/card_list_mygym.dart';
+
 
 class HomeView extends StatefulWidget {
   const HomeView({Key? key}) : super(key: key);
@@ -11,6 +12,25 @@ class HomeView extends StatefulWidget {
 }
 
 class _HomeViewState extends State<HomeView> {
+  int currentIndex = 0;
+  List<String> imagePaths = [
+    "assets/home/competition3.png",
+    "assets/home/competition.png",
+    "assets/home/competition2.png",
+  ];
+
+  void goToPreviousImage() {
+    setState(() {
+      currentIndex = (currentIndex - 1) % imagePaths.length;
+    });
+  }
+
+  void goToNextImage() {
+    setState(() {
+      currentIndex = (currentIndex + 1) % imagePaths.length;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -47,14 +67,14 @@ class _HomeViewState extends State<HomeView> {
                 children: [
                   const Icon(
                     Icons.location_on,
-                    size: 30.0,
+                    size: 25.0,
                   ),
                   const SizedBox(
                       width: 10.0), // Boşluk eklemek için SizedBox kullanıyoruz
                   const Text(
                     'Home',
                     style: TextStyle(
-                      fontSize: 18.0,
+                      fontSize: 16.0,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
@@ -63,7 +83,7 @@ class _HomeViewState extends State<HomeView> {
                     'Cekmekoy/Istanbul',
                     overflow: TextOverflow.ellipsis,
                     style: TextStyle(
-                      fontSize: 18.0,
+                      fontSize: 16.0,
                     ),
                   ),
                   Expanded(
@@ -71,71 +91,78 @@ class _HomeViewState extends State<HomeView> {
                   ),
                   const Icon(
                     Icons.arrow_downward,
-                    size: 30.0,
+                    size: 25.0,
                   ),
                 ],
               ),
             ),
             Expanded(
                 child: ListView(
-              children: [
-                Row(
                   children: [
-                    IconButton(
-                        onPressed: () {}, icon: const Icon(Icons.arrow_back)),
-                    Expanded(
-                      flex: 2,
-                      child: Image.asset("assets/home/maraton.png"),
+                    Row(
+                      children: [
+                        IconButton(
+                          onPressed: goToPreviousImage,
+                          icon: const Icon(Icons.arrow_back),
+                        ),
+                        Expanded(
+                          flex: 2,
+                          child: Image.asset(imagePaths[currentIndex],height: 200,width: 200,),
+                        ),
+                        IconButton(
+                          onPressed: goToNextImage,
+                          icon: const Icon(Icons.arrow_forward),
+                        ),
+                      ],
                     ),
-                    IconButton(
-                        onPressed: () {},
-                        icon: const Icon(Icons.arrow_forward)),
+                    const SizedBox(height: 10,),
+                    CardList(
+                      title: 'Gyms', // Liste başlığı
+                      items: [
+                        CardItem(
+                          image: "assets/home/macFit.png",
+                          name: 'Mac Fit',
+                          description: 'Location 1 \n Capacity: %50',
+                        ),
+                        CardItem(
+                          image: "assets/home/intense.png",
+                          name: 'Intense',
+                          description: 'Location 2 \n Capacity: %50 dolu',
+                        ),
+                        CardItem(
+                          image: "assets/home/academy.png",
+                          name: 'Academy',
+                          description: 'Location 3 \n Capacity: %60 dolu',
+                        ),
+                        // Daha fazla etkinlik ekleyebilirsiniz
+                      ],
+                    ),
+                    const SizedBox(height: 10,),
+
+                    CardList(
+                      title: 'Equipment', // Liste başlığı
+                      items: [
+                        CardItem(
+                          image: "assets/home/latPulldown.png",
+                          name: 'Lat Pulldown',
+                          description: 'This equipment is a popular exercise performed using a cable machine or a specially designed lat pulldown machine in a gym. Here s an explanation of how to perform the Lat Pulldown exercise',
+                        ),
+                        CardItem(
+                          image: "assets/home/peckDeckFly.png",
+                          name: 'Peck Deck Fly',
+                          description: 'This exercise equipment helps muscles other than the chest to become more defined and firm',
+                        ),
+                        CardItem(
+                          image: "assets/home/legExtension.png",
+                          name: 'Leg Extension',
+                          description: 'While working on the upper leg muscles,leg curl exercises target the muscles in the back of the legs.. read more',
+                        ),
+                        // Daha fazla etkinlik ekleyebilirsiniz
+                      ],
+                    ),
+
                   ],
-                ),
-                CardList(
-                  title: 'Gyms', // Liste başlığı
-                  items: [
-                    CardItem(
-                      name: 'Event 1',
-                      address: 'Location 1',
-                      capacity: 'Capacity: 50',
-                    ),
-                    CardItem(
-                      name: 'Event 2',
-                      address: 'Location 2',
-                      capacity: 'Capacity: 100',
-                    ),
-                    CardItem(
-                      name: 'Event 2',
-                      address: 'Location 2',
-                      capacity: 'Capacity: 100',
-                    ),
-                    // Daha fazla etkinlik ekleyebilirsiniz
-                  ],
-                ),
-                CardList(
-                  title: 'Activity', // Liste başlığı
-                  items: [
-                    CardItem(
-                      name: 'Event 1',
-                      address: 'Location 1',
-                      capacity: 'Capacity: 50',
-                    ),
-                    CardItem(
-                      name: 'Event 2',
-                      address: 'Location 2',
-                      capacity: 'Capacity: 100',
-                    ),
-                    CardItem(
-                      name: 'Event 2',
-                      address: 'Location 2',
-                      capacity: 'Capacity: 100',
-                    ),
-                    // Daha fazla etkinlik ekleyebilirsiniz
-                  ],
-                )
-              ],
-            ))
+                ))
           ],
         ));
   }
