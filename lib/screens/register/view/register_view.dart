@@ -1,5 +1,8 @@
+import 'package:fitbull/constant/regex_constants.dart';
 import 'package:fitbull/screens/home_splash/view/home_splash_view.dart';
+import 'package:fitbull/screens/login/view/login_view.dart';
 import 'package:fitbull/screens/register/viewmodel/register_view_model.dart';
+import 'package:fitbull/services/response_message.dart';
 import 'package:flutter/material.dart';
 
 class RegisterPage extends StatefulWidget {
@@ -16,11 +19,9 @@ class _RegisterPageState extends State<RegisterPage> {
   final passwordController = TextEditingController();
 
   final RegisterViewModel registerViewModel = RegisterViewModel();
-  bool _isMounted = true;
 
   @override
   void dispose() {
-    _isMounted = false;
     usernameController.dispose();
     emailController.dispose();
     passwordController.dispose();
@@ -30,7 +31,6 @@ class _RegisterPageState extends State<RegisterPage> {
   @override
   void initState() {
     super.initState();
-    _isMounted = true;
   }
 
 
@@ -42,8 +42,8 @@ class _RegisterPageState extends State<RegisterPage> {
       body: Center(
         child: SingleChildScrollView(
           child: Container(
-            margin: EdgeInsets.all(24),
-            padding: EdgeInsets.symmetric(horizontal: 24, vertical: 48),
+            margin: const EdgeInsets.all(24),
+            padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 48),
             decoration: BoxDecoration(
               color: Colors.white,
               borderRadius: BorderRadius.circular(12),
@@ -52,7 +52,7 @@ class _RegisterPageState extends State<RegisterPage> {
                   color: Colors.grey.withOpacity(0.5),
                   spreadRadius: 5,
                   blurRadius: 7,
-                  offset: Offset(0, 3),
+                  offset:const Offset(0, 3),
                 ),
               ],
             ),
@@ -97,6 +97,8 @@ class _RegisterPageState extends State<RegisterPage> {
                     validator: (value) {
                       if (value == null || value.isEmpty) {
                         return 'Please enter your email';
+                      }else if(!RegExp(rEmailRegex).hasMatch(value)){
+                        return 'Please enter a valid email address';
                       }
                       return null;
                     },
@@ -115,8 +117,10 @@ class _RegisterPageState extends State<RegisterPage> {
                     validator: (value) {
                       if (value == null || value.isEmpty ) {
                         return 'Please enter your password';
-                      }else if(value.length < 6){
+                      }else if(value.length < 6 ){
                         return "Cannot be shorter than 6 letters";
+                      }else if(RegExp(rPasswordRegex).hasMatch(value)==false){
+                        return "Please enter a valid password";
                       }
                       return null;
                     },
@@ -130,62 +134,51 @@ class _RegisterPageState extends State<RegisterPage> {
                         registerViewModel.setEmail(emailController.text);
                         registerViewModel.setPassword(passwordController.text);
 
-                        try {
-                          final status =await registerViewModel.registerUser();
-                          // Use ScaffoldMessenger to show a success message
-                          if(_isMounted){
-                            if(status == 200){
-                              ScaffoldMessenger.of(context).showSnackBar(
-                                const SnackBar(
-                                  content: Text('Registration successful!'),
-                                  backgroundColor: Colors.green,
-                                ),
-                              );
-                              await Future.delayed(const Duration(seconds: 3));
-                              Navigator.pushReplacement(
-                                context,
-                                MaterialPageRoute(builder: (context) => const HomeSplashView()),
-                              );
+                        int statusCode = await registerViewModel.registerUser();
 
-                            }else if(status == 409){
-                              ScaffoldMessenger.of(context).showSnackBar(
-                                const SnackBar(
-                                  content: Text('This email already exits!'),
-                                  backgroundColor: Colors.grey,
-                                ),
-                              );
-                            }
-
-                          }
-
-
-                        } catch (e) {
-                          if(_isMounted){
-                            ScaffoldMessenger.of(context).showSnackBar(
-                              SnackBar(
-                                content: Text('Registration failed: $e'),
-                                backgroundColor: Colors.red,
-                              ),
+                        if(context.mounted){
+                          if (statusCode == 200 || statusCode == 201) {
+                            ScaffoldMessenger.of(context).showSnackBar( SnackBar(
+                              content: const Text( "Registration successful!"),backgroundColor: Colors.green.shade700,
+                            ));
+                            Navigator.pushReplacement(
+                              context,
+                              MaterialPageRoute(builder: (context) =>  LoginPage()),
                             );
+                          }else{
+                            ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                              content: Text(handleResponseRegister(statusCode)),
+                            ));
                           }
-
                         }
 
                       }
                     },
-                    child:  Text(
-                      'Register',
-                      style: TextStyle(
-                        color: Colors.white,
-                      ),
-                    ),
                     style: ElevatedButton.styleFrom(
                       backgroundColor: Colors.blueGrey.shade800,
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(8),
                       ),
                     ),
+                    child: const Text(
+                      'Register',
+                      style: TextStyle(
+                        color: Colors.white,
+                      ),
+                    ),
                   ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      const Text("Already have an account?"),
+                      TextButton(onPressed: (){
+                        Navigator.pushReplacement(
+                          context,
+                          MaterialPageRoute(builder: (context) =>  LoginPage()),
+                        );
+                      }, child: const Text("Sign in"))
+                    ],
+                  )
                 ],
               ),
             ),
