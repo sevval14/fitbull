@@ -51,14 +51,15 @@ class _ExploreViewState extends State<ExploreView> {
           ),
         ),
         body: Column(children: [
-          Expanded(
+          ///TODO LATER
+       /*   Expanded(
             child: Image.asset(
               "assets/home/img.png",
               width: double.infinity, // Genişlik tam ekran genişliği kadar
-              height: double.infinity, // Yükseklik tam ekran yüksekliği kadar
+              height: double.infinity,
               fit: BoxFit.cover,
             ),
-          ),
+          ),*/
           Expanded(
               child: ExploreList(items: [
                 CardItem(

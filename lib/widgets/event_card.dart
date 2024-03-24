@@ -18,8 +18,6 @@ class _ExploreListState extends State<ExploreList> {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        Stack(
-          children: [
             Expanded(
               child: Container(
                 height: 300.0,
@@ -34,8 +32,6 @@ class _ExploreListState extends State<ExploreList> {
                 ),
               ),
             ),
-          ],
-        ),
       ],
     );
   }

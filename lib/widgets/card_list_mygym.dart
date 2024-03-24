@@ -88,7 +88,7 @@ class EventCard extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Image.asset(item.image,height: 100,),
+          Expanded(child: Image.asset(item.image,height: 100,)),
           Text(
             " ${item.name}" ?? '',
             style: const TextStyle(
