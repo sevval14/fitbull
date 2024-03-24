@@ -1,5 +1,6 @@
 import 'package:fitbull/screens/explore/view/explore_view.dart';
 import 'package:fitbull/screens/information/view/information_view.dart';
+import 'package:fitbull/screens/login/view/login_view.dart';
 import 'package:fitbull/screens/my_gym/view/my_gym_view.dart';
 import 'package:fitbull/screens/profile/view/profile_view.dart';
 import 'package:fitbull/screens/register/view/register_view.dart';
@@ -47,6 +48,6 @@ class _MyTabBarState extends State<MyTabBar> with SingleTickerProviderStateMixin
 
   @override
   Widget build(BuildContext context) {
-    return RegisterPage();
+    return LoginPage();
   }
 }
