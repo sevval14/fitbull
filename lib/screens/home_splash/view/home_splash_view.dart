@@ -1,4 +1,5 @@
 import 'package:fitbull/screens/explore/view/explore_view.dart';
+import 'package:fitbull/screens/gym_form/view/create_gym_view.dart';
 import 'package:fitbull/screens/information/view/information_view.dart';
 import 'package:fitbull/screens/my_gym/view/my_gym_view.dart';
 import 'package:fitbull/screens/profile/view/profile_view.dart';
@@ -39,7 +40,7 @@ class _HomeSplashViewState extends State<HomeSplashView> with SingleTickerProvid
           ExploreView(),
           MyGymView(),
           RegisterPage(),
-          ProfileView(),
+          CreateGymPage(),
 
 
           // Farklı sayfa eklemeleri
