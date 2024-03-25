@@ -1,4 +1,4 @@
-import 'package:fitbull/screens/gym_form/viewModel/create_gym_view_model.dart';
+import 'package:fitbull/screens/create_gym/viewModel/create_gym_view_model.dart';
 import 'package:fitbull/services/response_message.dart';
 import 'package:flutter/material.dart';
 

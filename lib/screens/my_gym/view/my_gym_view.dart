@@ -15,11 +15,11 @@ class MyGymView extends StatefulWidget {
 
 class _MyGymViewState extends State<MyGymView> {
   MyGymActivities myGymActivities = new MyGymActivities(
-      "assets/home/competition.png", "Halter", "12.02.2022", "100 Tl");
-  MyTeacher teacher = new MyTeacher("Özgür Hocam", "assets/home/özgür.png", "05549875657");
+      "assets/dashboard/competition.png", "Halter", "12.02.2022", "100 Tl");
+  MyTeacher teacher = new MyTeacher("Özgür Hocam", "assets/dashboard/özgür.png", "05549875657");
 
   late MyGymInfo myGymInfo =
-  MyGymInfo("MacFit", "assets/home/macFit.png", "0.10", [myGymActivities],[teacher]);
+  MyGymInfo("MacFit", "assets/dashboard/macFit.png", "0.10", [myGymActivities],[teacher]);
 
   @override
   Widget build(BuildContext context) {

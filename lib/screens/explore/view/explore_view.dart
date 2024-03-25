@@ -63,30 +63,30 @@ class _ExploreViewState extends State<ExploreView> {
           Expanded(
               child: ExploreList(items: [
                 CardItem(
-                    image: "assets/home/img_1.png",
+                    image: "assets/dashboard/img_1.png",
                     name: "Acaademy",
                     address: "Kötekli mah.",
                     price: "90 TL", rating: "4.3"),
                 CardItem(
-                    image: "assets/home/img_1.png",
+                    image: "assets/dashboard/img_1.png",
                     name: "Acaademy",
                     address: "Kötekli mah.",
                     price: "90 TL",
                     rating: "4.3"),
                 CardItem(
-                    image: "assets/home/img_1.png",
+                    image: "assets/dashboard/img_1.png",
                     name: "Acaademy",
                     address: "Kötekli mah.",
                     price: "90 TL",
                     rating: "4.3"),
                 CardItem(
-                    image: "assets/home/img_1.png",
+                    image: "assets/dashboard/img_1.png",
                     name: "Acaademy",
                     address: "Kötekli mah.",
                     price: "90 TL",
                     rating: "4.3"),
                 CardItem(
-                    image: "assets/home/img_1.png",
+                    image: "assets/dashboard/img_1.png",
                     name: "Acaademy",
                     address: "Kötekli mah.",
                     price: "90 TL",

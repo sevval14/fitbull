@@ -1,11 +1,11 @@
 import 'package:fitbull/screens/explore/view/explore_view.dart';
-import 'package:fitbull/screens/gym_form/view/create_gym_view.dart';
+import 'package:fitbull/screens/create_gym/view/create_gym_view.dart';
 import 'package:fitbull/screens/information/view/information_view.dart';
 import 'package:fitbull/screens/my_gym/view/my_gym_view.dart';
 import 'package:fitbull/screens/profile/view/profile_view.dart';
 import 'package:fitbull/screens/register/view/register_view.dart';
 import 'package:flutter/material.dart';
-import 'package:fitbull/screens/home/view/home_view.dart';
+import 'package:fitbull/screens/dashboard/view/dashboard_view.dart';
 
 
 class HomeSplashView extends StatefulWidget {
@@ -36,8 +36,8 @@ class _HomeSplashViewState extends State<HomeSplashView> with SingleTickerProvid
       body: TabBarView(
         controller: _tabController,
         children: [
-          HomeView(),
-          ExploreView(),
+          const DashboardView(),
+          const ExploreView(),
           MyGymView(),
           RegisterPage(),
           CreateGymPage(),
