@@ -8,7 +8,7 @@ class CreateGymViewModel = _CreateGymViewModel with _$CreateGymViewModel;
 
 abstract class _CreateGymViewModel with Store {
   @observable
-  String gymName = '';
+  String name = '';
 
   @observable
   String location = '';
@@ -23,7 +23,7 @@ abstract class _CreateGymViewModel with Store {
   bool isLoading = false;
 
   @action
-  void setGymName(String value) => gymName = value;
+  void setName(String value) => name = value;
 
   @action
   void setLocation(String value) => location = value;
@@ -43,12 +43,13 @@ abstract class _CreateGymViewModel with Store {
         headers: {
           'Content-Type': 'application/json',
         }, body: json.encode({
-        "gymName":gymName,
+        "name":name,
         "location":location,
         "imagePath":imagePath,
         "capacity":capacity
       }),
       );
+      print(response.body);
       await Future.delayed(const Duration(seconds: 2));
       return response.statusCode;
     } catch (e) {
