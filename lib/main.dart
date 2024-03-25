@@ -5,7 +5,7 @@ import 'package:fitbull/screens/my_gym/view/my_gym_view.dart';
 import 'package:fitbull/screens/profile/view/profile_view.dart';
 import 'package:fitbull/screens/register/view/register_view.dart';
 import 'package:flutter/material.dart';
-import 'package:fitbull/screens/home/view/home_view.dart';
+import 'package:fitbull/screens/dashboard/view/dashboard_view.dart';
 
 
 void main() {
