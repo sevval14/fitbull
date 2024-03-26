@@ -31,7 +31,7 @@ String handleResponseLogin(int statusCode) {
     case 500:
       return "Internal Server Error. Please try again later.";
     default:
-      return "Registration failed with status code: $statusCode. Please try again.";
+      return "Connection failed: $statusCode. Please try again.";
   }
 
 }
