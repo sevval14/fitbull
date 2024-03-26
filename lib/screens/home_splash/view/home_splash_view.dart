@@ -39,8 +39,8 @@ class _HomeSplashViewState extends State<HomeSplashView> with SingleTickerProvid
           const DashboardView(),
           const ExploreView(),
           MyGymView(),
-          RegisterPage(),
-          CreateGymPage(),
+          ActivityView(),
+          ProfileView(),
 
 
           // Farklı sayfa eklemeleri

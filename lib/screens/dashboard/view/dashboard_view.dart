@@ -22,9 +22,6 @@ class _DashboardViewState extends State<DashboardView> {
 
   int currentIndex = 0;
   List<String> imagePaths = [
-    "assets/dashboard/competition3.png",
-    "assets/dashboard/competition.png",
-    "assets/dashboard/competition2.png",
   ];
 
   void goToPreviousImage() {
@@ -121,7 +118,7 @@ class _DashboardViewState extends State<DashboardView> {
                       ),
                       Expanded(
                         flex: 2,
-                        child: Image.asset(imagePaths[currentIndex],height: 500,width: 200,),
+                        child: new Image.network("https://cdnuploads.aa.com.tr/uploads/sirkethaberleri/Contents/2023/09/24/thumbs_b_c_f08cd87214e22d06c91a394c8b9910c3.jpg",height: 500,width: 200,),
                       ),
                       IconButton(
                         onPressed: goToNextImage,
@@ -129,66 +126,110 @@ class _DashboardViewState extends State<DashboardView> {
                       ),
                     ],
                   ),),
+                  SizedBox(height: 15,),
+                  Container(
+                    height: 1,
+                    width: double.infinity, // Çizginin genişliği, kullanılabilir tüm alanı kaplasın
+                    decoration: BoxDecoration(
+                      color: Colors.white, // Çizginin rengi
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.black.withOpacity(0.3), // Gölgelik rengi
+                          spreadRadius: 1, // Gölgelik genişliği
+                          blurRadius: 10, // Gölgelik bulanıklığı
+                        ),
+                      ],
+                    ),
+                  )
+,
+                  Expanded(
+                    flex: 3, // Kartların ve içeriğin esnekliğini ayarlamak için
+                    child: ListView.builder(
+                      itemCount: dashboardViewModel.gymList.length,
+                      itemBuilder: (context, index) {
+                        final item = dashboardViewModel.gymList[index];
+                        return Card(
+                          shadowColor: Colors.white,
+                          color: Colors.white,
+                          surfaceTintColor:Colors.white ,
+                          margin: EdgeInsets.all(10.0),
+                          elevation: 5.0,
+                          child: IntrinsicHeight(
+                            child: Row(
+                              children: [
+                                // Sağ taraftaki resim
+                                Expanded(
+                                  child: Container(
+                                    child: Column(
+                                      crossAxisAlignment: CrossAxisAlignment.start, // Yazıların sola hizalanması için
+                                      children: [
+                                        Container(
+                                            margin: EdgeInsets.only(left:30,right:5,top:15,bottom:2), // İstenilen margin değerleri
+                                            child: Text(item.name, style: TextStyle(color: Colors.black, fontSize: 18))
+                                        ),
+                                        Container(
+                                          margin: EdgeInsets.only(left:30,right:5,top:5,bottom: 2), // İstenilen margin değerleri
+                                          child: Text(item.location, style: TextStyle(color: Colors.black54, fontSize: 14)),
+                                        ),
+                                        Container(
+                                          margin: EdgeInsets.only(left:30,right:5,top:5), // İstenilen margin değerleri
+                                          child: Text("price", style: TextStyle(color: Colors.black54, fontSize: 16)),
+                                        ),
+                                        Container(
+                                          child: Row(
+                                            children: [
+                                              IconButton(
+                                                  onPressed: () {},
+                                                  icon: const Icon(Icons.star, color: Colors.yellow), padding:  EdgeInsets.only(left:25, right: 5)
+                                              ),
+                                              Padding(
+                                                padding: const EdgeInsets.only(top: 5, bottom: 2),
+                                                child: Text(
+                                                  "4.3",
+                                                  style: TextStyle(color: Colors.black54, fontSize: 14),
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                        )
 
-                  Expanded(flex:3,child: ListView(
-                      children: [Container(height: 200,child: ListView.builder(
-                        scrollDirection: Axis.horizontal,
-                        itemCount: dashboardViewModel.gymList.length,
-                        itemBuilder: (context, index) {
-                          final item = dashboardViewModel.gymList[index];
-                          return Card(
-                            child: Container(
-                              width: 160, // Kartların genişliği
-                              padding: EdgeInsets.all(8.0),
-                              child: Column(
-                                children: [
-                                  Expanded(child: Image.network(item.imagePath, height: 100)),
-                                  Text(
-                                    item.name,
-                                    style: TextStyle(
-                                      color: Colors.black,
-                                      fontSize: 18.0,
-                                      fontWeight: FontWeight.bold,
+
+                                      ],
                                     ),
                                   ),
-                                  SizedBox(height: 8.0),
-                                  Text(
-                                    "${item.location} ${item.capacity}",
-                                    overflow: TextOverflow.ellipsis,
-                                    maxLines: 3,
-                                    style: TextStyle(
-                                      color: Colors.black,
-                                      fontSize: 14.0,
+                                )
+                                ,
+
+
+                                Expanded(
+                                  child: Container(
+                                    margin: EdgeInsets.all(20),
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(20),
+                                      color: Colors.white,
+                                    ),
+                                    width: 70,
+                                    height: 120,
+                                    child: ClipRRect(
+                                      borderRadius: BorderRadius.circular(20),
+                                      child: Image.network(
+                                        item.imagePath,
+                                        fit: BoxFit.cover,
+                                      ),
                                     ),
                                   ),
-                                  SizedBox(height: 8.0),
-                                ],
-                              ),
+                                )
+
+                              ],
                             ),
-                          );
-                        },
-                      ),),
-                        CardList(
-                          title: 'Equipment', // Liste başlığı
-                          items: [
-                            CardItem(
-                              image: "assets/home/latPulldown.png",
-                              name: 'Lat Pulldown',
-                              description: 'This equipment is a popular exercise performed using a cable machine or a specially designed lat pulldown machine in a gym. Here s an explanation of how to perform the Lat Pulldown exercise',
-                            ),
-                            CardItem(
-                              image: "assets/home/peckDeckFly.png",
-                              name: 'Peck Deck Fly',
-                              description: 'This exercise equipment helps muscles other than the chest to become more defined and firm',
-                            ),
-                            CardItem(
-                              image: "assets/home/legExtension.png",
-                              name: 'Leg Extension',
-                              description: 'While working on the upper leg muscles,leg curl exercises target the muscles in the back of the legs.. read more',
-                            ),
-                            // Daha fazla etkinlik ekleyebilirsiniz
-                          ],
-                        ),])),
+                          ),
+                        );
+                      },
+                    ),
+                  ),
+
+
+
 
 
                 ],
