@@ -5,7 +5,7 @@ String handleResponseRegister(int statusCode) {
       case 400:
         return "The email address is already in use.";
       case 401:
-        return "Wrong information";
+        return "Wrong reels";
       case 403:
         return "Forbidden. Access is denied.";
       case 404:
@@ -23,7 +23,7 @@ String handleResponseLogin(int statusCode) {
     case 400:
       return "Email system is not registered. Please sign up";
     case 401:
-      return "Please check your information";
+      return "Please check your reels";
     case 403:
       return "Forbidden. Access is denied.";
     case 404:
@@ -31,7 +31,7 @@ String handleResponseLogin(int statusCode) {
     case 500:
       return "Internal Server Error. Please try again later.";
     default:
-      return "Connection failed: $statusCode. Please try again.";
+      return "Please register";
   }
 
 }
