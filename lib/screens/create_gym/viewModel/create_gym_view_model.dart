@@ -1,12 +1,21 @@
 import 'dart:convert';
+import 'package:fitbull/screens/login/viewmodel/login_view_model.dart';
 import 'package:fitbull/services/service_path.dart';
 import 'package:mobx/mobx.dart';
 import 'package:http/http.dart' as http;
 part 'create_gym_view_model.g.dart';
 
-class CreateGymViewModel = _CreateGymViewModel with _$CreateGymViewModel;
+final CreateGymViewModel createGymViewModel = CreateGymViewModel._internal();
 
-abstract class _CreateGymViewModel with Store {
+class CreateGymViewModel = _CreateGymViewModelBase with _$CreateGymViewModel;
+
+abstract class _CreateGymViewModelBase with Store {
+
+  static final CreateGymViewModel _instance=CreateGymViewModel._internal();
+
+  factory _CreateGymViewModelBase()=> _instance;
+  _CreateGymViewModelBase._internal();
+
   @observable
   String name = '';
 
@@ -22,6 +31,10 @@ abstract class _CreateGymViewModel with Store {
   @observable
   bool isLoading = false;
 
+  @observable
+  var gymId;
+
+
   @action
   void setName(String value) => name = value;
 
@@ -33,7 +46,6 @@ abstract class _CreateGymViewModel with Store {
 
   @action
   void setCapacity(String value) => capacity = value;
-
   @action
   Future<int> createGym() async {
     isLoading = true;
@@ -46,10 +58,14 @@ abstract class _CreateGymViewModel with Store {
         "name":name,
         "location":location,
         "imagePath":imagePath,
-        "capacity":capacity
+        "capacity":capacity,
+        "userId":loginViewModel.userId
       }),
       );
-      print(response.body);
+      var data = json.decode(response.body);
+      print(data);
+      gymId=data["id"];
+      print(gymId);
       await Future.delayed(const Duration(seconds: 2));
       return response.statusCode;
     } catch (e) {

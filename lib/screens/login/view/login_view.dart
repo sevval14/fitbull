@@ -15,7 +15,6 @@ class _LoginPageState extends State<LoginPage> {
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
 
-  final LoginViewModel loginViewModel = LoginViewModel();
   @override
   void dispose() {
     emailController.dispose();

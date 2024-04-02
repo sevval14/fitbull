@@ -1,5 +1,5 @@
-import 'package:fitbull/screens/create_gym/viewModel/create_gym_view_model.dart';
-import 'package:fitbull/services/response_message.dart';
+import 'package:fitbull/screens/create_activity/viewModel/create_activity_view_model.dart';
+import 'package:fitbull/screens/profile/view/profile_view.dart';
 import 'package:flutter/material.dart';
 
 class CreateActivityPage extends StatefulWidget {
@@ -9,15 +9,32 @@ class CreateActivityPage extends StatefulWidget {
 
 class _CreateActivityPageState extends State<CreateActivityPage> {
   final _formKey = GlobalKey<FormState>();
-  final _gymIdController = TextEditingController();
   final _nameController = TextEditingController();
   final _imagePathController = TextEditingController();
   final _descriptionController = TextEditingController();
+  final CreateActivityViewModel createActivityViewModel = CreateActivityViewModel();
 
   void _submitForm() async{
     if (_formKey.currentState!.validate()) {
+      createActivityViewModel.setName(_nameController.text);
+      createActivityViewModel.setImagePath(_imagePathController.text);
+      createActivityViewModel.setLocation(_descriptionController.text);
 
+      int statusCode = await createActivityViewModel.createActivity();
 
+      if(context.mounted){
+        if (statusCode == 200 || statusCode == 201) {
+          ScaffoldMessenger.of(context).showSnackBar( SnackBar(
+            content: const Text( "Activity created successful!"),backgroundColor: Colors.green.shade700,
+          ));
+
+        }else if(statusCode==401){
+          ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+              content: Text("Activity already exists")),
+          );
+
+        }
+      }
 
     }
   }
@@ -36,16 +53,6 @@ class _CreateActivityPageState extends State<CreateActivityPage> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
-                TextFormField(
-                  controller: _gymIdController,
-                  decoration: InputDecoration(labelText: 'Gym ID'),
-                  validator: (value) {
-                    if (value == null || value.isEmpty) {
-                      return 'Please enter gym id';
-                    }
-                    return null;
-                  },
-                ),
                 TextFormField(
                   controller: _nameController,
                   decoration: InputDecoration(labelText: 'Activity Name'),

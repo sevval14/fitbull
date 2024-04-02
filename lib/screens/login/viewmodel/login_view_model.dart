@@ -5,9 +5,17 @@ import 'package:http/http.dart' as http;
 
 import '../../../services/service_path.dart';
 part 'login_view_model.g.dart';
-class LoginViewModel = _LoginViewModel  with _$LoginViewModel;
+final LoginViewModel loginViewModel = LoginViewModel._internal();
 
-abstract class _LoginViewModel with Store {
+class LoginViewModel = _LoginViewModelBase  with _$LoginViewModel;
+
+abstract class _LoginViewModelBase with Store {
+
+  static final LoginViewModel _instance=LoginViewModel._internal();
+
+  factory _LoginViewModelBase()=> _instance;
+  _LoginViewModelBase._internal();
+
   @observable
   String email = '';
 
@@ -16,6 +24,9 @@ abstract class _LoginViewModel with Store {
 
   @observable
   bool isLoading = false;
+
+  @observable
+  var userId;
 
   @action
   void setEmail(String value) => email = value;
@@ -40,9 +51,10 @@ abstract class _LoginViewModel with Store {
         'password': password,
       }),
       );
+      var data = json.decode(response.body);
+      userId = data['userId'];
       print(response.body);
-      print(response.statusCode);
-      print(email.toString() + password);
+      print(userId);
       await Future.delayed(const Duration(seconds: 2));
       return response.statusCode;
     } catch (e) {

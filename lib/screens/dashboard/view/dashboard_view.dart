@@ -1,5 +1,6 @@
 import 'package:fitbull/screens/create_gym/model/create_gym_model.dart';
 import 'package:fitbull/screens/dashboard/viewModel/dashboard_view_model.dart';
+import 'package:fitbull/screens/login/viewmodel/login_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -14,27 +15,13 @@ class DashboardView extends StatefulWidget {
 
 class _DashboardViewState extends State<DashboardView> {
   final DashboardViewModel dashboardViewModel = DashboardViewModel();
+
   @override
   void initState()  {
     super.initState();
      dashboardViewModel.fetchGym();
   }
 
-  int currentIndex = 0;
-  List<String> imagePaths = [
-  ];
-
-  void goToPreviousImage() {
-    setState(() {
-      currentIndex = (currentIndex - 1) % imagePaths.length;
-    });
-  }
-
-  void goToNextImage() {
-    setState(() {
-      currentIndex = (currentIndex + 1) % imagePaths.length;
-    });
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -110,40 +97,7 @@ class _DashboardViewState extends State<DashboardView> {
                       ],
                     ),
                   ),
-                  Expanded(flex:1,child: Row(
-                    children: [
-                      IconButton(
-                        onPressed: goToPreviousImage,
-                        icon: const Icon(Icons.arrow_back),
-                      ),
-                      Expanded(
-                        flex: 2,
-                        child: new Image.network("https://cdnuploads.aa.com.tr/uploads/sirkethaberleri/Contents/2023/09/24/thumbs_b_c_f08cd87214e22d06c91a394c8b9910c3.jpg",height: 500,width: 200,),
-                      ),
-                      IconButton(
-                        onPressed: goToNextImage,
-                        icon: const Icon(Icons.arrow_forward),
-                      ),
-                    ],
-                  ),),
-                  SizedBox(height: 15,),
-                  Container(
-                    height: 1,
-                    width: double.infinity, // Çizginin genişliği, kullanılabilir tüm alanı kaplasın
-                    decoration: BoxDecoration(
-                      color: Colors.white, // Çizginin rengi
-                      boxShadow: [
-                        BoxShadow(
-                          color: Colors.black.withOpacity(0.3), // Gölgelik rengi
-                          spreadRadius: 1, // Gölgelik genişliği
-                          blurRadius: 10, // Gölgelik bulanıklığı
-                        ),
-                      ],
-                    ),
-                  )
-,
                   Expanded(
-                    flex: 3, // Kartların ve içeriğin esnekliğini ayarlamak için
                     child: ListView.builder(
                       itemCount: dashboardViewModel.gymList.length,
                       itemBuilder: (context, index) {

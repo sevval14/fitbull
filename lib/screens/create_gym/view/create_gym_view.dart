@@ -1,4 +1,5 @@
 import 'package:fitbull/screens/create_gym/viewModel/create_gym_view_model.dart';
+import 'package:fitbull/screens/profile/view/profile_view.dart';
 import 'package:fitbull/services/response_message.dart';
 import 'package:flutter/material.dart';
 
@@ -13,7 +14,6 @@ class _CreateGymPageState extends State<CreateGymPage> {
   final _locationController = TextEditingController();
   final _imagePathController = TextEditingController();
   final _capacityController = TextEditingController();
-  final CreateGymViewModel createGymViewModel = CreateGymViewModel();
 
   void _submitForm() async{
     if (_formKey.currentState!.validate()) {
@@ -29,10 +29,12 @@ class _CreateGymPageState extends State<CreateGymPage> {
             ScaffoldMessenger.of(context).showSnackBar( SnackBar(
               content: const Text( "Gym created successful!"),backgroundColor: Colors.green.shade700,
             ));
+
           }else if(statusCode==401){
             ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
               content: Text("Gym already exists")),
             );
+
           }
         }
 

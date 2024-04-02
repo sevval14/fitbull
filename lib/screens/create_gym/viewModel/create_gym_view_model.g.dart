@@ -8,9 +8,9 @@ part of 'create_gym_view_model.dart';
 
 // ignore_for_file: non_constant_identifier_names, unnecessary_brace_in_string_interps, unnecessary_lambdas, prefer_expression_function_bodies, lines_longer_than_80_chars, avoid_as, avoid_annotating_with_dynamic, no_leading_underscores_for_local_identifiers
 
-mixin _$CreateGymViewModel on _CreateGymViewModel, Store {
+mixin _$CreateGymViewModel on _CreateGymViewModelBase, Store {
   late final _$nameAtom =
-      Atom(name: '_CreateGymViewModel.name', context: context);
+      Atom(name: '_CreateGymViewModelBase.name', context: context);
 
   @override
   String get name {
@@ -26,7 +26,7 @@ mixin _$CreateGymViewModel on _CreateGymViewModel, Store {
   }
 
   late final _$locationAtom =
-      Atom(name: '_CreateGymViewModel.location', context: context);
+      Atom(name: '_CreateGymViewModelBase.location', context: context);
 
   @override
   String get location {
@@ -42,7 +42,7 @@ mixin _$CreateGymViewModel on _CreateGymViewModel, Store {
   }
 
   late final _$imagePathAtom =
-      Atom(name: '_CreateGymViewModel.imagePath', context: context);
+      Atom(name: '_CreateGymViewModelBase.imagePath', context: context);
 
   @override
   String get imagePath {
@@ -58,7 +58,7 @@ mixin _$CreateGymViewModel on _CreateGymViewModel, Store {
   }
 
   late final _$capacityAtom =
-      Atom(name: '_CreateGymViewModel.capacity', context: context);
+      Atom(name: '_CreateGymViewModelBase.capacity', context: context);
 
   @override
   String get capacity {
@@ -74,7 +74,7 @@ mixin _$CreateGymViewModel on _CreateGymViewModel, Store {
   }
 
   late final _$isLoadingAtom =
-      Atom(name: '_CreateGymViewModel.isLoading', context: context);
+      Atom(name: '_CreateGymViewModelBase.isLoading', context: context);
 
   @override
   bool get isLoading {
@@ -89,58 +89,74 @@ mixin _$CreateGymViewModel on _CreateGymViewModel, Store {
     });
   }
 
+  late final _$gymIdAtom =
+      Atom(name: '_CreateGymViewModelBase.gymId', context: context);
+
+  @override
+  dynamic get gymId {
+    _$gymIdAtom.reportRead();
+    return super.gymId;
+  }
+
+  @override
+  set gymId(dynamic value) {
+    _$gymIdAtom.reportWrite(value, super.gymId, () {
+      super.gymId = value;
+    });
+  }
+
   late final _$createGymAsyncAction =
-      AsyncAction('_CreateGymViewModel.createGym', context: context);
+      AsyncAction('_CreateGymViewModelBase.createGym', context: context);
 
   @override
   Future<int> createGym() {
     return _$createGymAsyncAction.run(() => super.createGym());
   }
 
-  late final _$_CreateGymViewModelActionController =
-      ActionController(name: '_CreateGymViewModel', context: context);
+  late final _$_CreateGymViewModelBaseActionController =
+      ActionController(name: '_CreateGymViewModelBase', context: context);
 
   @override
   void setName(String value) {
-    final _$actionInfo = _$_CreateGymViewModelActionController.startAction(
-        name: '_CreateGymViewModel.setName');
+    final _$actionInfo = _$_CreateGymViewModelBaseActionController.startAction(
+        name: '_CreateGymViewModelBase.setName');
     try {
       return super.setName(value);
     } finally {
-      _$_CreateGymViewModelActionController.endAction(_$actionInfo);
+      _$_CreateGymViewModelBaseActionController.endAction(_$actionInfo);
     }
   }
 
   @override
   void setLocation(String value) {
-    final _$actionInfo = _$_CreateGymViewModelActionController.startAction(
-        name: '_CreateGymViewModel.setLocation');
+    final _$actionInfo = _$_CreateGymViewModelBaseActionController.startAction(
+        name: '_CreateGymViewModelBase.setLocation');
     try {
       return super.setLocation(value);
     } finally {
-      _$_CreateGymViewModelActionController.endAction(_$actionInfo);
+      _$_CreateGymViewModelBaseActionController.endAction(_$actionInfo);
     }
   }
 
   @override
   void setImagePath(String value) {
-    final _$actionInfo = _$_CreateGymViewModelActionController.startAction(
-        name: '_CreateGymViewModel.setImagePath');
+    final _$actionInfo = _$_CreateGymViewModelBaseActionController.startAction(
+        name: '_CreateGymViewModelBase.setImagePath');
     try {
       return super.setImagePath(value);
     } finally {
-      _$_CreateGymViewModelActionController.endAction(_$actionInfo);
+      _$_CreateGymViewModelBaseActionController.endAction(_$actionInfo);
     }
   }
 
   @override
   void setCapacity(String value) {
-    final _$actionInfo = _$_CreateGymViewModelActionController.startAction(
-        name: '_CreateGymViewModel.setCapacity');
+    final _$actionInfo = _$_CreateGymViewModelBaseActionController.startAction(
+        name: '_CreateGymViewModelBase.setCapacity');
     try {
       return super.setCapacity(value);
     } finally {
-      _$_CreateGymViewModelActionController.endAction(_$actionInfo);
+      _$_CreateGymViewModelBaseActionController.endAction(_$actionInfo);
     }
   }
 
@@ -151,7 +167,8 @@ name: ${name},
 location: ${location},
 imagePath: ${imagePath},
 capacity: ${capacity},
-isLoading: ${isLoading}
+isLoading: ${isLoading},
+gymId: ${gymId}
     ''';
   }
 }

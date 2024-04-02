@@ -1,9 +1,6 @@
-import 'package:fitbull/screens/explore/view/explore_view.dart';
-import 'package:fitbull/screens/create_gym/view/create_gym_view.dart';
-import 'package:fitbull/screens/information/view/information_view.dart';
 import 'package:fitbull/screens/my_gym/view/my_gym_view.dart';
 import 'package:fitbull/screens/profile/view/profile_view.dart';
-import 'package:fitbull/screens/register/view/register_view.dart';
+import 'package:fitbull/screens/reels/view/reels_view.dart';
 import 'package:flutter/material.dart';
 import 'package:fitbull/screens/dashboard/view/dashboard_view.dart';
 
@@ -21,7 +18,7 @@ class _HomeSplashViewState extends State<HomeSplashView> with SingleTickerProvid
   @override
   void initState() {
     super.initState();
-    _tabController = TabController(length: 5, vsync: this);
+    _tabController = TabController(length: 4, vsync: this);
   }
 
   @override
@@ -37,9 +34,8 @@ class _HomeSplashViewState extends State<HomeSplashView> with SingleTickerProvid
         controller: _tabController,
         children: [
           const DashboardView(),
-          const ExploreView(),
           MyGymView(),
-          ActivityView(),
+          ReelsView(),
           ProfileView(),
 
 
@@ -61,16 +57,12 @@ class _HomeSplashViewState extends State<HomeSplashView> with SingleTickerProvid
 
             ),
             Tab(
-              icon: Icon(Icons.location_on),
-              text: "Explore",
-            ),
-            Tab(
               icon: Icon(Icons.fitness_center),
               text: "MyGym",
             ),
             Tab(
               icon: Icon(Icons.computer),
-              text: "Info",
+              text: "Reels",
             ),
             Tab(
               icon: Icon(Icons.person),

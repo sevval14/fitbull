@@ -77,7 +77,9 @@ class ProfileView extends StatelessWidget {
               onTap: () {
                 Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) =>  CreateActivityPage()));              },
+                    MaterialPageRoute(builder: (context) =>  CreateActivityPage()));
+                Navigator.of(context);
+              },
             ),
           ),
           Card(

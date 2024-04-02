@@ -2,26 +2,26 @@ class Activity {
   final int id;
   final String name;
   final String description;
-  final int gymId;
+  final String imagePath;
 
   Activity({
     required this.id,
     required this.name,
     required this.description,
-    required this.gymId,
+    required this.imagePath,
   });
 
   Map<String, dynamic> toJson() => {
     'id': id,
     'name': name,
     'description': description,
-    'gymId': gymId,
+    'imagePath': imagePath,
   };
 
   factory Activity.fromJson(Map<String, dynamic> json) => Activity(
     id: json['id'],
     name: json['name'],
     description: json['description'],
-    gymId: json['gymId'],
+    imagePath: json['imagePath'],
   );
 }
