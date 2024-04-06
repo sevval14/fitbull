@@ -1,5 +1,5 @@
 import 'dart:convert';
-import 'package:fitbull/screens/create_gym/viewModel/create_gym_view_model.dart';
+import 'package:fitbull/screens/Gym_owner/create_gym/viewModel/create_gym_view_model.dart';
 import 'package:fitbull/screens/login/viewmodel/login_view_model.dart';
 import 'package:fitbull/services/service_path.dart';
 import 'package:mobx/mobx.dart';

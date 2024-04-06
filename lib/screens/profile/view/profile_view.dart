@@ -1,8 +1,8 @@
-import 'package:fitbull/screens/create_activity/view/create_activity_view.dart';
+import 'package:fitbull/screens/Gym_owner/create_gym/view/create_gym_view.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-import '../../create_gym/view/create_gym_view.dart';
+import '../../Gym_owner/create_gym/create_activity/view/create_activity_view.dart';
 
 class ProfileView extends StatelessWidget {
   const ProfileView({Key? key}) : super(key: key);

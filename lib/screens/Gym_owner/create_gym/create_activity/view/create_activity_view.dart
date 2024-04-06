@@ -1,5 +1,4 @@
-import 'package:fitbull/screens/create_activity/viewModel/create_activity_view_model.dart';
-import 'package:fitbull/screens/profile/view/profile_view.dart';
+import 'package:fitbull/screens/Gym_owner/create_gym/create_activity/viewModel/create_activity_view_model.dart';
 import 'package:flutter/material.dart';
 
 class CreateActivityPage extends StatefulWidget {

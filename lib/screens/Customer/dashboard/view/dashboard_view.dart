@@ -1,10 +1,8 @@
-import 'package:fitbull/screens/create_gym/model/create_gym_model.dart';
-import 'package:fitbull/screens/dashboard/viewModel/dashboard_view_model.dart';
-import 'package:fitbull/screens/login/viewmodel/login_view_model.dart';
+import 'package:fitbull/screens/Customer/dashboard/viewModel/dashboard_view_model.dart';
+import 'package:fitbull/screens/Gym_owner/create_gym/model/create_gym_model.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-import '../../../widgets/card_list_mygym.dart';
 
 class DashboardView extends StatefulWidget {
   const DashboardView({Key? key}) : super(key: key);
@@ -115,18 +113,18 @@ class _DashboardViewState extends State<DashboardView> {
                                 Expanded(
                                   child: Container(
                                     child: Column(
-                                      crossAxisAlignment: CrossAxisAlignment.start, // Yazıların sola hizalanması için
+                                      crossAxisAlignment: CrossAxisAlignment.start,
                                       children: [
                                         Container(
-                                            margin: EdgeInsets.only(left:30,right:5,top:15,bottom:2), // İstenilen margin değerleri
+                                            margin: EdgeInsets.only(left:30,right:5,top:15,bottom:2),
                                             child: Text(item.name, style: TextStyle(color: Colors.black, fontSize: 18))
                                         ),
                                         Container(
-                                          margin: EdgeInsets.only(left:30,right:5,top:5,bottom: 2), // İstenilen margin değerleri
+                                          margin: EdgeInsets.only(left:30,right:5,top:5,bottom: 2),
                                           child: Text(item.location, style: TextStyle(color: Colors.black54, fontSize: 14)),
                                         ),
                                         Container(
-                                          margin: EdgeInsets.only(left:30,right:5,top:5), // İstenilen margin değerleri
+                                          margin: EdgeInsets.only(left:30,right:5,top:5),
                                           child: Text("price", style: TextStyle(color: Colors.black54, fontSize: 16)),
                                         ),
                                         Container(

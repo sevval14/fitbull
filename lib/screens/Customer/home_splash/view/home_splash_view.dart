@@ -1,8 +1,8 @@
-import 'package:fitbull/screens/my_gym/view/my_gym_view.dart';
+import 'package:fitbull/screens/Customer/dashboard/view/dashboard_view.dart';
+import 'package:fitbull/screens/Customer/my_gym/view/my_gym_view.dart';
+import 'package:fitbull/screens/Customer/reels/view/reels_view.dart';
 import 'package:fitbull/screens/profile/view/profile_view.dart';
-import 'package:fitbull/screens/reels/view/reels_view.dart';
 import 'package:flutter/material.dart';
-import 'package:fitbull/screens/dashboard/view/dashboard_view.dart';
 
 
 class HomeSplashView extends StatefulWidget {

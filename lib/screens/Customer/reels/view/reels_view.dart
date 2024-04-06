@@ -1,4 +1,4 @@
-import 'package:fitbull/screens/reels/viewModel/reels_view_model.dart';
+import 'package:fitbull/screens/Customer/reels/viewModel/reels_view_model.dart';
 import 'package:flutter/material.dart';
 
 class ReelsView extends StatefulWidget {

@@ -1,8 +1,3 @@
-
-
-import 'package:fitbull/screens/create_activity/model/create_activity_model.dart';
-import 'package:fitbull/screens/create_educator/model/create_educator_model.dart';
-
 class Gym {
   final int id;
   final String name;

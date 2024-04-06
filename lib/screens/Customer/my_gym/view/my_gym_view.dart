@@ -1,9 +1,9 @@
+import 'package:fitbull/widgets/card_list_mygym.dart';
 import 'package:fitbull/widgets/my_gym_info.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-import '../../../widgets/card_list_mygym.dart';
 
 
 class MyGymView extends StatefulWidget {

@@ -1,6 +1,4 @@
-import 'package:fitbull/screens/create_gym/viewModel/create_gym_view_model.dart';
-import 'package:fitbull/screens/profile/view/profile_view.dart';
-import 'package:fitbull/services/response_message.dart';
+import 'package:fitbull/screens/Gym_owner/create_gym/viewModel/create_gym_view_model.dart';
 import 'package:flutter/material.dart';
 
 class CreateGymPage extends StatefulWidget {
@@ -30,7 +28,7 @@ class _CreateGymPageState extends State<CreateGymPage> {
               content: const Text( "Gym created successful!"),backgroundColor: Colors.green.shade700,
             ));
 
-          }else if(statusCode==401){
+          }else {
             ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
               content: Text("Gym already exists")),
             );
