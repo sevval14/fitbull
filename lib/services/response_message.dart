@@ -31,7 +31,7 @@ String handleResponseLogin(int statusCode) {
     case 500:
       return "Internal Server Error. Please try again later.";
     default:
-      return "Please register";
+      return "Please enter correct information or register";
   }
 
 }
