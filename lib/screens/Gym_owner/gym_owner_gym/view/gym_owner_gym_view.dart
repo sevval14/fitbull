@@ -44,6 +44,13 @@ class _GymOwnerGymState extends State<GymOwnerGym> {
               "assets/home/macFit.png", // Spor salonunun resmi
               fit: BoxFit.cover,
             ),
+            Text(
+              "%60- Full",
+              style: TextStyle(
+                  fontSize: 20,
+                  color: Color.fromRGBO(0, 67, 168, 1),
+                  fontWeight: FontWeight.w400),
+            ),
             Slider(
               value: 60,
               min: 0,
@@ -53,6 +60,10 @@ class _GymOwnerGymState extends State<GymOwnerGym> {
               onChanged: (double value) {
                 // Kullanıcı doluluk oranını ayarladığında burada işleme alınabilir.
               },
+            ),
+            Container(
+              alignment: Alignment.centerRight,
+              child: Text("08:00 -22:00",style: TextStyle(fontWeight: FontWeight.w500,fontSize: 15),),
             ),
             Padding(
               padding: const EdgeInsets.all(16.0),

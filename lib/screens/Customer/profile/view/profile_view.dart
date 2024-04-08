@@ -1,8 +1,5 @@
-import 'package:fitbull/screens/Gym_owner/create_gym/view/create_gym_view.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-
-import '../../Gym_owner/create_gym/create_activity/view/create_activity_view.dart';
 
 class ProfileView extends StatelessWidget {
   const ProfileView({Key? key}) : super(key: key);
@@ -59,12 +56,8 @@ class ProfileView extends StatelessWidget {
             shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
             child: ListTile(
               leading: const Icon(Icons.fitness_center),
-              title: const Text('Create Gym'),
+              title: const Text('Edit Account'),
               onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) =>  CreateGymPage()),
-                );
               },
             ),
           ),
@@ -73,12 +66,8 @@ class ProfileView extends StatelessWidget {
             shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
             child: ListTile(
               leading: const Icon(Icons.directions_run),
-              title: const Text('Create Activity'),
+              title: const Text('Promotions'),
               onTap: () {
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) =>  CreateActivityPage()));
-                Navigator.of(context);
               },
             ),
           ),

@@ -1,5 +1,6 @@
 import 'package:fitbull/screens/Gym_owner/create_gym/viewModel/create_gym_view_model.dart';
 import 'package:fitbull/screens/Gym_owner/gym_owner_gym/view/gym_owner_gym_view.dart';
+import 'package:fitbull/screens/login/view/login_view.dart';
 import 'package:flutter/material.dart';
 
 void main() => runApp(CreateGymApp());
@@ -66,7 +67,7 @@ class _CreateGymPageState extends State<CreateGymPage> {
 
           Navigator.push(
             context,
-            MaterialPageRoute(builder: (context) =>   GymOwnerGym()),
+            MaterialPageRoute(builder: (context) =>   LoginPage()),
           );
 
         }else {

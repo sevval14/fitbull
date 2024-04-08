@@ -1,5 +1,6 @@
 import 'package:fitbull/constant/regex_constants.dart';
 import 'package:fitbull/screens/Customer/home_splash/view/home_splash_view.dart';
+import 'package:fitbull/screens/Gym_owner/gym_owner_home_splash/view/gym_owner_home_splash_view.dart';
 import 'package:fitbull/screens/login/viewmodel/gym_owner_login_view_model.dart';
 import 'package:fitbull/screens/login/viewmodel/login_view_model.dart';
 import 'package:fitbull/screens/register/view/register_view.dart';
@@ -162,7 +163,7 @@ class _LoginPageState extends State<LoginPage> {
                                     ));
                                     Navigator.pushReplacement(
                                       context,
-                                      MaterialPageRoute(builder: (context) =>  const HomeSplashView()),
+                                      MaterialPageRoute(builder: (context) =>  const GymOwnerHomeSplashView()),
                                     );
 
                                   }else{
