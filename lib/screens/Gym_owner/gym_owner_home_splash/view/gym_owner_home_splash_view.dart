@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../create_gym/create_activity/view/create_activity_view.dart';
+import '../../create_activity/view/create_activity_view.dart';
 import '../../gym_owner_profile/view/gym_owner_profile.dart';
 
 

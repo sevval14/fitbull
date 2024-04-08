@@ -1,5 +1,6 @@
-import 'package:fitbull/screens/Gym_owner/create_gym/create_activity/viewModel/create_activity_view_model.dart';
 import 'package:flutter/material.dart';
+
+import '../viewModel/create_activity_view_model.dart';
 
 class CreateActivityPage extends StatefulWidget {
   @override

@@ -1,8 +1,9 @@
 import 'dart:convert';
-import 'package:fitbull/screens/Gym_owner/create_gym/create_activity/model/create_activity_model.dart';
 import 'package:fitbull/services/service_path.dart';
 import 'package:mobx/mobx.dart';
 import 'package:http/http.dart' as http;
+
+import '../../../Gym_owner/create_activity/model/create_activity_model.dart';
 part 'reels_view_model.g.dart';
 
 class ReelsViewModel = _ReelsViewModel with _$ReelsViewModel;
