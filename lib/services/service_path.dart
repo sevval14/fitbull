@@ -1,20 +1,26 @@
 import 'package:flutter/material.dart';
 
 enum ServicePath{
-  LOGIN,
-  REGISTER,
+  CUSTOMER_LOGIN,
+  CUSTOMER_REGISTER,
+  GYM_OWNER_LOGIN,
+  GYM_OWNER_REGISTER,
   GYM,
   ACTIVITES,
 }
 extension ServicePathExtenion on ServicePath {
-  static const String _baseUrl = "http://192.168.91.68:8080";
+  static const String _baseUrl = "http://192.168.157.34:8080";
 
   String get path {
     switch (this) {
-      case ServicePath.LOGIN:
+      case ServicePath.CUSTOMER_LOGIN:
         return "$_baseUrl/auth/login";
-      case ServicePath.REGISTER:
+      case ServicePath.CUSTOMER_REGISTER:
         return "$_baseUrl/auth/register";
+      case ServicePath.GYM_OWNER_LOGIN:
+        return "$_baseUrl/auth/login/gym_owner";
+      case ServicePath.GYM_OWNER_REGISTER:
+        return "$_baseUrl/auth/register/gym_owner";
       case ServicePath.GYM:
         return "$_baseUrl/gym";
       case ServicePath.ACTIVITES:
