@@ -1,5 +1,6 @@
 import 'dart:convert';
-import 'package:fitbull/screens/login/viewmodel/login_view_model.dart';
+import 'package:fitbull/screens/login/viewmodel/gym_owner_login_view_model.dart';
+import 'package:fitbull/screens/register/viewmodel/gym_owner_register_view_model.dart';
 import 'package:fitbull/services/service_path.dart';
 import 'package:mobx/mobx.dart';
 import 'package:http/http.dart' as http;
@@ -29,6 +30,19 @@ abstract class _CreateGymViewModelBase with Store {
   String capacity = '';
 
   @observable
+  String startHour = '';
+
+  @observable
+  String endHour = '';
+
+  @observable
+  String taxNumber = '';
+
+  @observable
+  String webSite = '';
+
+
+  @observable
   bool isLoading = false;
 
   @observable
@@ -46,6 +60,19 @@ abstract class _CreateGymViewModelBase with Store {
 
   @action
   void setCapacity(String value) => capacity = value;
+
+  @action
+  void setStartHour(String value) => startHour = value;
+
+  @action
+  void setEndHour(String value) => endHour = value;
+
+  @action
+  void setTaxNumber(String value) => taxNumber = value;
+
+  @action
+  void setWebSite(String value) => webSite = value;
+
   @action
   Future<int> createGym() async {
     isLoading = true;
@@ -59,11 +86,16 @@ abstract class _CreateGymViewModelBase with Store {
         "location":location,
         "imagePath":imagePath,
         "capacity":capacity,
-        "userId":loginViewModel.userId
+        'startHour': startHour,
+        'endHour': endHour,
+        'taxNumber': taxNumber,
+        'webSite': webSite,
+        "gymOwnerId":gymOwnerRegisterViewModel.gymOwnerRegisterId
       }),
       );
       var data = json.decode(response.body);
       print(data);
+      print(gymOwnerRegisterViewModel.gymOwnerRegisterId);
       gymId=data["id"];
       print(gymId);
       await Future.delayed(const Duration(seconds: 2));

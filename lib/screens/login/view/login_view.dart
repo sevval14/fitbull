@@ -1,5 +1,6 @@
 import 'package:fitbull/constant/regex_constants.dart';
 import 'package:fitbull/screens/Customer/home_splash/view/home_splash_view.dart';
+import 'package:fitbull/screens/login/viewmodel/gym_owner_login_view_model.dart';
 import 'package:fitbull/screens/login/viewmodel/login_view_model.dart';
 import 'package:fitbull/screens/register/view/register_view.dart';
 import 'package:fitbull/services/response_message.dart';
@@ -121,37 +122,59 @@ class _LoginPageState extends State<LoginPage> {
                       const SizedBox(height: 30),
                       ElevatedButton(
                         onPressed: () async {
-
-                          // Login logic
-                          if (_formKey.currentState!.validate())  {
-                            loginViewModel.setEmail(emailController.text);
-                            loginViewModel.setPassword(passwordController.text);
                             if (_selection[0]) {
-                              print('Customer Selected');
-                              int statusCode = await loginViewModel.login();
+                              if (_formKey.currentState!.validate())  {
+                                loginViewModel.setEmail(emailController.text);
+                                loginViewModel.setPassword(passwordController.text);
 
-                              if(context.mounted){
-                                if (statusCode == 200 || statusCode == 201) {
-                                  ScaffoldMessenger.of(context).showSnackBar( SnackBar(
-                                    content: const Text( "Login successful!"),backgroundColor: Colors.green.shade700,
-                                  ));
-                                  Navigator.pushReplacement(
-                                    context,
-                                    MaterialPageRoute(builder: (context) =>  const HomeSplashView()),
-                                  );
+                                print('Customer Selected');
+                                int statusCode = await loginViewModel.loginCustomer();
 
-                                }else{
-                                  ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                                    content: Text(handleResponseLogin(statusCode)),
-                                  ));
+                                if(context.mounted){
+                                  if (statusCode == 200 || statusCode == 201) {
+                                    ScaffoldMessenger.of(context).showSnackBar( SnackBar(
+                                      content: const Text( "Login successful!"),backgroundColor: Colors.green.shade700,
+                                    ));
+                                    Navigator.pushReplacement(
+                                      context,
+                                      MaterialPageRoute(builder: (context) =>  const HomeSplashView()),
+                                    );
+
+                                  }else{
+                                    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                                      content: Text(handleResponseLogin(statusCode)),
+                                    ));
+                                  }
                                 }
                               }
                             }else{
-                              print('Gym owner selected');
+                              if (_formKey.currentState!.validate())  {
+                                gymOwnerLoginViewModel.setEmail(emailController.text);
+                                gymOwnerLoginViewModel.setPassword(passwordController.text);
+                                print('Gym owner selected');
 
+                                if(context.mounted){
+                                  int statusCode = await gymOwnerLoginViewModel.loginGymOwner();
+
+                                  if (statusCode == 200 || statusCode == 201) {
+                                    ScaffoldMessenger.of(context).showSnackBar( SnackBar(
+                                      content: const Text( "Login successful!"),backgroundColor: Colors.green.shade700,
+                                    ));
+                                    Navigator.pushReplacement(
+                                      context,
+                                      MaterialPageRoute(builder: (context) =>  const HomeSplashView()),
+                                    );
+
+                                  }else{
+                                    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                                      content: Text(handleResponseLogin(statusCode)),
+                                    ));
+                                  }
+                                }
+                              }
                             }
 
-                          }
+
                         },
                         child: Text('Login'),
                         style: ElevatedButton.styleFrom(

@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'login_view_model.dart';
+part of 'gym_owner_login_view_model.dart';
 
 // **************************************************************************
 // StoreGenerator
@@ -8,9 +8,9 @@ part of 'login_view_model.dart';
 
 // ignore_for_file: non_constant_identifier_names, unnecessary_brace_in_string_interps, unnecessary_lambdas, prefer_expression_function_bodies, lines_longer_than_80_chars, avoid_as, avoid_annotating_with_dynamic, no_leading_underscores_for_local_identifiers
 
-mixin _$LoginViewModel on _LoginViewModelBase, Store {
+mixin _$GymOwnerLoginViewModel on _GymOwnerLoginViewModelBase, Store {
   late final _$emailAtom =
-      Atom(name: '_LoginViewModelBase.email', context: context);
+      Atom(name: '_GymOwnerLoginViewModelBase.email', context: context);
 
   @override
   String get email {
@@ -26,7 +26,7 @@ mixin _$LoginViewModel on _LoginViewModelBase, Store {
   }
 
   late final _$passwordAtom =
-      Atom(name: '_LoginViewModelBase.password', context: context);
+      Atom(name: '_GymOwnerLoginViewModelBase.password', context: context);
 
   @override
   String get password {
@@ -42,7 +42,7 @@ mixin _$LoginViewModel on _LoginViewModelBase, Store {
   }
 
   late final _$isLoadingAtom =
-      Atom(name: '_LoginViewModelBase.isLoading', context: context);
+      Atom(name: '_GymOwnerLoginViewModelBase.isLoading', context: context);
 
   @override
   bool get isLoading {
@@ -57,52 +57,53 @@ mixin _$LoginViewModel on _LoginViewModelBase, Store {
     });
   }
 
-  late final _$userIdAtom =
-      Atom(name: '_LoginViewModelBase.userId', context: context);
+  late final _$gym_owner_IdAtom =
+      Atom(name: '_GymOwnerLoginViewModelBase.gym_owner_Id', context: context);
 
   @override
-  dynamic get userId {
-    _$userIdAtom.reportRead();
-    return super.userId;
+  dynamic get gym_owner_Id {
+    _$gym_owner_IdAtom.reportRead();
+    return super.gym_owner_Id;
   }
 
   @override
-  set userId(dynamic value) {
-    _$userIdAtom.reportWrite(value, super.userId, () {
-      super.userId = value;
+  set gym_owner_Id(dynamic value) {
+    _$gym_owner_IdAtom.reportWrite(value, super.gym_owner_Id, () {
+      super.gym_owner_Id = value;
     });
   }
 
-  late final _$loginCustomerAsyncAction =
-      AsyncAction('_LoginViewModelBase.loginCustomer', context: context);
+  late final _$loginGymOwnerAsyncAction = AsyncAction(
+      '_GymOwnerLoginViewModelBase.loginGymOwner',
+      context: context);
 
   @override
-  Future<int> loginCustomer() {
-    return _$loginCustomerAsyncAction.run(() => super.loginCustomer());
+  Future<int> loginGymOwner() {
+    return _$loginGymOwnerAsyncAction.run(() => super.loginGymOwner());
   }
 
-  late final _$_LoginViewModelBaseActionController =
-      ActionController(name: '_LoginViewModelBase', context: context);
+  late final _$_GymOwnerLoginViewModelBaseActionController =
+      ActionController(name: '_GymOwnerLoginViewModelBase', context: context);
 
   @override
   void setEmail(String value) {
-    final _$actionInfo = _$_LoginViewModelBaseActionController.startAction(
-        name: '_LoginViewModelBase.setEmail');
+    final _$actionInfo = _$_GymOwnerLoginViewModelBaseActionController
+        .startAction(name: '_GymOwnerLoginViewModelBase.setEmail');
     try {
       return super.setEmail(value);
     } finally {
-      _$_LoginViewModelBaseActionController.endAction(_$actionInfo);
+      _$_GymOwnerLoginViewModelBaseActionController.endAction(_$actionInfo);
     }
   }
 
   @override
   void setPassword(String value) {
-    final _$actionInfo = _$_LoginViewModelBaseActionController.startAction(
-        name: '_LoginViewModelBase.setPassword');
+    final _$actionInfo = _$_GymOwnerLoginViewModelBaseActionController
+        .startAction(name: '_GymOwnerLoginViewModelBase.setPassword');
     try {
       return super.setPassword(value);
     } finally {
-      _$_LoginViewModelBaseActionController.endAction(_$actionInfo);
+      _$_GymOwnerLoginViewModelBaseActionController.endAction(_$actionInfo);
     }
   }
 
@@ -112,7 +113,7 @@ mixin _$LoginViewModel on _LoginViewModelBase, Store {
 email: ${email},
 password: ${password},
 isLoading: ${isLoading},
-userId: ${userId}
+gym_owner_Id: ${gym_owner_Id}
     ''';
   }
 }

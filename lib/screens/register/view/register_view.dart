@@ -1,5 +1,8 @@
 import 'package:fitbull/constant/regex_constants.dart';
+import 'package:fitbull/screens/Gym_owner/create_gym/view/create_gym_view.dart';
+import 'package:fitbull/screens/Gym_owner/gym_owner_home_splash/view/gym_owner_home_splash_view.dart';
 import 'package:fitbull/screens/login/view/login_view.dart';
+import 'package:fitbull/screens/register/viewmodel/gym_owner_register_view_model.dart';
 import 'package:fitbull/screens/register/viewmodel/register_view_model.dart';
 import 'package:fitbull/services/response_message.dart';
 import 'package:flutter/material.dart';
@@ -17,6 +20,7 @@ class _RegisterPageState extends State<RegisterPage> {
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
   final RegisterViewModel registerViewModel = RegisterViewModel();
+
   List<bool> _selection = [true, false];
 
   @override
@@ -54,13 +58,13 @@ class _RegisterPageState extends State<RegisterPage> {
               ToggleButtons(
                 isSelected: _selection,
                 borderRadius: BorderRadius.all(Radius.circular(10)),
-                children: <Widget>[
+                children: const <Widget>[
                   Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 13),
+                    padding: EdgeInsets.symmetric(horizontal: 13),
                     child: Text('Customer'),
                   ),
                   Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 13),
+                    padding: EdgeInsets.symmetric(horizontal: 13),
                     child: Text('Gym Owner'),
                   ),
 
@@ -129,7 +133,7 @@ class _RegisterPageState extends State<RegisterPage> {
                           return null;
                         },
                       ),
-                      SizedBox(height: 20),
+                      const SizedBox(height: 20),
                       TextFormField(
                         controller: passwordController,
                         keyboardType: TextInputType.number,
@@ -155,37 +159,66 @@ class _RegisterPageState extends State<RegisterPage> {
                       ElevatedButton(
                         onPressed: () async {
 
-                          if (_formKey.currentState!.validate()) {
-                            registerViewModel.setUsername(usernameController.text);
-                            registerViewModel.setEmail(emailController.text);
-                            registerViewModel.setPassword(passwordController.text);
 
                             if (_selection[0]) {
-                              print("Customer selected");
-                              int statusCode = await registerViewModel.registerUser();
+                              if (_formKey.currentState!.validate()) {
+                                registerViewModel.setUsername(usernameController.text);
+                                registerViewModel.setEmail(emailController.text);
+                                registerViewModel.setPassword(passwordController.text);
+                                print("Customer selected");
+                                int statusCode = await registerViewModel.registerUser();
 
-                              if(context.mounted){
-                                if (statusCode == 200 || statusCode == 201) {
-                                  ScaffoldMessenger.of(context).showSnackBar( SnackBar(
-                                    content: const Text( "Registration successful!"),backgroundColor: Colors.green.shade700,
-                                  ));
-                                  Navigator.pushReplacement(
-                                    context,
-                                    MaterialPageRoute(builder: (context) =>  LoginPage()),
-                                  );
-                                }else{
-                                  ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                                    content: Text(handleResponseRegister(statusCode)),
-                                  ));
+                                if(context.mounted){
+                                  if (statusCode == 200 || statusCode == 201) {
+                                    ScaffoldMessenger.of(context).showSnackBar( SnackBar(
+                                      content: const Text( "Registration successful!"),backgroundColor: Colors.green.shade700,
+                                    ));
+                                    Navigator.pushReplacement(
+                                      context,
+                                      MaterialPageRoute(builder: (context) =>  LoginPage()),
+                                    );
+                                  }else{
+                                    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                                      content: Text(handleResponseRegister(statusCode)),
+                                    ));
+                                  }
                                 }
                               }
+
                             }else{
-                              print("GymOwner selected");
+                              if (_formKey.currentState!.validate()) {
+                                gymOwnerRegisterViewModel.setUsername(usernameController.text);
+                                gymOwnerRegisterViewModel.setEmail(emailController.text);
+                                gymOwnerRegisterViewModel.setPassword(passwordController.text);
+
+                                print("GymOwner selected");
+                                int statusCode = await gymOwnerRegisterViewModel.registerGymOwner();
+                                print(usernameController.text);
+                                print(emailController.text);
+                                print(passwordController.text);
+
+                                if(context.mounted){
+                                  if (statusCode == 200 || statusCode == 201) {
+                                    ScaffoldMessenger.of(context).showSnackBar( SnackBar(
+                                      content: const Text( "Registration successful!"),backgroundColor: Colors.green.shade700,
+                                    ));
+                                    Navigator.pushReplacement(
+                                      context,
+                                      MaterialPageRoute(builder: (context) =>   CreateGymPage()),
+                                    );
+                                  }else{
+                                    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                                      content: Text(handleResponseRegister(statusCode)),
+                                    ));
+                                  }
+                                }
+                              }
+
                             }
 
 
 
-                          }
+
                         },
                         style: ElevatedButton.styleFrom(
                           backgroundColor: Colors.blueGrey.shade800,
