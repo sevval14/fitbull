@@ -57,19 +57,19 @@ mixin _$GymOwnerLoginViewModel on _GymOwnerLoginViewModelBase, Store {
     });
   }
 
-  late final _$gym_owner_IdAtom =
-      Atom(name: '_GymOwnerLoginViewModelBase.gym_owner_Id', context: context);
+  late final _$gymOwnerIdAtom =
+      Atom(name: '_GymOwnerLoginViewModelBase.gymOwnerId', context: context);
 
   @override
-  dynamic get gym_owner_Id {
-    _$gym_owner_IdAtom.reportRead();
-    return super.gym_owner_Id;
+  dynamic get gymOwnerId {
+    _$gymOwnerIdAtom.reportRead();
+    return super.gymOwnerId;
   }
 
   @override
-  set gym_owner_Id(dynamic value) {
-    _$gym_owner_IdAtom.reportWrite(value, super.gym_owner_Id, () {
-      super.gym_owner_Id = value;
+  set gymOwnerId(dynamic value) {
+    _$gymOwnerIdAtom.reportWrite(value, super.gymOwnerId, () {
+      super.gymOwnerId = value;
     });
   }
 
@@ -113,7 +113,7 @@ mixin _$GymOwnerLoginViewModel on _GymOwnerLoginViewModelBase, Store {
 email: ${email},
 password: ${password},
 isLoading: ${isLoading},
-gym_owner_Id: ${gym_owner_Id}
+gymOwnerId: ${gymOwnerId}
     ''';
   }
 }

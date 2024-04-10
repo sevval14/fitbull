@@ -2,9 +2,13 @@ import 'package:fitbull/screens/Gym_owner/create_gym/viewModel/create_gym_view_m
 import 'package:fitbull/screens/login/view/login_view.dart';
 import 'package:flutter/material.dart';
 
-void main() => runApp(CreateGymApp());
 
-class CreateGymApp extends StatelessWidget {
+class CreateGymApp extends StatefulWidget {
+  @override
+  State<CreateGymApp> createState() => _CreateGymAppState();
+}
+
+class _CreateGymAppState extends State<CreateGymApp> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(

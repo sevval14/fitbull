@@ -5,16 +5,16 @@ import 'package:fitbull/screens/login/viewmodel/login_view_model.dart';
 import 'package:fitbull/services/service_path.dart';
 import 'package:mobx/mobx.dart';
 import 'package:http/http.dart' as http;
-part 'create_activity_view_model.g.dart';
+part 'create_educator_view_model.g.dart';
 
-class CreateActivityViewModel = _CreateActivityViewModel with _$CreateActivityViewModel;
+class CreateEducatorViewModel = _CreateEducatorViewModel with _$CreateEducatorViewModel;
 
-abstract class _CreateActivityViewModel with Store {
+abstract class _CreateEducatorViewModel with Store {
   @observable
   String name = '';
 
   @observable
-  String description = '';
+  String phoneNumber = '';
 
   @observable
   String imagePath = '';
@@ -24,21 +24,21 @@ abstract class _CreateActivityViewModel with Store {
   void setName(String value) => name = value;
 
   @action
-  void setLocation(String value) => description = value;
+  void setPhoneNumber(String value) => phoneNumber = value;
 
   @action
   void setImagePath(String value) => imagePath = value;
 
   @action
-  Future<int> createActivity() async {
+  Future<int> createEducator() async {
     try {
       var response = await http.post(
-        Uri.parse(ServicePath.ACTIVITES.path),
+        Uri.parse(ServicePath.EDUCATOR.path),
         headers: {
           'Content-Type': 'application/json',
         }, body: json.encode({
         "name":name,
-        "description":description,
+        "phoneNumber":phoneNumber,
         "imagePath":imagePath,
         "gymOwnerId":gymOwnerLoginViewModel.gymOwnerId,
         "gymId":gymOwnerLoginViewModel.gymOwnerGymId

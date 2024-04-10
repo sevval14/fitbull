@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 
 
-class ProfileScreen extends StatefulWidget {
+class GymOwnerDashboard extends StatefulWidget {
   @override
-  State<ProfileScreen> createState() => _ProfileScreenState();
+  State<GymOwnerDashboard> createState() => _GymOwnerDashboardState();
 }
 
-class _ProfileScreenState extends State<ProfileScreen> {
+class _GymOwnerDashboardState extends State<GymOwnerDashboard> {
 
   int _selectedIndex = 0;
   @override

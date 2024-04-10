@@ -90,7 +90,9 @@ abstract class _CreateGymViewModelBase with Store {
         'endHour': endHour,
         'taxNumber': taxNumber,
         'webSite': webSite,
-        "gymOwnerId":gymOwnerRegisterViewModel.gymOwnerRegisterId
+        "gymOwnerId":gymOwnerRegisterViewModel.gymOwnerRegisterId != null ?
+      gymOwnerRegisterViewModel.gymOwnerRegisterId :
+      gymOwnerLoginViewModel.gymOwnerId
       }),
       );
       var data = json.decode(response.body);

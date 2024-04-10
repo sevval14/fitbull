@@ -27,7 +27,9 @@ abstract class _GymOwnerLoginViewModelBase with Store {
   bool isLoading = false;
 
   @observable
-  var gym_owner_Id;
+  var gymOwnerId;
+
+  var gymOwnerGymId;
 
   @action
   void setEmail(String value) => email = value;
@@ -49,12 +51,17 @@ abstract class _GymOwnerLoginViewModelBase with Store {
         }, body: json.encode({
         'email': email,
         'password': password,
+
       }),
       );
       var data = json.decode(response.body);
-      gym_owner_Id = data['gym_owner_id'];
+      gymOwnerId = data['userId'];
+      gymOwnerGymId = data['gymId'];
+
       print(response.body);
-      print(gym_owner_Id);
+      print(gymOwnerId);
+      print(gymOwnerGymId);
+
       await Future.delayed(const Duration(seconds: 2));
       return response.statusCode;
     } catch (e) {

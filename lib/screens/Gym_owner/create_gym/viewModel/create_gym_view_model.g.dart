@@ -73,6 +73,70 @@ mixin _$CreateGymViewModel on _CreateGymViewModelBase, Store {
     });
   }
 
+  late final _$startHourAtom =
+      Atom(name: '_CreateGymViewModelBase.startHour', context: context);
+
+  @override
+  String get startHour {
+    _$startHourAtom.reportRead();
+    return super.startHour;
+  }
+
+  @override
+  set startHour(String value) {
+    _$startHourAtom.reportWrite(value, super.startHour, () {
+      super.startHour = value;
+    });
+  }
+
+  late final _$endHourAtom =
+      Atom(name: '_CreateGymViewModelBase.endHour', context: context);
+
+  @override
+  String get endHour {
+    _$endHourAtom.reportRead();
+    return super.endHour;
+  }
+
+  @override
+  set endHour(String value) {
+    _$endHourAtom.reportWrite(value, super.endHour, () {
+      super.endHour = value;
+    });
+  }
+
+  late final _$taxNumberAtom =
+      Atom(name: '_CreateGymViewModelBase.taxNumber', context: context);
+
+  @override
+  String get taxNumber {
+    _$taxNumberAtom.reportRead();
+    return super.taxNumber;
+  }
+
+  @override
+  set taxNumber(String value) {
+    _$taxNumberAtom.reportWrite(value, super.taxNumber, () {
+      super.taxNumber = value;
+    });
+  }
+
+  late final _$webSiteAtom =
+      Atom(name: '_CreateGymViewModelBase.webSite', context: context);
+
+  @override
+  String get webSite {
+    _$webSiteAtom.reportRead();
+    return super.webSite;
+  }
+
+  @override
+  set webSite(String value) {
+    _$webSiteAtom.reportWrite(value, super.webSite, () {
+      super.webSite = value;
+    });
+  }
+
   late final _$isLoadingAtom =
       Atom(name: '_CreateGymViewModelBase.isLoading', context: context);
 
@@ -161,12 +225,60 @@ mixin _$CreateGymViewModel on _CreateGymViewModelBase, Store {
   }
 
   @override
+  void setStartHour(String value) {
+    final _$actionInfo = _$_CreateGymViewModelBaseActionController.startAction(
+        name: '_CreateGymViewModelBase.setStartHour');
+    try {
+      return super.setStartHour(value);
+    } finally {
+      _$_CreateGymViewModelBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  void setEndHour(String value) {
+    final _$actionInfo = _$_CreateGymViewModelBaseActionController.startAction(
+        name: '_CreateGymViewModelBase.setEndHour');
+    try {
+      return super.setEndHour(value);
+    } finally {
+      _$_CreateGymViewModelBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  void setTaxNumber(String value) {
+    final _$actionInfo = _$_CreateGymViewModelBaseActionController.startAction(
+        name: '_CreateGymViewModelBase.setTaxNumber');
+    try {
+      return super.setTaxNumber(value);
+    } finally {
+      _$_CreateGymViewModelBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  void setWebSite(String value) {
+    final _$actionInfo = _$_CreateGymViewModelBaseActionController.startAction(
+        name: '_CreateGymViewModelBase.setWebSite');
+    try {
+      return super.setWebSite(value);
+    } finally {
+      _$_CreateGymViewModelBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
   String toString() {
     return '''
 name: ${name},
 location: ${location},
 imagePath: ${imagePath},
 capacity: ${capacity},
+startHour: ${startHour},
+endHour: ${endHour},
+taxNumber: ${taxNumber},
+webSite: ${webSite},
 isLoading: ${isLoading},
 gymId: ${gymId}
     ''';
