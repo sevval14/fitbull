@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../../gym_owner_dashboard/view/gym_owner_dashboard_view.dart';
 import '../viewModel/create_activity_view_model.dart';
 
 class CreateActivityPage extends StatefulWidget {
@@ -14,7 +15,7 @@ class _CreateActivityPageState extends State<CreateActivityPage> {
   final _descriptionController = TextEditingController();
   final CreateActivityViewModel createActivityViewModel = CreateActivityViewModel();
 
-  void _submitForm() async{
+  void _submitForm(BuildContext context) async{
     if (_formKey.currentState!.validate()) {
       createActivityViewModel.setName(_nameController.text);
       createActivityViewModel.setImagePath(_imagePathController.text);
@@ -22,11 +23,22 @@ class _CreateActivityPageState extends State<CreateActivityPage> {
 
       int statusCode = await createActivityViewModel.createActivity();
 
-      if(context.mounted){
+
         if (statusCode == 200 || statusCode == 201) {
-          ScaffoldMessenger.of(context).showSnackBar( SnackBar(
-            content: const Text( "Activity created successful!"),backgroundColor: Colors.green.shade700,
-          ));
+          if(context.mounted){
+            ScaffoldMessenger.of(context).showSnackBar( SnackBar(
+              content: const Text( "Activity created successful!"),backgroundColor: Colors.green.shade700,
+            ));
+          }
+
+          await Future.delayed(const Duration(seconds: 2));
+          if(context.mounted){
+            Navigator.pushReplacement(
+              context,
+              MaterialPageRoute(builder: (context) =>  GymOwnerDashboard()),
+            );
+          }
+
 
         }else if(statusCode==401){
           ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
@@ -34,7 +46,7 @@ class _CreateActivityPageState extends State<CreateActivityPage> {
           );
 
         }
-      }
+
 
     }
   }
@@ -86,7 +98,9 @@ class _CreateActivityPageState extends State<CreateActivityPage> {
                 Padding(
                   padding: const EdgeInsets.symmetric(vertical: 20.0),
                   child: ElevatedButton(
-                    onPressed: _submitForm,
+                    onPressed: (){
+                      _submitForm(context);
+                    },
                     child: Text('Submit'),
                   ),
                 ),

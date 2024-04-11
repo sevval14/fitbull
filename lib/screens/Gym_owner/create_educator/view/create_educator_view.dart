@@ -1,4 +1,5 @@
 import 'package:fitbull/screens/Gym_owner/create_educator/viewModel/create_educator_view_model.dart';
+import 'package:fitbull/screens/Gym_owner/gym_owner_dashboard/view/gym_owner_dashboard_view.dart';
 import 'package:fitbull/screens/login/view/login_view.dart';
 import 'package:flutter/material.dart';
 
@@ -25,7 +26,7 @@ class _CreateEducatorViewState extends State<CreateEducatorView> {
     _imagePathController.dispose();
     super.dispose();
   }
-  void _submitForm() async{
+  void _submitForm(BuildContext context) async{
     if (_formKey.currentState!.validate()) {
       createEducatorViewModel.setName(_nameController.text);
       createEducatorViewModel.setPhoneNumber(_phoneNumberController.text);
@@ -37,9 +38,19 @@ class _CreateEducatorViewState extends State<CreateEducatorView> {
 
       if(context.mounted){
         if (statusCode == 200 || statusCode == 201) {
-          ScaffoldMessenger.of(context).showSnackBar( SnackBar(
-            content: const Text( "Educator created successful!"),backgroundColor: Colors.green.shade700,
-          ));
+          if(context.mounted){
+            ScaffoldMessenger.of(context).showSnackBar( SnackBar(
+              content: const Text( "Educator created successful!"),backgroundColor: Colors.green.shade700,
+            ));
+          }
+          await Future.delayed(const Duration(seconds: 2));
+          if(context.mounted){
+            Navigator.pushReplacement(
+              context,
+              MaterialPageRoute(builder: (context) =>  GymOwnerDashboard()),
+            );
+          }
+
 
 
         }else {
@@ -59,7 +70,6 @@ class _CreateEducatorViewState extends State<CreateEducatorView> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Create Your Educator'),
       ),
       body: SingleChildScrollView(
         padding: EdgeInsets.all(16.0),
@@ -68,14 +78,38 @@ class _CreateEducatorViewState extends State<CreateEducatorView> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: <Widget>[
-              Text(
-                'Please enter your information to continue',
-                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+              Icon(
+                Icons.school, // İkon
+                size: 60.0, // İkonun boyutu
+                color: Colors.deepPurple[900], // İkonun rengi
               ),
-              SizedBox(height: 20),
+              Text(
+                'Create Your Educator',
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  fontSize: 24, // Metin boyutu
+                  fontWeight: FontWeight.w400, // Metin kalınlığı
+                  color: Colors.deepPurple[900], // Metin rengi
+                ),
+              ),
+              SizedBox(height: 50),
               TextFormField(
                 controller: _nameController,
-                decoration: InputDecoration(labelText: 'Educator Name'),
+                decoration: InputDecoration(
+                  labelText: 'Educator Name',
+                  labelStyle: TextStyle(color: Colors.black87), // Etiket metnine stil verme
+                  border: OutlineInputBorder( // Çerçeveyi tanımla
+                    borderRadius: BorderRadius.circular(15.0), // Yuvarlak köşeler
+                  ),
+                  enabledBorder: OutlineInputBorder( // Aktif olmayan durum için çerçeve stilini belirle
+                    borderSide: BorderSide(color: Colors.black54, width: 2.0),
+                    borderRadius: BorderRadius.circular(15.0),
+                  ),
+                  focusedBorder: OutlineInputBorder( // Fokuslandığında çerçeve stilini belirle
+                    borderSide: BorderSide(color: Colors.black54, width: 2.0),
+                    borderRadius: BorderRadius.circular(15.0),
+                  ),
+                ),
                 validator: (value) {
                   if (value == null || value.isEmpty) {
                     return 'Please enter educator name';
@@ -83,9 +117,24 @@ class _CreateEducatorViewState extends State<CreateEducatorView> {
                   return null;
                 },
               ),
+              SizedBox(height: 10),
               TextFormField(
                 controller: _phoneNumberController,
-                decoration: InputDecoration(labelText: 'Phone Number'),
+                decoration: InputDecoration(
+                  labelText: 'Phone Number',
+                  labelStyle: TextStyle(color: Colors.black87),
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(15.0),
+                  ),
+                  enabledBorder: OutlineInputBorder(
+                    borderSide: BorderSide(color: Colors.black54, width: 2.0),
+                    borderRadius: BorderRadius.circular(15.0),
+                  ),
+                  focusedBorder: OutlineInputBorder(
+                    borderSide: BorderSide(color: Colors.black54, width: 2.0),
+                    borderRadius: BorderRadius.circular(15.0),
+                  ),
+                ),
                 validator: (value) {
                   if (value == null || value.isEmpty) {
                     return 'Please enter phone number';
@@ -93,9 +142,25 @@ class _CreateEducatorViewState extends State<CreateEducatorView> {
                   return null;
                 },
               ),
+              SizedBox(height: 10),
+              // Image URL
               TextFormField(
                 controller: _imagePathController,
-                decoration: InputDecoration(labelText: 'Image URL'),
+                decoration: InputDecoration(
+                  labelText: 'Image URL',
+                  labelStyle: TextStyle(color: Colors.black87),
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(15.0),
+                  ),
+                  enabledBorder: OutlineInputBorder(
+                    borderSide: BorderSide(color: Colors.black54, width: 2.0),
+                    borderRadius: BorderRadius.circular(15.0),
+                  ),
+                  focusedBorder: OutlineInputBorder(
+                    borderSide: BorderSide(color: Colors.black54, width: 2.0),
+                    borderRadius: BorderRadius.circular(15.0),
+                  ),
+                ),
                 validator: (value) {
                   if (value == null || value.isEmpty) {
                     return 'Please enter image URL';
@@ -103,9 +168,25 @@ class _CreateEducatorViewState extends State<CreateEducatorView> {
                   return null;
                 },
               ),
+              SizedBox(height: 10),
+              // Branch
               TextFormField(
                 controller: _branchController,
-                decoration: InputDecoration(labelText: 'Branch'),
+                decoration: InputDecoration(
+                  labelText: 'Branch',
+                  labelStyle: TextStyle(color: Colors.black87),
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(15.0),
+                  ),
+                  enabledBorder: OutlineInputBorder(
+                    borderSide: BorderSide(color: Colors.black54, width: 2.0),
+                    borderRadius: BorderRadius.circular(15.0),
+                  ),
+                  focusedBorder: OutlineInputBorder(
+                    borderSide: BorderSide(color: Colors.black54, width: 2.0),
+                    borderRadius: BorderRadius.circular(15.0),
+                  ),
+                ),
                 validator: (value) {
                   if (value == null || value.isEmpty) {
                     return 'Please enter branch';
@@ -115,8 +196,12 @@ class _CreateEducatorViewState extends State<CreateEducatorView> {
               ),
               SizedBox(height: 20),
               ElevatedButton(
-                onPressed: _submitForm,
-                child: Text('Submit'),
+                onPressed: (){
+                  _submitForm(context);
+                },
+                child: Text('Submit',style: TextStyle(
+                  color: Colors.deepPurple[900], // Metin rengi
+                ),),
               ),
             ],
           ),

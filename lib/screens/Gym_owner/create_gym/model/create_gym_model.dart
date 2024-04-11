@@ -1,4 +1,5 @@
 class Gym {
+  final int id;
   final String name;
   final String location;
   final String imagePath;
@@ -9,6 +10,7 @@ class Gym {
   final String? webSite; // webSite opsiyonel olabilir
 
   Gym({
+    required this.id,
     required this.name,
     required this.location,
     required this.imagePath,
@@ -21,6 +23,7 @@ class Gym {
 
   Map<String, dynamic> toJson() {
     return {
+      'id': id,
       'name': name,
       'location': location,
       'imagePath': imagePath,
@@ -34,6 +37,7 @@ class Gym {
 
   factory Gym.fromJson(Map<String, dynamic> json) {
     return Gym(
+      id: json['id'],
       name: json['name'],
       location: json['location'],
       imagePath: json['imagePath'],

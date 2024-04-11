@@ -13,6 +13,8 @@ class GymOwnerDashboardViewModel = _GymOwnerDashboardViewModel with _$GymOwnerDa
 abstract class _GymOwnerDashboardViewModel with Store {
   late List<Activity> activityList= [];
   late List<Educator> educatorList= [];
+  late Gym gym ;
+
 
   @action
   Future<List<Activity>> fetchActivity()async{
@@ -55,4 +57,27 @@ abstract class _GymOwnerDashboardViewModel with Store {
     } else {
       throw Exception('Failed to load gym');
     }
-  }}
+  }
+
+
+  Future<Gym> fetchGym() async {
+    final response = await http.get(Uri.parse(ServicePath.GYM.path));
+
+    if (response.statusCode == 200) {
+      var decodedList = json.decode(response.body);
+      if (decodedList is List) {
+        gym = decodedList
+            .map<Gym>((jsonItem) => Gym.fromJson(jsonItem))
+            .firstWhere((gym) => gym.id == gymOwnerLoginViewModel.gymOwnerGymId, orElse: () => throw Exception('Gym not found'));
+        print(gym);
+        print(gym.capacity);
+        return gym;
+      } else {
+        throw Exception('Data format is not a list');
+      }
+    } else {
+      throw Exception('Failed to load gym');
+    }
+  }
+}
+

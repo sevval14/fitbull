@@ -1,74 +1,15 @@
 import 'package:fitbull/screens/Gym_owner/gym_owner_dashboard/viewModel/gym_owner_dashboard_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
-
-import '../../create_activity/model/create_activity_model.dart';
 import '../../create_activity/view/create_activity_view.dart';
 import '../../create_educator/view/create_educator_view.dart';
+import '../../detail_screen_posts/view/deatil_screen_posts_view.dart';
 
 class GymOwnerDashboard extends StatefulWidget {
   @override
   State<GymOwnerDashboard> createState() => _GymOwnerDashboardState();
 
 
-}
-
-class DetailScreen extends StatelessWidget {
-  final List<Activity> items;
-
-  const DetailScreen({Key? key, required this.items}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('Activities',style: TextStyle(fontSize: 25),
-        ),
-      ),
-      body: ListView.builder(
-        itemCount: items.length,
-        itemBuilder: (context, index) {
-          final item = items[index];
-          return Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Expanded(
-                      child: Text(
-                        item.name,
-                        style: TextStyle(fontSize: 20),
-                        overflow: TextOverflow.ellipsis,
-                      ),
-                    ),
-                    IconButton(
-                      icon: Icon(Icons.more_vert),
-                      onPressed: () {
-                      },
-                    ),
-                  ],
-                ),
-              ),
-              Image.network(
-                item.imagePath,
-                fit: BoxFit.cover,
-              ),
-              Padding(
-                padding: const EdgeInsets.all(16.0),
-                child: Text(
-                  item.description,
-                  style: Theme.of(context).textTheme.bodyText2,
-                ),
-              ),
-            ],
-          );
-        },
-      ),
-    );
-  }
 }
 
 
@@ -82,13 +23,19 @@ class _GymOwnerDashboardState extends State<GymOwnerDashboard> {
   void initState()  {
     super.initState();
    _loadData();
+
   }
 
   Future<void> _loadData() async {
-    _loadingFuture = Future.wait([
-      _gymOwnerDashboardViewModel.fetchActivity(),
-      _gymOwnerDashboardViewModel.fetchEducator(),
-    ]);
+    setState(() {
+      _loadingFuture = Future.wait([
+        _gymOwnerDashboardViewModel.fetchGym(),
+        _gymOwnerDashboardViewModel.fetchActivity(),
+        _gymOwnerDashboardViewModel.fetchEducator(),
+      ]);
+    });
+
+
   }
 
 
@@ -97,115 +44,118 @@ class _GymOwnerDashboardState extends State<GymOwnerDashboard> {
   Widget build(BuildContext context) {
     return MaterialApp(
         home: RefreshIndicator(
-          onRefresh: _loadData,
-          child: Scaffold(
-            key: _scaffoldKey,
-            appBar: AppBar(
-              leading: IconButton(
-                icon: Icon(Icons.menu),
-                onPressed: () {
-                  _scaffoldKey.currentState?.openDrawer();
-                },
-              ),
-              title: Text(
-                'Academy Fit',
-                style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
-              ),
-              centerTitle: true,
-              actions: <Widget>[
-                IconButton(
-                  icon: Icon(Icons.notifications_none),
-                  onPressed: () {
-                    // Notification icon action
-                  },
-                ),
+            onRefresh: () async {
+              await _loadData();
+            },
+            child: FutureBuilder(
+            future: _loadingFuture,
+            builder: (BuildContext context, AsyncSnapshot<void> snapshot) {
+              if (snapshot.connectionState == ConnectionState.waiting) {
+                return Center(child: CircularProgressIndicator());
+              } else if (snapshot.hasError) {
+                return Center(child: Text('Error: ${snapshot.error}'));
+              } else {
 
-              ],
-            ),
-            drawer: Drawer(
-              child: Column(
-                children: <Widget>[
-                  Expanded(
-                    child: ListView(
-                      // Important: Remove any padding from the ListView.
-                      padding: EdgeInsets.zero,
+                return Scaffold(
+                  key: _scaffoldKey,
+                  appBar: AppBar(
+                    leading: IconButton(
+                      icon: Icon(Icons.menu),
+                      onPressed: () {
+                        _scaffoldKey.currentState?.openDrawer();
+                      },
+                    ),
+                    title: Text(
+                      _gymOwnerDashboardViewModel.gym.name??"dd",
+                      style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+                    ),
+                    centerTitle: true,
+                    actions: <Widget>[
+                      IconButton(
+                        icon: Icon(Icons.notifications_none),
+                        onPressed: () {
+                          // Notification icon action
+                        },
+                      ),
+
+                    ],
+                  ),
+                  drawer: Drawer(
+                    child: Column(
                       children: <Widget>[
-                        const DrawerHeader(
-                          decoration: BoxDecoration(
-                            color: Colors.blue,
+                        Expanded(
+                          child: ListView(
+                            // Important: Remove any padding from the ListView.
+                            padding: EdgeInsets.zero,
+                            children: <Widget>[
+                              const DrawerHeader(
+                                decoration: BoxDecoration(
+                                  color: Colors.blue,
+                                ),
+                                child: Text(
+                                  'Fitbull',
+                                  style: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 24,
+                                  ),
+                                ),
+                              ),
+                              ListTile(
+                                leading: Icon(Icons.insert_chart),
+                                title: Text('Daily Statistics'),
+                                onTap: () {
+                                  // Add your onTap code here
+                                },
+                              ),
+                              ListTile(
+                                leading: Icon(Icons.create),
+                                title: Text('Create Activity'),
+                                onTap: () {
+                                  Navigator.of(context).push(MaterialPageRoute(builder: (context) => CreateActivityPage()));
+                                },
+                              ),
+                              ListTile(
+                                leading: Icon(Icons.school),
+                                title: Text('Add Educator'),
+                                onTap: () {
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(builder: (context) =>   CreateEducatorView()),
+                                  );                      },
+                              ),
+                              ListTile(
+                                leading: Icon(Icons.edit),
+                                title: Text('Edit Profile'),
+                                onTap: () {
+                                  // Add your onTap code here
+                                },
+                              ),
+                              ListTile(
+                                leading: Icon(Icons.settings),
+                                title: Text('Settings'),
+                                onTap: () {
+                                  // Add your onTap code here
+                                },
+                              ),
+                              // Add other sections here
+                            ],
                           ),
-                          child: Text(
-                            'Fitbull',
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 24,
-                            ),
+                        ),
+                        // Logout section
+                        Align(
+                          alignment: FractionalOffset.bottomLeft,
+                          child: ListTile(
+                            leading: Icon(Icons.exit_to_app),
+                            title: Text('Logout'),
+                            onTap: () {
+                              // Handle the logout tap
+                            },
                           ),
                         ),
-                        ListTile(
-                          leading: Icon(Icons.insert_chart),
-                          title: Text('Daily Statistics'),
-                          onTap: () {
-                            // Add your onTap code here
-                          },
-                        ),
-                        ListTile(
-                          leading: Icon(Icons.create),
-                          title: Text('Create Activity'),
-                          onTap: () {
-                            Navigator.of(context).push(MaterialPageRoute(builder: (context) => CreateActivityPage()));
-                          },
-                        ),
-                        ListTile(
-                          leading: Icon(Icons.school),
-                          title: Text('Add Educator'),
-                          onTap: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(builder: (context) =>   CreateEducatorView()),
-                            );                      },
-                        ),
-                        ListTile(
-                          leading: Icon(Icons.edit),
-                          title: Text('Edit Profile'),
-                          onTap: () {
-                            // Add your onTap code here
-                          },
-                        ),
-                        ListTile(
-                          leading: Icon(Icons.settings),
-                          title: Text('Settings'),
-                          onTap: () {
-                            // Add your onTap code here
-                          },
-                        ),
-                        // Add other sections here
                       ],
                     ),
                   ),
-                  // Logout section
-                  Align(
-                    alignment: FractionalOffset.bottomLeft,
-                    child: ListTile(
-                      leading: Icon(Icons.exit_to_app),
-                      title: Text('Logout'),
-                      onTap: () {
-                        // Handle the logout tap
-                      },
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            body:  FutureBuilder(
-              future: _loadingFuture,
-              builder: (BuildContext context, AsyncSnapshot<void> snapshot) {
-                if (snapshot.connectionState == ConnectionState.waiting) {
-                  return Center(child: CircularProgressIndicator());
-                } else if (snapshot.error != null) {
-                  return Center(child: Text('Error: ${snapshot.error}'));
-                } else {
-                  return Column(
+                  body: Column(
                     children: [
                       // Your column content, for example:
                       _buildProfileHeader(context),
@@ -216,11 +166,13 @@ class _GymOwnerDashboardState extends State<GymOwnerDashboard> {
                           ? _buildEducatorSection()
                           : _buildUserSection(),
                     ],
-                  );
-                }
-              },
-            ),
-          ),
+
+                  ),
+                );
+              }
+            },
+          )
+
         )
     );
   }
@@ -232,7 +184,7 @@ class _GymOwnerDashboardState extends State<GymOwnerDashboard> {
             radius: 80,
             backgroundColor: Colors.grey,
             // Normally you would use a NetworkImage here
-            backgroundImage: AssetImage('assets/home/macFit.png'),
+            backgroundImage: NetworkImage(_gymOwnerDashboardViewModel.gym.imagePath),
           ),
           SizedBox(height: 10,),
           Row(
@@ -253,7 +205,7 @@ class _GymOwnerDashboardState extends State<GymOwnerDashboard> {
               Column(
                 children: [
                   Text('Capacity', style: TextStyle(fontSize: 18)),
-                  Text('126', style: TextStyle(fontSize: 18)),
+                  Text(_gymOwnerDashboardViewModel.gym.capacity, style: TextStyle(fontSize: 18)),
                 ],
               ),
             ],
@@ -331,7 +283,7 @@ class _GymOwnerDashboardState extends State<GymOwnerDashboard> {
           return GestureDetector(
             onTap: () {
               Navigator.of(context).push(MaterialPageRoute(
-                builder: (context) => DetailScreen(
+                builder: (context) => DetailScreenPosts(
                   items:_gymOwnerDashboardViewModel.activityList
                 ),
               ));
