@@ -21,7 +21,10 @@ abstract class _GymOwnerDashboardViewModel with Store {
     if (response.statusCode == 200) {
       var decodedList = jsonDecode(response.body);
       if (decodedList is List) {
-        activityList = decodedList.map<Activity>((jsonItem) => Activity.fromJson(jsonItem)).toList();
+        activityList = decodedList
+            .map<Activity>((jsonItem) => Activity.fromJson(jsonItem))
+            .where((activity) => activity.gymId == gymOwnerLoginViewModel.gymOwnerGymId)
+            .toList();
         print(activityList);
       } else {
       }

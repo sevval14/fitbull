@@ -75,14 +75,20 @@ class DetailScreen extends StatelessWidget {
 class _GymOwnerDashboardState extends State<GymOwnerDashboard> {
   final GymOwnerDashboardViewModel _gymOwnerDashboardViewModel = GymOwnerDashboardViewModel();
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+  Future? _loadingFuture;
 
 
   @override
   void initState()  {
     super.initState();
-    _gymOwnerDashboardViewModel.fetchActivity();
-    _gymOwnerDashboardViewModel.fetchEducator();
+   _loadData();
+  }
 
+  Future<void> _loadData() async {
+    _loadingFuture = Future.wait([
+      _gymOwnerDashboardViewModel.fetchActivity(),
+      _gymOwnerDashboardViewModel.fetchEducator(),
+    ]);
   }
 
 
@@ -90,114 +96,130 @@ class _GymOwnerDashboardState extends State<GymOwnerDashboard> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-        home: Scaffold(
-          key: _scaffoldKey,
-          appBar: AppBar(
-            leading: IconButton(
-              icon: Icon(Icons.menu),
-              onPressed: () {
-                _scaffoldKey.currentState?.openDrawer();
-              },
-            ),
-            title: Text(
-              'Academy Fit',
-              style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
-            ),
-            centerTitle: true,
-            actions: <Widget>[
-              IconButton(
-                icon: Icon(Icons.notifications_none),
+        home: RefreshIndicator(
+          onRefresh: _loadData,
+          child: Scaffold(
+            key: _scaffoldKey,
+            appBar: AppBar(
+              leading: IconButton(
+                icon: Icon(Icons.menu),
                 onPressed: () {
-                  // Notification icon action
+                  _scaffoldKey.currentState?.openDrawer();
                 },
               ),
-            ],
-          ),
-          drawer: Drawer(
-            child: Column(
-              children: <Widget>[
-                Expanded(
-                  child: ListView(
-                    // Important: Remove any padding from the ListView.
-                    padding: EdgeInsets.zero,
-                    children: <Widget>[
-                      const DrawerHeader(
-                        decoration: BoxDecoration(
-                          color: Colors.blue,
-                        ),
-                        child: Text(
-                          'Fitbull',
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 24,
-                          ),
-                        ),
-                      ),
-                      ListTile(
-                        leading: Icon(Icons.insert_chart),
-                        title: Text('Daily Statistics'),
-                        onTap: () {
-                          // Add your onTap code here
-                        },
-                      ),
-                      ListTile(
-                        leading: Icon(Icons.create),
-                        title: Text('Create Activity'),
-                        onTap: () {
-                          Navigator.of(context).push(MaterialPageRoute(builder: (context) => CreateActivityPage()));
-                        },
-                      ),
-                      ListTile(
-                        leading: Icon(Icons.school),
-                        title: Text('Add Educator'),
-                        onTap: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(builder: (context) =>   CreateEducatorView()),
-                          );                      },
-                      ),
-                      ListTile(
-                        leading: Icon(Icons.edit),
-                        title: Text('Edit Profile'),
-                        onTap: () {
-                          // Add your onTap code here
-                        },
-                      ),
-                      ListTile(
-                        leading: Icon(Icons.settings),
-                        title: Text('Settings'),
-                        onTap: () {
-                          // Add your onTap code here
-                        },
-                      ),
-                      // Add other sections here
-                    ],
-                  ),
+              title: Text(
+                'Academy Fit',
+                style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+              ),
+              centerTitle: true,
+              actions: <Widget>[
+                IconButton(
+                  icon: Icon(Icons.notifications_none),
+                  onPressed: () {
+                    // Notification icon action
+                  },
                 ),
-                // Logout section
-                Align(
-                  alignment: FractionalOffset.bottomLeft,
-                  child: ListTile(
-                    leading: Icon(Icons.exit_to_app),
-                    title: Text('Logout'),
-                    onTap: () {
-                      // Handle the logout tap
-                    },
-                  ),
-                ),
+
               ],
             ),
-          ),
-          body: Column(
-            children: [
-              _buildProfileHeader(context),
-              _buildHighlightSection(context),
-              _selectedIndex == 0
-                  ? _buildPostSection(context)
-                  : _selectedIndex == 1
-                  ? _buildEducatorSection()
-                  : _buildUserSection(),
-            ],
+            drawer: Drawer(
+              child: Column(
+                children: <Widget>[
+                  Expanded(
+                    child: ListView(
+                      // Important: Remove any padding from the ListView.
+                      padding: EdgeInsets.zero,
+                      children: <Widget>[
+                        const DrawerHeader(
+                          decoration: BoxDecoration(
+                            color: Colors.blue,
+                          ),
+                          child: Text(
+                            'Fitbull',
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 24,
+                            ),
+                          ),
+                        ),
+                        ListTile(
+                          leading: Icon(Icons.insert_chart),
+                          title: Text('Daily Statistics'),
+                          onTap: () {
+                            // Add your onTap code here
+                          },
+                        ),
+                        ListTile(
+                          leading: Icon(Icons.create),
+                          title: Text('Create Activity'),
+                          onTap: () {
+                            Navigator.of(context).push(MaterialPageRoute(builder: (context) => CreateActivityPage()));
+                          },
+                        ),
+                        ListTile(
+                          leading: Icon(Icons.school),
+                          title: Text('Add Educator'),
+                          onTap: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(builder: (context) =>   CreateEducatorView()),
+                            );                      },
+                        ),
+                        ListTile(
+                          leading: Icon(Icons.edit),
+                          title: Text('Edit Profile'),
+                          onTap: () {
+                            // Add your onTap code here
+                          },
+                        ),
+                        ListTile(
+                          leading: Icon(Icons.settings),
+                          title: Text('Settings'),
+                          onTap: () {
+                            // Add your onTap code here
+                          },
+                        ),
+                        // Add other sections here
+                      ],
+                    ),
+                  ),
+                  // Logout section
+                  Align(
+                    alignment: FractionalOffset.bottomLeft,
+                    child: ListTile(
+                      leading: Icon(Icons.exit_to_app),
+                      title: Text('Logout'),
+                      onTap: () {
+                        // Handle the logout tap
+                      },
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            body:  FutureBuilder(
+              future: _loadingFuture,
+              builder: (BuildContext context, AsyncSnapshot<void> snapshot) {
+                if (snapshot.connectionState == ConnectionState.waiting) {
+                  return Center(child: CircularProgressIndicator());
+                } else if (snapshot.error != null) {
+                  return Center(child: Text('Error: ${snapshot.error}'));
+                } else {
+                  return Column(
+                    children: [
+                      // Your column content, for example:
+                      _buildProfileHeader(context),
+                      _buildHighlightSection(context),
+                      _selectedIndex == 0
+                          ? _buildPostSection(context)
+                          : _selectedIndex == 1
+                          ? _buildEducatorSection()
+                          : _buildUserSection(),
+                    ],
+                  );
+                }
+              },
+            ),
           ),
         )
     );
