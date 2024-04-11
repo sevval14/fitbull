@@ -1,7 +1,9 @@
 import 'package:fitbull/screens/Gym_owner/create_educator/viewModel/create_educator_view_model.dart';
 import 'package:fitbull/screens/Gym_owner/gym_owner_dashboard/view/gym_owner_dashboard_view.dart';
 import 'package:fitbull/screens/login/view/login_view.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 
 
 class CreateEducatorView extends StatefulWidget {
@@ -17,6 +19,16 @@ class _CreateEducatorViewState extends State<CreateEducatorView> {
   final _imagePathController = TextEditingController();
   final _branchController = TextEditingController();
   final CreateEducatorViewModel createEducatorViewModel = CreateEducatorViewModel();
+  final ImagePicker _picker = ImagePicker();
+
+  Future<void> _pickImage() async {
+    final XFile? image = await _picker.pickImage(source:  ImageSource.camera);
+    if (image != null) {
+      setState(() {
+        _imagePathController.text = image.path;
+      });
+    }
+  }
 
 
   @override
@@ -143,32 +155,6 @@ class _CreateEducatorViewState extends State<CreateEducatorView> {
                 },
               ),
               SizedBox(height: 10),
-              // Image URL
-              TextFormField(
-                controller: _imagePathController,
-                decoration: InputDecoration(
-                  labelText: 'Image URL',
-                  labelStyle: TextStyle(color: Colors.black87),
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(15.0),
-                  ),
-                  enabledBorder: OutlineInputBorder(
-                    borderSide: BorderSide(color: Colors.black54, width: 2.0),
-                    borderRadius: BorderRadius.circular(15.0),
-                  ),
-                  focusedBorder: OutlineInputBorder(
-                    borderSide: BorderSide(color: Colors.black54, width: 2.0),
-                    borderRadius: BorderRadius.circular(15.0),
-                  ),
-                ),
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return 'Please enter image URL';
-                  }
-                  return null;
-                },
-              ),
-              SizedBox(height: 10),
               // Branch
               TextFormField(
                 controller: _branchController,
@@ -195,6 +181,42 @@ class _CreateEducatorViewState extends State<CreateEducatorView> {
                 },
               ),
               SizedBox(height: 20),
+              // Image URL
+              GestureDetector(
+                onTap: _pickImage, // GestureDetector ile TextFormField'ın herhangi bir yerine tıklanıldığında galeriden resim seçilmesi sağlanır.
+                child: AbsorbPointer( // TextFormField'ın kendisine yazı yazılmasını engeller.
+                  child: TextFormField(
+                    controller: _imagePathController,
+                    decoration: InputDecoration(
+                      labelText: 'Image URL',
+                      labelStyle: TextStyle(color: Colors.black87),
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(15.0),
+                      ),
+                      enabledBorder: OutlineInputBorder(
+                        borderSide: BorderSide(color: Colors.black54, width: 2.0),
+                        borderRadius: BorderRadius.circular(15.0),
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                        borderSide: BorderSide(color: Colors.black54, width: 2.0),
+                        borderRadius: BorderRadius.circular(15.0),
+                      ),
+                      suffixIcon: IconButton(
+                        icon: Icon(Icons.photo_library), // Galeri ikonu
+                        onPressed: _pickImage, // IconButton'a basıldığında _pickImage fonksiyonunu tetikle
+                      ),
+                    ),
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return 'Please enter image URL';
+                      }
+                      return null;
+                    },
+                  ),
+                ),
+              ),
+
+              SizedBox(height: 10),
               ElevatedButton(
                 onPressed: (){
                   _submitForm(context);
