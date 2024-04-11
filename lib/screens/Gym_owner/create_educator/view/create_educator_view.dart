@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 
 
 class CreateEducatorView extends StatefulWidget {
-  const CreateEducatorView({Key? key}) : super(key: key);
 
   @override
   State<CreateEducatorView> createState() => _CreateEducatorViewState();
@@ -15,6 +14,7 @@ class _CreateEducatorViewState extends State<CreateEducatorView> {
   final _nameController = TextEditingController();
   final _phoneNumberController = TextEditingController();
   final _imagePathController = TextEditingController();
+  final _branchController = TextEditingController();
   final CreateEducatorViewModel createEducatorViewModel = CreateEducatorViewModel();
 
 
@@ -30,6 +30,8 @@ class _CreateEducatorViewState extends State<CreateEducatorView> {
       createEducatorViewModel.setName(_nameController.text);
       createEducatorViewModel.setPhoneNumber(_phoneNumberController.text);
       createEducatorViewModel.setImagePath(_imagePathController.text);
+      createEducatorViewModel.setBranch(_branchController.text);
+
 
       int statusCode = await createEducatorViewModel.createEducator();
 
@@ -97,6 +99,16 @@ class _CreateEducatorViewState extends State<CreateEducatorView> {
                 validator: (value) {
                   if (value == null || value.isEmpty) {
                     return 'Please enter image URL';
+                  }
+                  return null;
+                },
+              ),
+              TextFormField(
+                controller: _branchController,
+                decoration: InputDecoration(labelText: 'Branch'),
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return 'Please enter branch';
                   }
                   return null;
                 },

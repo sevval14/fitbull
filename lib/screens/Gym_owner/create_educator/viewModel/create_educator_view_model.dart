@@ -19,6 +19,8 @@ abstract class _CreateEducatorViewModel with Store {
   @observable
   String imagePath = '';
 
+  @observable
+  String branch = '';
 
   @action
   void setName(String value) => name = value;
@@ -28,6 +30,9 @@ abstract class _CreateEducatorViewModel with Store {
 
   @action
   void setImagePath(String value) => imagePath = value;
+
+  @action
+  void setBranch(String value) => branch = value;
 
   @action
   Future<int> createEducator() async {
@@ -40,6 +45,7 @@ abstract class _CreateEducatorViewModel with Store {
         "name":name,
         "phoneNumber":phoneNumber,
         "imagePath":imagePath,
+        "branch":branch,
         "gymOwnerId":gymOwnerLoginViewModel.gymOwnerId,
         "gymId":gymOwnerLoginViewModel.gymOwnerGymId
       }),
