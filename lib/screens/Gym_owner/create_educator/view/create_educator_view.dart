@@ -1,9 +1,12 @@
+import 'package:fitbull/constant/regex_constants.dart';
 import 'package:fitbull/screens/Gym_owner/create_educator/viewModel/create_educator_view_model.dart';
 import 'package:fitbull/screens/Gym_owner/gym_owner_dashboard/view/gym_owner_dashboard_view.dart';
 import 'package:fitbull/screens/login/view/login_view.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+
+import '../../create_activity/viewModel/create_activity_view_model.dart';
 
 
 class CreateEducatorView extends StatefulWidget {
@@ -20,6 +23,7 @@ class _CreateEducatorViewState extends State<CreateEducatorView> {
   final _branchController = TextEditingController();
   final CreateEducatorViewModel createEducatorViewModel = CreateEducatorViewModel();
   final ImagePicker _picker = ImagePicker();
+  final CreateActivityViewModel createActivityViewModel = CreateActivityViewModel();
 
   Future<void> _pickImage() async {
     final XFile? image = await _picker.pickImage(source:  ImageSource.camera);
@@ -40,9 +44,12 @@ class _CreateEducatorViewState extends State<CreateEducatorView> {
   }
   void _submitForm(BuildContext context) async{
     if (_formKey.currentState!.validate()) {
+      await createActivityViewModel.uploadImage(_imagePathController.text);
+
+      Future.delayed(const Duration(seconds: 10));
       createEducatorViewModel.setName(_nameController.text);
       createEducatorViewModel.setPhoneNumber(_phoneNumberController.text);
-      createEducatorViewModel.setImagePath(_imagePathController.text);
+      createEducatorViewModel.setImagePath(createActivityViewModel.targetPathImage);
       createEducatorViewModel.setBranch(_branchController.text);
 
 
@@ -131,6 +138,7 @@ class _CreateEducatorViewState extends State<CreateEducatorView> {
               ),
               SizedBox(height: 10),
               TextFormField(
+                keyboardType: TextInputType.number,
                 controller: _phoneNumberController,
                 decoration: InputDecoration(
                   labelText: 'Phone Number',
@@ -148,8 +156,10 @@ class _CreateEducatorViewState extends State<CreateEducatorView> {
                   ),
                 ),
                 validator: (value) {
-                  if (value == null || value.isEmpty) {
+                  if (value == null || value.isEmpty ) {
                     return 'Please enter phone number';
+                  }else if(!RegExp(rPhoneNumber).hasMatch(value)){
+                    return 'Please enter valid phone number';
                   }
                   return null;
                 },
@@ -183,27 +193,30 @@ class _CreateEducatorViewState extends State<CreateEducatorView> {
               SizedBox(height: 20),
               // Image URL
               GestureDetector(
-                onTap: _pickImage, // GestureDetector ile TextFormField'ın herhangi bir yerine tıklanıldığında galeriden resim seçilmesi sağlanır.
-                child: AbsorbPointer( // TextFormField'ın kendisine yazı yazılmasını engeller.
+                onTap: (){
+                  createActivityViewModel.pickImage(_imagePathController);},
+                child: AbsorbPointer(
                   child: TextFormField(
                     controller: _imagePathController,
                     decoration: InputDecoration(
-                      labelText: 'Image URL',
-                      labelStyle: TextStyle(color: Colors.black87),
+                      labelText: 'Select Image',
+                      labelStyle: const TextStyle(color: Colors.black87),
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(15.0),
                       ),
                       enabledBorder: OutlineInputBorder(
-                        borderSide: BorderSide(color: Colors.black54, width: 2.0),
+                        borderSide: const BorderSide(color: Colors.black54, width: 2.0),
                         borderRadius: BorderRadius.circular(15.0),
                       ),
                       focusedBorder: OutlineInputBorder(
-                        borderSide: BorderSide(color: Colors.black54, width: 2.0),
+                        borderSide: const BorderSide(color: Colors.black54, width :2.0),
                         borderRadius: BorderRadius.circular(15.0),
                       ),
                       suffixIcon: IconButton(
-                        icon: Icon(Icons.photo_library), // Galeri ikonu
-                        onPressed: _pickImage, // IconButton'a basıldığında _pickImage fonksiyonunu tetikle
+                        icon: const Icon(Icons.photo_library),
+                        onPressed: (){
+                          createActivityViewModel.pickImage(_imagePathController);
+                        },
                       ),
                     ),
                     validator: (value) {

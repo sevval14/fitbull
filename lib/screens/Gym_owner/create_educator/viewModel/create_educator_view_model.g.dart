@@ -57,6 +57,22 @@ mixin _$CreateEducatorViewModel on _CreateEducatorViewModel, Store {
     });
   }
 
+  late final _$branchAtom =
+      Atom(name: '_CreateEducatorViewModel.branch', context: context);
+
+  @override
+  String get branch {
+    _$branchAtom.reportRead();
+    return super.branch;
+  }
+
+  @override
+  set branch(String value) {
+    _$branchAtom.reportWrite(value, super.branch, () {
+      super.branch = value;
+    });
+  }
+
   late final _$createEducatorAsyncAction =
       AsyncAction('_CreateEducatorViewModel.createEducator', context: context);
 
@@ -102,11 +118,23 @@ mixin _$CreateEducatorViewModel on _CreateEducatorViewModel, Store {
   }
 
   @override
+  void setBranch(String value) {
+    final _$actionInfo = _$_CreateEducatorViewModelActionController.startAction(
+        name: '_CreateEducatorViewModel.setBranch');
+    try {
+      return super.setBranch(value);
+    } finally {
+      _$_CreateEducatorViewModelActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
   String toString() {
     return '''
 name: ${name},
 phoneNumber: ${phoneNumber},
-imagePath: ${imagePath}
+imagePath: ${imagePath},
+branch: ${branch}
     ''';
   }
 }

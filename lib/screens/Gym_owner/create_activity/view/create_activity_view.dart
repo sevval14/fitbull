@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 
+import '../../../../constant/regex_constants.dart';
 import '../../gym_owner_dashboard/view/gym_owner_dashboard_view.dart';
 import '../viewModel/create_activity_view_model.dart';
 
@@ -17,12 +19,15 @@ class _CreateActivityPageState extends State<CreateActivityPage> {
 
   void _submitForm(BuildContext context) async{
     if (_formKey.currentState!.validate()) {
+      await createActivityViewModel.uploadImage(_imagePathController.text);
+
+      Future.delayed(Duration(seconds: 10));
+      print(createActivityViewModel.targetPathImage);
       createActivityViewModel.setName(_nameController.text);
-      createActivityViewModel.setImagePath(_imagePathController.text);
+      createActivityViewModel.setImagePath(createActivityViewModel.targetPathImage);
       createActivityViewModel.setLocation(_descriptionController.text);
 
       int statusCode = await createActivityViewModel.createActivity();
-
 
         if (statusCode == 200 || statusCode == 201) {
           if(context.mounted){
@@ -55,29 +60,75 @@ class _CreateActivityPageState extends State<CreateActivityPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Add a New Activity'),
       ),
       body: Padding(
-        padding: EdgeInsets.all(20),
+        padding: const EdgeInsets.all(20),
         child: Form(
           key: _formKey,
           child: SingleChildScrollView(
             child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+
               children: <Widget>[
+                Icon(
+                  Icons.fitness_center_outlined,
+                  size: 60.0,
+                  color: Colors.deepPurple[900],
+                ),
+                Text(
+                  'Create Your Activity',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    fontSize: 24,
+                    fontWeight: FontWeight.w400,
+                    color: Colors.deepPurple[900],
+                  ),
+                ),
+                const SizedBox(height: 50),
                 TextFormField(
                   controller: _nameController,
-                  decoration: InputDecoration(labelText: 'Activity Name'),
+                  decoration: InputDecoration(
+                    labelText: 'Activity Name',
+                    labelStyle: const TextStyle(color: Colors.black87),
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(15.0),
+                    ),
+                    enabledBorder: OutlineInputBorder(
+                      borderSide: const BorderSide(color: Colors.black54, width: 2.0),
+                      borderRadius: BorderRadius.circular(15.0),
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderSide: const BorderSide(color: Colors.black54, width: 2.0),
+                      borderRadius: BorderRadius.circular(15.0),
+                    ),
+                  ),
                   validator: (value) {
-                    if (value == null || value.isEmpty) {
-                      return 'Please enter activity name';
+                    if (value == null || value.isEmpty ) {
+                      return 'Please enter phone number';
+                    }else if(!RegExp(rPhoneNumber).hasMatch(value)){
+                      return 'Please enter valid phone number';
                     }
                     return null;
                   },
                 ),
+                const SizedBox(height: 10),
                 TextFormField(
                   controller: _descriptionController,
-                  decoration: InputDecoration(labelText: 'Description'),
+                  decoration: InputDecoration(
+                    labelText: 'Description',
+                    labelStyle: const TextStyle(color: Colors.black87),
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(15.0),
+                    ),
+                    enabledBorder: OutlineInputBorder(
+                      borderSide: const BorderSide(color: Colors.black54, width: 2.0),
+                      borderRadius: BorderRadius.circular(15.0),
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderSide: const BorderSide(color: Colors.black54, width: 2.0),
+                      borderRadius: BorderRadius.circular(15.0),
+                    ),
+                  ),
                   validator: (value) {
                     if (value == null || value.isEmpty) {
                       return 'Please enter description';
@@ -85,23 +136,52 @@ class _CreateActivityPageState extends State<CreateActivityPage> {
                     return null;
                   },
                 ),
-                TextFormField(
-                  controller: _imagePathController,
-                  decoration: InputDecoration(labelText: 'Image Path'),
-                  validator: (value) {
-                    if (value == null || value.isEmpty) {
-                      return 'Please enter image path';
-                    }
-                    return null;
-                  },
+                const SizedBox(height: 10),
+                GestureDetector(
+                  onTap: (){
+                    createActivityViewModel.pickImage(_imagePathController);},
+                    child: AbsorbPointer(
+                    child: TextFormField(
+                    controller: _imagePathController,
+                    decoration: InputDecoration(
+                    labelText: 'Select Image',
+                    labelStyle: const TextStyle(color: Colors.black87),
+                    border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(15.0),
+                    ),
+                    enabledBorder: OutlineInputBorder(
+                    borderSide: const BorderSide(color: Colors.black54, width: 2.0),
+                    borderRadius: BorderRadius.circular(15.0),
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                    borderSide: const BorderSide(color: Colors.black54, width :2.0),
+                          borderRadius: BorderRadius.circular(15.0),
+                        ),
+                        suffixIcon: IconButton(
+                          icon: const Icon(Icons.photo_library),
+                          onPressed: (){
+                            createActivityViewModel.pickImage(_imagePathController);
+                          },
+                        ),
+                      ),
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return 'Please enter image URL';
+                        }
+                        return null;
+                      },
+                    ),
+                  ),
                 ),
+                const SizedBox(height: 10),
+
                 Padding(
                   padding: const EdgeInsets.symmetric(vertical: 20.0),
                   child: ElevatedButton(
                     onPressed: (){
                       _submitForm(context);
                     },
-                    child: Text('Submit'),
+                    child: const Text('Submit'),
                   ),
                 ),
               ],
