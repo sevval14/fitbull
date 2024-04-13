@@ -1,10 +1,11 @@
 import 'dart:convert';
-import 'package:fitbull/screens/Gym_owner/gym_owner_dashboard/viewModel/gym_owner_dashboard_view_model.dart';
 import 'package:fitbull/screens/login/viewmodel/gym_owner_login_view_model.dart';
 import 'package:fitbull/screens/register/viewmodel/gym_owner_register_view_model.dart';
 import 'package:fitbull/services/service_path.dart';
 import 'package:mobx/mobx.dart';
 import 'package:http/http.dart' as http;
+
+import '../../../Customer/detail_gym/view_model/detail_gym_view_model.dart';
 part 'gym_owner_edit_profile_view_model.g.dart';
 
 class GymOwnerEditProfileViewModel = _GymOwnerEditProfileViewModelBase with _$GymOwnerEditProfileViewModel;
@@ -79,14 +80,14 @@ abstract class _GymOwnerEditProfileViewModelBase with Store {
             'Content-Type': 'application/json',
           },
           body : json.encode({
-            "name": name =="" ? gymOwnerDashboardViewModel.gym.name:name,
-            "location": location ==""? gymOwnerDashboardViewModel.gym.location:location,
-            "imagePath": imagePath ==""? gymOwnerDashboardViewModel.gym.imagePath:imagePath,
-            "capacity": capacity ==""? gymOwnerDashboardViewModel.gym.capacity:capacity,
-            "startHour": startHour ==""? gymOwnerDashboardViewModel.gym.startHour:startHour,
-            "endHour": endHour ==""? gymOwnerDashboardViewModel.gym.endHour:endHour,
-            "taxNumber": taxNumber ==""? gymOwnerDashboardViewModel.gym.taxNumber:taxNumber,
-            "webSite": webSite ==""? gymOwnerDashboardViewModel.gym.webSite:webSite,
+            "name": name =="" ? detailGymViewModel.gym.name:name,
+            "location": location ==""? detailGymViewModel.gym.location:location,
+            "imagePath": imagePath ==""? detailGymViewModel.gym.imagePath:imagePath,
+            "capacity": capacity ==""? detailGymViewModel.gym.capacity:capacity,
+            "startHour": startHour ==""? detailGymViewModel.gym.startHour:startHour,
+            "endHour": endHour ==""? detailGymViewModel.gym.endHour:endHour,
+            "taxNumber": taxNumber ==""? detailGymViewModel.gym.taxNumber:taxNumber,
+            "webSite": webSite ==""? detailGymViewModel.gym.webSite:webSite,
             "gymOwnerId": ownerId
           }),
       );

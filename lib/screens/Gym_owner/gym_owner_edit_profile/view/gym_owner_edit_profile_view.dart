@@ -1,8 +1,9 @@
 import 'package:fitbull/screens/Gym_owner/create_gym/viewModel/create_gym_view_model.dart';
-import 'package:fitbull/screens/Gym_owner/gym_owner_dashboard/viewModel/gym_owner_dashboard_view_model.dart';
 import 'package:fitbull/screens/Gym_owner/gym_owner_edit_profile/view_model/gym_owner_edit_profile_view_model.dart';
 import 'package:flutter/material.dart';
 
+import '../../../Customer/detail_gym/view_model/detail_gym_view_model.dart';
+import '../../../login/viewmodel/gym_owner_login_view_model.dart';
 import '../../gym_owner_dashboard/view/gym_owner_dashboard_view.dart';
 
 class GymOwnerEditProfile extends StatefulWidget {
@@ -23,7 +24,7 @@ class _GymOwnerEditProfileState extends State<GymOwnerEditProfile> {
   @override
   void initState()  {
     super.initState();
-    gymOwnerDashboardViewModel.fetchGym();
+    detailGymViewModel.fetchGym(gymOwnerLoginViewModel.gymOwnerGymId);
   }
 
   @override
@@ -125,7 +126,7 @@ class _GymOwnerEditProfileState extends State<GymOwnerEditProfile> {
             TextFormField(
               controller: _nameController,
               decoration: InputDecoration(
-                hintText: gymOwnerDashboardViewModel.gym.name,
+                hintText: detailGymViewModel.gym.name,
                 labelText: "Name",
                 hintStyle: TextStyle(color: Colors.black45),
                 border: OutlineInputBorder(
@@ -145,7 +146,7 @@ class _GymOwnerEditProfileState extends State<GymOwnerEditProfile> {
             TextFormField(
               controller: _locationController,
               decoration: InputDecoration(
-                hintText: gymOwnerDashboardViewModel.gym.location,
+                hintText: detailGymViewModel.gym.location,
                 labelText: "Location",
                 hintStyle: TextStyle(color: Colors.black45),
                 border: OutlineInputBorder(
@@ -165,7 +166,7 @@ class _GymOwnerEditProfileState extends State<GymOwnerEditProfile> {
             TextFormField(
               controller: _startHourController,
               decoration: InputDecoration(
-                hintText: gymOwnerDashboardViewModel.gym.startHour,
+                hintText: detailGymViewModel.gym.startHour,
                 labelText: "Start Hour",
                 hintStyle: TextStyle(color: Colors.black45),
                 border: OutlineInputBorder(
@@ -185,7 +186,7 @@ class _GymOwnerEditProfileState extends State<GymOwnerEditProfile> {
             TextFormField(
               controller: _endHourController,
               decoration: InputDecoration(
-                hintText: gymOwnerDashboardViewModel.gym.endHour,
+                hintText: detailGymViewModel.gym.endHour,
                 labelText: "End Hour",
                 hintStyle: TextStyle(color: Colors.black45),
                 border: OutlineInputBorder(
@@ -205,7 +206,7 @@ class _GymOwnerEditProfileState extends State<GymOwnerEditProfile> {
             TextFormField(
               controller: _websiteController,
               decoration: InputDecoration(
-                hintText: gymOwnerDashboardViewModel.gym.webSite =="" ? 'no website':gymOwnerDashboardViewModel.gym.webSite,
+                hintText: detailGymViewModel.gym.webSite =="" ? 'no website':detailGymViewModel.gym.webSite,
                 labelText: "Web site",
                 hintStyle: TextStyle(color: Colors.black45),
                 border: OutlineInputBorder(

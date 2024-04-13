@@ -40,7 +40,7 @@ class ProfileView extends StatelessWidget {
               const SizedBox(height: 16),
               CircleAvatar(
                 radius: 50, // Avatarın boyutunu ayarlayın
-                backgroundImage: NetworkImage('https://static-prod.adweek.com/wp-content/uploads/2023/01/WhatsApp-Avatar-Profile-Photo-Hero-652x367.png'), // Kullanıcının profil resminin URL'si
+                foregroundImage: AssetImage('assets/home/teacher.png'), // Kullanıcının profil resminin URL'si
               ),
               const SizedBox(height: 8),
               const Text(
@@ -68,17 +68,6 @@ class ProfileView extends StatelessWidget {
               leading: const Icon(Icons.directions_run),
               title: const Text('Promotions'),
               onTap: () {
-              },
-            ),
-          ),
-          Card(
-            margin: const EdgeInsets.symmetric(vertical: 8),
-            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-            child: ListTile(
-              leading: const Icon(Icons.school),
-              title: const Text('Educator'),
-              onTap: () {
-                // Educator sayfasına yönlendirme
               },
             ),
           ),

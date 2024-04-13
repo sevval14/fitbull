@@ -47,15 +47,16 @@ class _RegisterPageState extends State<RegisterPage> {
           child: Column(
             children: [
               Text(
-                'FitBull Register',
+                'Register',
                 style: TextStyle(
-                  color: Colors.blueGrey.shade900,
+                  color: Colors.deepPurple.shade700,
                   fontSize: 35,
                   fontWeight: FontWeight.bold,
                 ),
               ),
               const SizedBox(height: 20),
               ToggleButtons(
+                color: Colors.deepPurple,
                 isSelected: _selection,
                 borderRadius: BorderRadius.all(Radius.circular(10)),
                 children: const <Widget>[
@@ -225,7 +226,7 @@ class _RegisterPageState extends State<RegisterPage> {
 
                         },
                         style: ElevatedButton.styleFrom(
-                          backgroundColor: Colors.blueGrey.shade800,
+                          backgroundColor: Colors.deepPurple.shade400,
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(8),
                           ),

@@ -36,13 +36,14 @@ class _LoginPageState extends State<LoginPage> {
               Text(
                 'FitBull',
                 style: TextStyle(
-                  color: Colors.blueGrey.shade900,
+                  color: Colors.deepPurple.shade700,
                   fontSize: 35,
                   fontWeight: FontWeight.bold,
                 ),
               ),
               const SizedBox(height: 20),
               ToggleButtons(
+                color: Colors.deepPurple.shade900,
                 isSelected: _selection,
                 borderRadius: BorderRadius.all(Radius.circular(10)),
                 children: <Widget>[
@@ -179,7 +180,7 @@ class _LoginPageState extends State<LoginPage> {
                         },
                         child: Text('Login'),
                         style: ElevatedButton.styleFrom(
-                          foregroundColor: Colors.white, backgroundColor: Colors.blueGrey.shade800,
+                          foregroundColor: Colors.white, backgroundColor: Colors.deepPurple.shade400,
                         ),
                       ),
                       TextButton(

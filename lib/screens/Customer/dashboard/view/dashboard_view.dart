@@ -3,6 +3,8 @@ import 'package:fitbull/screens/Gym_owner/create_gym/model/create_gym_model.dart
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+import '../../detail_gym/view/detail_gym_view.dart';
+
 
 class DashboardView extends StatefulWidget {
   const DashboardView({Key? key}) : super(key: key);
@@ -19,7 +21,11 @@ class _DashboardViewState extends State<DashboardView> {
     super.initState();
      dashboardViewModel.fetchGym();
   }
-
+  @override
+  void dispose()  {
+    super.dispose();
+    dashboardViewModel.fetchGym();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -34,7 +40,7 @@ class _DashboardViewState extends State<DashboardView> {
                 text: 'Fit',
                 style: GoogleFonts.jua(
                   fontSize: 30.0,
-                  fontWeight: FontWeight.w600,
+                  fontWeight: FontWeight.w300,
                   color: const Color.fromRGBO(0, 67, 168, 1),
                 ),
                 children: const [
@@ -42,7 +48,7 @@ class _DashboardViewState extends State<DashboardView> {
                     text: 'Bull',
                     style: TextStyle(
                         color: Colors.black,
-                        fontWeight: FontWeight.w600), // İkinci kısımın rengi
+                        fontWeight: FontWeight.w300), // İkinci kısımın rengi
                   ),
                 ],
               ),
@@ -100,79 +106,83 @@ class _DashboardViewState extends State<DashboardView> {
                       itemCount: dashboardViewModel.gymList.length,
                       itemBuilder: (context, index) {
                         final item = dashboardViewModel.gymList[index];
-                        return Card(
-                          shadowColor: Colors.white,
-                          color: Colors.white,
-                          surfaceTintColor:Colors.white ,
-                          margin: EdgeInsets.all(10.0),
-                          elevation: 5.0,
-                          child: IntrinsicHeight(
-                            child: Row(
-                              children: [
-                                // Sağ taraftaki resim
-                                Expanded(
-                                  child: Container(
-                                    child: Column(
-                                      crossAxisAlignment: CrossAxisAlignment.start,
-                                      children: [
-                                        Container(
-                                            margin: EdgeInsets.only(left:30,right:5,top:15,bottom:2),
-                                            child: Text(item.name, style: TextStyle(color: Colors.black, fontSize: 18))
-                                        ),
-                                        Container(
-                                          margin: EdgeInsets.only(left:30,right:5,top:5,bottom: 2),
-                                          child: Text(item.location, style: TextStyle(color: Colors.black54, fontSize: 14)),
-                                        ),
-                                        Container(
-                                          margin: EdgeInsets.only(left:30,right:5,top:5),
-                                          child: Text("price", style: TextStyle(color: Colors.black54, fontSize: 16)),
-                                        ),
-                                        Container(
-                                          child: Row(
-                                            children: [
-                                              IconButton(
-                                                  onPressed: () {},
-                                                  icon: const Icon(Icons.star, color: Colors.yellow), padding:  EdgeInsets.only(left:25, right: 5)
-                                              ),
-                                              Padding(
-                                                padding: const EdgeInsets.only(top: 5, bottom: 2),
-                                                child: Text(
-                                                  "4.3",
-                                                  style: TextStyle(color: Colors.black54, fontSize: 14),
-                                                ),
-                                              ),
-                                            ],
+                        return GestureDetector(
+                          onTap: (){
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(builder: (context) =>   DetailGymView(id: item.id,)),
+                            );
+                          },
+                          child: Card(
+                            shadowColor: Colors.white,
+                            color: Colors.white,
+                            surfaceTintColor:Colors.white ,
+                            margin: EdgeInsets.all(10.0),
+                            elevation: 5.0,
+                            child: IntrinsicHeight(
+                              child: Row(
+                                children: [
+                                  // Sağ taraftaki resim
+                                  Expanded(
+                                    child: Container(
+                                      child: Column(
+                                        crossAxisAlignment: CrossAxisAlignment.start,
+                                        children: [
+                                          Container(
+                                              margin: EdgeInsets.only(left:30,right:5,top:15,bottom:2),
+                                              child: Text(item.name, style: TextStyle(color: Colors.black, fontSize: 18))
                                           ),
-                                        )
+                                          Container(
+                                            margin: EdgeInsets.only(left:30,right:5,top:5,bottom: 2),
+                                            child: Text(item.location, style: TextStyle(color: Colors.black54, fontSize: 14)),
+                                          ),
+                                          Container(
+                                            child: Row(
+                                              children: [
+                                                IconButton(
+                                                    onPressed: () {},
+                                                    icon: const Icon(Icons.star, color: Colors.yellow), padding:  EdgeInsets.only(left:25, right: 5)
+                                                ),
+                                                Padding(
+                                                  padding: const EdgeInsets.only(top: 5, bottom: 2),
+                                                  child: Text(
+                                                    "4.3",
+                                                    style: TextStyle(color: Colors.black54, fontSize: 14),
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                          )
 
 
-                                      ],
-                                    ),
-                                  ),
-                                )
-                                ,
-
-
-                                Expanded(
-                                  child: Container(
-                                    margin: EdgeInsets.all(20),
-                                    decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(20),
-                                      color: Colors.white,
-                                    ),
-                                    width: 70,
-                                    height: 120,
-                                    child: ClipRRect(
-                                      borderRadius: BorderRadius.circular(20),
-                                      child: Image.network(
-                                        item.imagePath,
-                                        fit: BoxFit.cover,
+                                        ],
                                       ),
                                     ),
-                                  ),
-                                )
+                                  )
+                                  ,
 
-                              ],
+
+                                  Expanded(
+                                    child: Container(
+                                      margin: EdgeInsets.all(20),
+                                      decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(20),
+                                        color: Colors.white,
+                                      ),
+                                      width: 70,
+                                      height: 120,
+                                      child: ClipRRect(
+                                        borderRadius: BorderRadius.circular(20),
+                                        child: Image.asset(
+                                          "assets/home/macFit.png",
+                                          fit: BoxFit.cover,
+                                        ),
+                                      ),
+                                    ),
+                                  )
+
+                                ],
+                              ),
                             ),
                           ),
                         );

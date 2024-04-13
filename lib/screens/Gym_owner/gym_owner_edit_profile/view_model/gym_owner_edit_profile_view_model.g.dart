@@ -154,6 +154,15 @@ mixin _$GymOwnerEditProfileViewModel
     });
   }
 
+  late final _$fetchCurrentGymAsyncAction = AsyncAction(
+      '_GymOwnerEditProfileViewModelBase.fetchCurrentGym',
+      context: context);
+
+  @override
+  Future<void> fetchCurrentGym() {
+    return _$fetchCurrentGymAsyncAction.run(() => super.fetchCurrentGym());
+  }
+
   late final _$updateGymAsyncAction = AsyncAction(
       '_GymOwnerEditProfileViewModelBase.updateGym',
       context: context);

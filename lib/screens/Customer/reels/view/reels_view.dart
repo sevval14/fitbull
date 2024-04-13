@@ -1,4 +1,5 @@
 import 'package:fitbull/screens/Customer/reels/viewModel/reels_view_model.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class ReelsView extends StatefulWidget {
@@ -19,7 +20,7 @@ class _ReelsViewState extends State<ReelsView> {
         title: const Text(
           'Posts',
           textAlign: TextAlign.center,
-          style: TextStyle(fontSize: 25),
+          style: TextStyle(fontSize: 25,fontWeight: FontWeight.bold),
         ),
       ),
       body: FutureBuilder(
@@ -39,8 +40,8 @@ class _ReelsViewState extends State<ReelsView> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
-                      Image.network(
-                        post.imagePath,
+                      Image.asset(
+                        "assets/home/competition2.png",
                         height: 250,
                         width: double.infinity,
                         fit: BoxFit.cover,
@@ -49,7 +50,7 @@ class _ReelsViewState extends State<ReelsView> {
                         padding: const EdgeInsets.all(8.0),
                         child: Text(
                           post.name,
-                          style: const TextStyle(fontSize: 16),
+                          style: const TextStyle(fontSize: 16,fontWeight: FontWeight.bold),
                         ),
                       ),
                       Padding(
@@ -65,7 +66,12 @@ class _ReelsViewState extends State<ReelsView> {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: <Widget>[
                             CircleAvatar(
-                              backgroundImage: NetworkImage("https://static-prod.adweek.com/wp-content/uploads/2023/01/WhatsApp-Avatar-Profile-Photo-Hero-652x367.png"),
+                              radius: 20.0,
+                              backgroundImage: NetworkImage("https://images.unsplash.com/photo-1597466765990-64ad1c35dafc"),
+                              child: ClipOval(
+                                child: Image.asset("assets/home/teacher.png",
+                                ),
+                              ),
                             ),
                             IconButton(
                               icon: const Icon(Icons.comment),
