@@ -8,9 +8,12 @@ enum ServicePath{
   GYM,
   ACTIVITES,
   EDUCATOR,
+  IMAGE_UPLOAD,
+  EQUIPMENT,
+  SERVICES
 }
 extension ServicePathExtenion on ServicePath {
-  static const String _baseUrl = "http://10.39.8.150:8080";
+  static const String _baseUrl = "http://172.16.0.45:8080";
 
   String get path {
     switch (this) {
@@ -28,6 +31,12 @@ extension ServicePathExtenion on ServicePath {
         return "$_baseUrl/activities";
       case ServicePath.EDUCATOR:
         return "$_baseUrl/educators";
+      case ServicePath.IMAGE_UPLOAD:
+        return "$_baseUrl/upload_image";
+      case ServicePath.EQUIPMENT:
+        return "$_baseUrl/equipments";
+      case ServicePath.SERVICES:
+        return "$_baseUrl/services";
     }
   }
 }
