@@ -64,10 +64,12 @@ class _CreateEducatorViewState extends State<CreateEducatorView> {
           }
           await Future.delayed(const Duration(seconds: 2));
           if(context.mounted){
+            Navigator.pop(context);
             Navigator.pushReplacement(
               context,
               MaterialPageRoute(builder: (context) =>  GymOwnerDashboard()),
             );
+
           }
 
 

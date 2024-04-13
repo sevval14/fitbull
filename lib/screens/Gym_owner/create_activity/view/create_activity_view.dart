@@ -22,7 +22,6 @@ class _CreateActivityPageState extends State<CreateActivityPage> {
       await createActivityViewModel.uploadImage(_imagePathController.text);
 
       Future.delayed(Duration(seconds: 10));
-      print(createActivityViewModel.targetPathImage);
       createActivityViewModel.setName(_nameController.text);
       createActivityViewModel.setImagePath(createActivityViewModel.targetPathImage);
       createActivityViewModel.setLocation(_descriptionController.text);
@@ -38,10 +37,12 @@ class _CreateActivityPageState extends State<CreateActivityPage> {
 
           await Future.delayed(const Duration(seconds: 2));
           if(context.mounted){
+            Navigator.pop(context);
             Navigator.pushReplacement(
               context,
               MaterialPageRoute(builder: (context) =>  GymOwnerDashboard()),
             );
+
           }
 
 
@@ -104,9 +105,7 @@ class _CreateActivityPageState extends State<CreateActivityPage> {
                   ),
                   validator: (value) {
                     if (value == null || value.isEmpty ) {
-                      return 'Please enter phone number';
-                    }else if(!RegExp(rPhoneNumber).hasMatch(value)){
-                      return 'Please enter valid phone number';
+                      return 'Please enter name';
                     }
                     return null;
                   },

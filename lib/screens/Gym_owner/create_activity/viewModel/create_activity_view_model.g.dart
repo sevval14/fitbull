@@ -57,12 +57,61 @@ mixin _$CreateActivityViewModel on _CreateActivityViewModel, Store {
     });
   }
 
+  late final _$_pickerAtom =
+      Atom(name: '_CreateActivityViewModel._picker', context: context);
+
+  @override
+  ImagePicker get _picker {
+    _$_pickerAtom.reportRead();
+    return super._picker;
+  }
+
+  @override
+  set _picker(ImagePicker value) {
+    _$_pickerAtom.reportWrite(value, super._picker, () {
+      super._picker = value;
+    });
+  }
+
+  late final _$targetPathImageAtom =
+      Atom(name: '_CreateActivityViewModel.targetPathImage', context: context);
+
+  @override
+  String get targetPathImage {
+    _$targetPathImageAtom.reportRead();
+    return super.targetPathImage;
+  }
+
+  @override
+  set targetPathImage(String value) {
+    _$targetPathImageAtom.reportWrite(value, super.targetPathImage, () {
+      super.targetPathImage = value;
+    });
+  }
+
   late final _$createActivityAsyncAction =
       AsyncAction('_CreateActivityViewModel.createActivity', context: context);
 
   @override
   Future<int> createActivity() {
     return _$createActivityAsyncAction.run(() => super.createActivity());
+  }
+
+  late final _$pickImageAsyncAction =
+      AsyncAction('_CreateActivityViewModel.pickImage', context: context);
+
+  @override
+  Future<void> pickImage(TextEditingController _imagePathController) {
+    return _$pickImageAsyncAction
+        .run(() => super.pickImage(_imagePathController));
+  }
+
+  late final _$uploadImageAsyncAction =
+      AsyncAction('_CreateActivityViewModel.uploadImage', context: context);
+
+  @override
+  Future<void> uploadImage(String filePath) {
+    return _$uploadImageAsyncAction.run(() => super.uploadImage(filePath));
   }
 
   late final _$_CreateActivityViewModelActionController =
@@ -106,7 +155,8 @@ mixin _$CreateActivityViewModel on _CreateActivityViewModel, Store {
     return '''
 name: ${name},
 description: ${description},
-imagePath: ${imagePath}
+imagePath: ${imagePath},
+targetPathImage: ${targetPathImage}
     ''';
   }
 }

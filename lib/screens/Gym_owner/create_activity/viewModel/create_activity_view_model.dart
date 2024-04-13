@@ -22,7 +22,7 @@ abstract class _CreateActivityViewModel with Store {
   String imagePath = '';
 
   @observable
-  final ImagePicker _picker = ImagePicker();
+  ImagePicker _picker = ImagePicker();
 
   @observable
   String targetPathImage ="";

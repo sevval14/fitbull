@@ -2,6 +2,8 @@ import 'package:fitbull/screens/Gym_owner/create_gym/viewModel/create_gym_view_m
 import 'package:fitbull/screens/login/view/login_view.dart';
 import 'package:flutter/material.dart';
 
+import '../../create_activity/viewModel/create_activity_view_model.dart';
+
 
 class CreateGymApp extends StatefulWidget {
   @override
@@ -33,6 +35,7 @@ class _CreateGymPageState extends State<CreateGymPage> {
   final _endHourController = TextEditingController();
   final _taxNumberController = TextEditingController();
   final _websiteController = TextEditingController();
+  final CreateActivityViewModel createActivityViewModel = CreateActivityViewModel();
 
   @override
   void dispose() {
@@ -49,15 +52,17 @@ class _CreateGymPageState extends State<CreateGymPage> {
 
   void _submitForm() async{
     if (_formKey.currentState!.validate()) {
+      await createActivityViewModel.uploadImage(_imagePathController.text);
+      Future.delayed(Duration(seconds: 10));
+
       createGymViewModel.setName(_nameController.text);
       createGymViewModel.setLocation(_locationController.text);
-      createGymViewModel.setImagePath(_imagePathController.text);
+      createGymViewModel.setImagePath(createActivityViewModel.targetPathImage);
       createGymViewModel.setCapacity(_capacityController.text);
       createGymViewModel.setStartHour(_startHourController.text);
       createGymViewModel.setEndHour(_endHourController.text);
       createGymViewModel.setTaxNumber(_taxNumberController.text);
       createGymViewModel.setWebSite(_websiteController.text);
-
 
 
       int statusCode = await createGymViewModel.createGym();
@@ -67,11 +72,12 @@ class _CreateGymPageState extends State<CreateGymPage> {
           ScaffoldMessenger.of(context).showSnackBar( SnackBar(
             content: const Text( "Gym created successful!"),backgroundColor: Colors.green.shade700,
           ));
-
+          Navigator.pop(context);
           Navigator.push(
             context,
             MaterialPageRoute(builder: (context) =>   LoginPage()),
           );
+
 
         }else {
           ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
@@ -89,7 +95,14 @@ class _CreateGymPageState extends State<CreateGymPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Create Your Gym'),
+        title:   Text(
+          'Create Your Activity',
+          textAlign: TextAlign.center,
+          style: TextStyle(
+            fontSize: 24,
+            fontWeight: FontWeight.w700,
+          ),
+        ),
       ),
       body: SingleChildScrollView(
         padding: EdgeInsets.all(16.0),
@@ -98,14 +111,24 @@ class _CreateGymPageState extends State<CreateGymPage> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: <Widget>[
-              Text(
-                'Please enter your information to continue',
-                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
-              ),
-              SizedBox(height: 20),
+
               TextFormField(
                 controller: _nameController,
-                decoration: InputDecoration(labelText: 'Gym Name'),
+                decoration: InputDecoration(
+                  labelText: 'Gym Name',
+                  labelStyle: const TextStyle(color: Colors.black87),
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(15.0),
+                  ),
+                  enabledBorder: OutlineInputBorder(
+                    borderSide: const BorderSide(color: Colors.black54, width: 2.0),
+                    borderRadius: BorderRadius.circular(15.0),
+                  ),
+                  focusedBorder: OutlineInputBorder(
+                    borderSide: const BorderSide(color: Colors.black54, width: 2.0),
+                    borderRadius: BorderRadius.circular(15.0),
+                  ),
+                ),
                 validator: (value) {
                   if (value == null || value.isEmpty) {
                     return 'Please enter gym name';
@@ -113,9 +136,24 @@ class _CreateGymPageState extends State<CreateGymPage> {
                   return null;
                 },
               ),
+              const SizedBox(height: 10),
               TextFormField(
                 controller: _locationController,
-                decoration: InputDecoration(labelText: 'Location'),
+                decoration: InputDecoration(
+                  labelText: 'Location',
+                  labelStyle: const TextStyle(color: Colors.black87),
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(15.0),
+                  ),
+                  enabledBorder: OutlineInputBorder(
+                    borderSide: const BorderSide(color: Colors.black54, width: 2.0),
+                    borderRadius: BorderRadius.circular(15.0),
+                  ),
+                  focusedBorder: OutlineInputBorder(
+                    borderSide: const BorderSide(color: Colors.black54, width: 2.0),
+                    borderRadius: BorderRadius.circular(15.0),
+                  ),
+                ),
                 validator: (value) {
                   if (value == null || value.isEmpty) {
                     return 'Please enter location';
@@ -123,19 +161,24 @@ class _CreateGymPageState extends State<CreateGymPage> {
                   return null;
                 },
               ),
-              TextFormField(
-                controller: _imagePathController,
-                decoration: InputDecoration(labelText: 'Image URL'),
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return 'Please enter image URL';
-                  }
-                  return null;
-                },
-              ),
+              const SizedBox(height: 10),
               TextFormField(
                 controller: _capacityController,
-                decoration: InputDecoration(labelText: 'Capacity'),
+                decoration: InputDecoration(
+                  labelText: 'Capacity',
+                  labelStyle: const TextStyle(color: Colors.black87),
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(15.0),
+                  ),
+                  enabledBorder: OutlineInputBorder(
+                    borderSide: const BorderSide(color: Colors.black54, width: 2.0),
+                    borderRadius: BorderRadius.circular(15.0),
+                  ),
+                  focusedBorder: OutlineInputBorder(
+                    borderSide: const BorderSide(color: Colors.black54, width: 2.0),
+                    borderRadius: BorderRadius.circular(15.0),
+                  ),
+                ),
                 validator: (value) {
                   if (value == null || value.isEmpty) {
                     return 'Please enter capacity';
@@ -143,9 +186,61 @@ class _CreateGymPageState extends State<CreateGymPage> {
                   return null;
                 },
               ),
+              const SizedBox(height: 10),
+              GestureDetector(
+                onTap: (){
+                  createActivityViewModel.pickImage(_imagePathController);},
+                child: AbsorbPointer(
+                  child: TextFormField(
+                    controller: _imagePathController,
+                    decoration: InputDecoration(
+                      labelText: 'Select Image',
+                      labelStyle: const TextStyle(color: Colors.black87),
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(15.0),
+                      ),
+                      enabledBorder: OutlineInputBorder(
+                        borderSide: const BorderSide(color: Colors.black54, width: 2.0),
+                        borderRadius: BorderRadius.circular(15.0),
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                        borderSide: const BorderSide(color: Colors.black54, width :2.0),
+                        borderRadius: BorderRadius.circular(15.0),
+                      ),
+                      suffixIcon: IconButton(
+                        icon: const Icon(Icons.photo_library),
+                        onPressed: (){
+                          createActivityViewModel.pickImage(_imagePathController);
+                        },
+                      ),
+                    ),
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return 'Please enter image URL';
+                      }
+                      return null;
+                    },
+                  ),
+                ),
+              ),
+              const SizedBox(height: 10),
               TextFormField(
                 controller: _startHourController,
-                decoration: InputDecoration(labelText: 'Start Hour'),
+                decoration: InputDecoration(
+                  labelText: 'Start Hour',
+                  labelStyle: const TextStyle(color: Colors.black87),
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(15.0),
+                  ),
+                  enabledBorder: OutlineInputBorder(
+                    borderSide: const BorderSide(color: Colors.black54, width: 2.0),
+                    borderRadius: BorderRadius.circular(15.0),
+                  ),
+                  focusedBorder: OutlineInputBorder(
+                    borderSide: const BorderSide(color: Colors.black54, width: 2.0),
+                    borderRadius: BorderRadius.circular(15.0),
+                  ),
+                ),
                 validator: (value) {
                   if (value == null || value.isEmpty) {
                     return 'Please enter start hour';
@@ -153,9 +248,24 @@ class _CreateGymPageState extends State<CreateGymPage> {
                   return null;
                 },
               ),
+              const SizedBox(height: 10),
               TextFormField(
                 controller: _endHourController,
-                decoration: InputDecoration(labelText: 'End Hour'),
+                decoration: InputDecoration(
+                  labelText: 'End Hour',
+                  labelStyle: const TextStyle(color: Colors.black87),
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(15.0),
+                  ),
+                  enabledBorder: OutlineInputBorder(
+                    borderSide: const BorderSide(color: Colors.black54, width: 2.0),
+                    borderRadius: BorderRadius.circular(15.0),
+                  ),
+                  focusedBorder: OutlineInputBorder(
+                    borderSide: const BorderSide(color: Colors.black54, width: 2.0),
+                    borderRadius: BorderRadius.circular(15.0),
+                  ),
+                ),
                 validator: (value) {
                   if (value == null || value.isEmpty) {
                     return 'Please enter end hour';
@@ -163,9 +273,24 @@ class _CreateGymPageState extends State<CreateGymPage> {
                   return null;
                 },
               ),
+              const SizedBox(height: 10),
               TextFormField(
                 controller: _taxNumberController,
-                decoration: InputDecoration(labelText: 'Tax Number'),
+                decoration: InputDecoration(
+                  labelText: 'Tax Number',
+                  labelStyle: const TextStyle(color: Colors.black87),
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(15.0),
+                  ),
+                  enabledBorder: OutlineInputBorder(
+                    borderSide: const BorderSide(color: Colors.black54, width: 2.0),
+                    borderRadius: BorderRadius.circular(15.0),
+                  ),
+                  focusedBorder: OutlineInputBorder(
+                    borderSide: const BorderSide(color: Colors.black54, width: 2.0),
+                    borderRadius: BorderRadius.circular(15.0),
+                  ),
+                ),
                 validator: (value) {
                   if (value == null || value.isEmpty) {
                     return 'Please enter tax number';
@@ -173,10 +298,27 @@ class _CreateGymPageState extends State<CreateGymPage> {
                   return null;
                 },
               ),
+              const SizedBox(height: 10),
+
               TextFormField(
                 controller: _websiteController,
-                decoration: InputDecoration(labelText: 'Website (Optional)'),
+                decoration: InputDecoration(
+                  labelText: 'Website (Optional)',
+                  labelStyle: const TextStyle(color: Colors.black87),
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(15.0),
+                  ),
+                  enabledBorder: OutlineInputBorder(
+                    borderSide: const BorderSide(color: Colors.black54, width: 2.0),
+                    borderRadius: BorderRadius.circular(15.0),
+                  ),
+                  focusedBorder: OutlineInputBorder(
+                    borderSide: const BorderSide(color: Colors.black54, width: 2.0),
+                    borderRadius: BorderRadius.circular(15.0),
+                  ),
+                ),
               ),
+
               SizedBox(height: 20),
               ElevatedButton(
                 onPressed: _submitForm,

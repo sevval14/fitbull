@@ -31,7 +31,7 @@ class DetailScreenPosts extends StatelessWidget {
                     Expanded(
                       child: Text(
                         item.name,
-                        style: TextStyle(fontSize: 20),
+                        style: TextStyle(fontSize: 20,fontWeight: FontWeight.bold),
                         overflow: TextOverflow.ellipsis,
                       ),
                     ),
@@ -43,8 +43,8 @@ class DetailScreenPosts extends StatelessWidget {
                   ],
                 ),
               ),
-              Image.network(
-                item.imagePath,
+              Image.asset(
+                "assets/home/competition.png", //TODO added real photo
                 fit: BoxFit.cover,
               ),
               Padding(

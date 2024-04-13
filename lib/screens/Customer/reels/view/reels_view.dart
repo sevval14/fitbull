@@ -102,7 +102,7 @@ class _ReelsViewState extends State<ReelsView> {
                     icon: const Icon(Icons.send),
                     onPressed: () {
                       print('Yorum gönderildi: ${_commentController.text}');
-                      Navigator.pop(context); // BottomSheet'i kapat
+                      Navigator.pop(context);
                     },
                   ),
                 ),

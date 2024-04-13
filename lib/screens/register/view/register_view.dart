@@ -173,10 +173,13 @@ class _RegisterPageState extends State<RegisterPage> {
                                     ScaffoldMessenger.of(context).showSnackBar( SnackBar(
                                       content: const Text( "Registration successful!"),backgroundColor: Colors.green.shade700,
                                     ));
+                                    Navigator.pop(context);
+
                                     Navigator.pushReplacement(
                                       context,
                                       MaterialPageRoute(builder: (context) =>  LoginPage()),
                                     );
+
                                   }else{
                                     ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                                       content: Text(handleResponseRegister(statusCode)),
@@ -202,10 +205,11 @@ class _RegisterPageState extends State<RegisterPage> {
                                     ScaffoldMessenger.of(context).showSnackBar( SnackBar(
                                       content: const Text( "Registration successful!"),backgroundColor: Colors.green.shade700,
                                     ));
-                                    Navigator.pushReplacement(
+                                    Navigator.push(
                                       context,
                                       MaterialPageRoute(builder: (context) =>   CreateGymPage()),
                                     );
+
                                   }else{
                                     ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                                       content: Text(handleResponseRegister(statusCode)),
@@ -242,6 +246,7 @@ class _RegisterPageState extends State<RegisterPage> {
                               context,
                               MaterialPageRoute(builder: (context) =>  LoginPage()),
                             );
+
                           }, child: const Text("Sign in"))
                         ],
                       )

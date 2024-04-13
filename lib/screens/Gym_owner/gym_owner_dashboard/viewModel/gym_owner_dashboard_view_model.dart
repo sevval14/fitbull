@@ -8,9 +8,16 @@ import 'package:mobx/mobx.dart';
 import 'package:http/http.dart' as http;
 part 'gym_owner_dashboard_view_model.g.dart';
 
+final GymOwnerDashboardViewModel gymOwnerDashboardViewModel = GymOwnerDashboardViewModel._internal();
+
 class GymOwnerDashboardViewModel = _GymOwnerDashboardViewModel with _$GymOwnerDashboardViewModel;
 
 abstract class _GymOwnerDashboardViewModel with Store {
+  static final GymOwnerDashboardViewModel _instance=GymOwnerDashboardViewModel._internal();
+
+  factory _GymOwnerDashboardViewModel()=> _instance;
+  _GymOwnerDashboardViewModel._internal();
+
   late List<Activity> activityList= [];
   late List<Educator> educatorList= [];
   late Gym gym ;
