@@ -56,9 +56,11 @@ class _GymOwnerDashboardState extends State<GymOwnerDashboard> {
         case 0:
           return _buildPostSection(context);
         case 1:
-          return buildEducatorSection(context,true);
+          return _buildEducatorSection(context);
         case 2:
-          return buildService(context);
+          return Container(
+            alignment: Alignment.topLeft,
+              child: buildService(context));
         case 3:
           return buildEquipmentsSection(context);
         default:
@@ -227,7 +229,6 @@ class _GymOwnerDashboardState extends State<GymOwnerDashboard> {
                     ),
                       body: Column(
                         children: [
-                          // Your column content, for example:
                           _buildProfileHeader(context),
                           _buildHighlightSection(context),
                           _buildSelectedSection(context), // Extracted method for selected section
@@ -309,6 +310,7 @@ class _GymOwnerDashboardState extends State<GymOwnerDashboard> {
   Widget _buildIconButton(IconData icon, String label, int index) {
     return Column(
       mainAxisSize: MainAxisSize.min,
+      mainAxisAlignment: MainAxisAlignment.start,
       children: [
         IconButton(
           onPressed: () {
@@ -367,4 +369,31 @@ class _GymOwnerDashboardState extends State<GymOwnerDashboard> {
     );
   }
 
+  Widget _buildEducatorSection(BuildContext context) {
+    return Expanded(
+      child: ListView.builder(
+        itemCount: detailGymViewModel.educatorList.length,
+        itemBuilder: (context, index) {
+          var educator = detailGymViewModel.educatorList[index];
+          return ListTile(
+            leading: CircleAvatar(
+              backgroundImage: NetworkImage(educator.imagePath),
+            ),
+            title: Text(educator.name),
+            subtitle: Text(educator.branch),
+            trailing: IconButton(
+              icon: Icon(Icons.phone),
+              onPressed: () async {
+                var url = 'tel:${educator.phoneNumber}';
+                if (await canLaunch(url)) {
+                  await launch(url);
+                } else {
+                  print('Could not launch $url');
+                }              },
+            ),
+          );
+        },
+      ),
+    );
+  }
 }

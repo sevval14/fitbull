@@ -92,7 +92,7 @@ class _DetailGymViewState extends State<DetailGymView> {
                                 buildAboutSection(context, snapshot.data),
                                 Center(child: buildActivity(context)),
                                 Center(child: buildEducatorSection(context,false)),
-                                Center(child: buildService(context)),
+                                buildService(context),
                                 Center(child: buildEquipmentsSection(context)),
                               ],
                             ),
