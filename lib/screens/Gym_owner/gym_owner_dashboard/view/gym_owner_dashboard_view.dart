@@ -5,6 +5,7 @@ import 'package:fitbull/screens/Gym_owner/gym_owner_edit_profile/view/gym_owner_
 import 'package:fitbull/screens/login/view/login_view.dart';
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
+import '../../../../widgets/gym_properties.dart';
 import '../../../login/viewmodel/gym_owner_login_view_model.dart';
 import '../../create_activity/view/create_activity_view.dart';
 import '../../create_educator/view/create_educator_view.dart';
@@ -55,11 +56,11 @@ class _GymOwnerDashboardState extends State<GymOwnerDashboard> {
         case 0:
           return _buildPostSection(context);
         case 1:
-          return _buildEducatorSection(context);
+          return buildEducatorSection(context,true);
         case 2:
-          return _buildServiceSection(context);
+          return buildService(context);
         case 3:
-          return _buildEquipmentsSection(context);
+          return buildEquipmentsSection(context);
         default:
           return Container(); // This could be a placeholder or an error widget
       }
@@ -366,63 +367,4 @@ class _GymOwnerDashboardState extends State<GymOwnerDashboard> {
     );
   }
 
-  Widget _buildEducatorSection(BuildContext context) {
-    return Expanded(
-      child: ListView.builder(
-        itemCount: detailGymViewModel.educatorList.length,
-        itemBuilder: (context, index) {
-          var educator = detailGymViewModel.educatorList[index];
-          return ListTile(
-            leading: CircleAvatar(
-              backgroundImage: NetworkImage(educator.imagePath),
-            ),
-            title: Text(educator.name),
-            subtitle: Text(educator.branch),
-            trailing: IconButton(
-              icon: Icon(Icons.phone),
-              onPressed: () async {
-                var url = 'tel:${educator.phoneNumber}';
-                if (await canLaunch(url)) {
-                  await launch(url);
-                } else {
-                  print('Could not launch $url');
-                }              },
-            ),
-          );
-        },
-      ),
-    );
-  }
-
-  Widget _buildServiceSection(BuildContext context) {
-
-    return Expanded(
-      child: ListView.builder(
-        itemCount: detailGymViewModel.serviceList.length,
-        itemBuilder: (context, index) {
-          var service = detailGymViewModel.serviceList[index];
-          return ListTile(
-            leading: Icon(Icons.sports_gymnastics,color: Colors.deepPurple,), // Replace with the desired icon
-            title: Text(service.name),
-          );
-        },
-      ),
-    );
-  }
-
-  Widget _buildEquipmentsSection(BuildContext context) {
-
-    return Expanded(
-      child: ListView.builder(
-        itemCount: detailGymViewModel.equipmentList.length,
-        itemBuilder: (context, index) {
-          var equipment = detailGymViewModel.equipmentList[index];
-          return ListTile(
-            leading: Icon(Icons.device_hub_sharp,color: Colors.deepPurple,), // Replace with the desired icon
-            title: Text(equipment.name),
-          );
-        },
-      ),
-    );
-  }
 }
