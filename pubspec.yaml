@@ -42,6 +42,10 @@ dependencies:
   mobx_codegen: ^2.6.0+1
   url_launcher: ^6.2.5
   image_picker: ^1.0.7
+  mailer: ^6.1.0
+  pdf: ^3.10.8
+
+
 
 dev_dependencies:
   flutter_test:
