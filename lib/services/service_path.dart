@@ -1,4 +1,3 @@
-import 'package:flutter/material.dart';
 
 enum ServicePath{
   CUSTOMER_LOGIN,
@@ -10,10 +9,11 @@ enum ServicePath{
   EDUCATOR,
   IMAGE_UPLOAD,
   EQUIPMENT,
-  SERVICES
+  SERVICES,
+  CREATE_QR_CODE,
 }
 extension ServicePathExtenion on ServicePath {
-  static const String _baseUrl = "http://172.16.0.45:8080";
+  static const String _baseUrl = "http://172.21.191.34:8080";
 
   String get path {
     switch (this) {
@@ -37,6 +37,8 @@ extension ServicePathExtenion on ServicePath {
         return "$_baseUrl/equipments";
       case ServicePath.SERVICES:
         return "$_baseUrl/services";
+      case ServicePath.CREATE_QR_CODE:
+        return "$_baseUrl/gym_entries/generate_qr/";
     }
   }
 }
