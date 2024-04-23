@@ -2,6 +2,7 @@ import 'package:fitbull/screens/Customer/detail_gym/view_model/detail_gym_view_m
 import 'package:fitbull/screens/Gym_owner/create_equipment/view/create_equipment_view.dart';
 import 'package:fitbull/screens/Gym_owner/create_services/view/create_services_view.dart';
 import 'package:fitbull/screens/Gym_owner/gym_owner_edit_profile/view/gym_owner_edit_profile_view.dart';
+import 'package:fitbull/screens/Gym_owner/qr_code/view/qr_code_view.dart';
 import 'package:fitbull/screens/login/view/login_view.dart';
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -97,9 +98,10 @@ class _GymOwnerDashboardState extends State<GymOwnerDashboard> {
                       centerTitle: true,
                       actions: <Widget>[
                         IconButton(
-                          icon: Icon(Icons.notifications_none),
+                          icon: Icon(Icons.qr_code),
                           onPressed: () {
-                            // Notification icon action
+                           // Navigator.of(context).push(MaterialPageRoute(builder: (context) => QRCodeView()));
+
                           },
                         ),
 

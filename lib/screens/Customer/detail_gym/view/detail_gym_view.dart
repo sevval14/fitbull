@@ -18,6 +18,8 @@ class DetailGymView extends StatefulWidget {
 
 class _DetailGymViewState extends State<DetailGymView> {
   final _formKey = GlobalKey<FormState>();
+  TextEditingController emailController = TextEditingController();
+
 
   @override
   void initState() {
@@ -134,7 +136,6 @@ class _DetailGymViewState extends State<DetailGymView> {
               context: context,
               builder: (BuildContext context) {
                 final _formKey = GlobalKey<FormState>();
-                TextEditingController emailController = TextEditingController();
                 emailController.text=loginViewModel.email;
                 return AlertDialog(
                   title: Text("${detailGymViewModel.gym.name} Register"),
@@ -177,15 +178,29 @@ class _DetailGymViewState extends State<DetailGymView> {
                       onPressed: ()async {
                         if (_formKey.currentState!.validate()) {
                           _formKey.currentState!.save();
+                          print("Sending email to: ${loginViewModel.email} with gym name: ${data.name}");
 
-                          await sendEmail(loginViewModel.email);
+                          String gymName =data.name;
+
+                          int statusCode =await detailGymViewModel.createQRCode(loginViewModel.userId, data.id);
+
+                          if(context.mounted) {
+                            if (statusCode == 200 || statusCode == 201) {
+                              await sendEmail(loginViewModel.email,gymName,detailGymViewModel.qrCode);
+
+                            }else{
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                const SnackBar(content: Text('ERROR')),
+                              );
+                            }
+                          }
 
                           Navigator.of(context).pop();
+                          ScaffoldMessenger.of(context).showSnackBar( SnackBar(
+                            content:  Text( "Email sent to ${emailController.text}"),backgroundColor: Colors.green.shade700,
+                          ));
 
-                          // Optionally show a confirmation message
-                          ScaffoldMessenger.of(context).showSnackBar(
-                            SnackBar(content: Text('Email sent to ${loginViewModel.email}')),
-                          );                        }
+                        }
                       },
 
                     ),
@@ -194,10 +209,6 @@ class _DetailGymViewState extends State<DetailGymView> {
               },
             );
           },
-          child: Text(
-            "Register",
-            style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-          ),
           style: ElevatedButton.styleFrom(
             foregroundColor: Colors.white,
             backgroundColor: Colors.deepPurple,
@@ -206,6 +217,10 @@ class _DetailGymViewState extends State<DetailGymView> {
               borderRadius: BorderRadius.circular(30),
             ),
             padding: EdgeInsets.symmetric(horizontal: 32, vertical: 12),
+          ),
+          child: const Text(
+            "Register",
+            style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
           ),
         )
 

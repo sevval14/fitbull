@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+import '../../../login/view/login_view.dart';
+
 class ProfileView extends StatelessWidget {
   const ProfileView({Key? key}) : super(key: key);
 
@@ -76,9 +78,13 @@ class ProfileView extends StatelessWidget {
             shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
             child: ListTile(
               leading: const Icon(Icons.exit_to_app),
-              title: const Text('Log Out'),
+              title: const Text('Logout'),
               onTap: () {
-                // Logout işlemi
+                Navigator.pop(context);
+
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) =>   LoginPage()));
               },
             ),
           ),

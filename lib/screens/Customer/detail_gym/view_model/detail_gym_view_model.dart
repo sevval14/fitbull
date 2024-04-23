@@ -25,7 +25,7 @@ abstract class _DetailGymViewModel with Store {
   late List<Educator> educatorList= [];
   late List<Services> serviceList= [];
   late List<Equipment> equipmentList= [];
-
+  String qrCode="";
 
 
   @action
@@ -138,5 +138,22 @@ abstract class _DetailGymViewModel with Store {
       throw Exception('Failed to load gym');
     }
   }
+
+  @action
+  Future<int> createQRCode(int userId , int gymId )async{
+    print('${ServicePath.CREATE_QR_CODE.path}$userId/$gymId');
+    final response = await http.get(Uri.parse('${ServicePath.CREATE_QR_CODE.path}$userId/$gymId'));
+    try {
+      if (response.statusCode == 200) {
+        qrCode=response.body.toString();
+        return response.statusCode;
+      } else {
+        return response.statusCode;
+      }
+    } catch (e) {
+      return response.statusCode;
+    }  }
+
+
 
 }

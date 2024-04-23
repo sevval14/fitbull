@@ -174,7 +174,6 @@ class _RegisterPageState extends State<RegisterPage> {
                                     ScaffoldMessenger.of(context).showSnackBar( SnackBar(
                                       content: const Text( "Registration successful!"),backgroundColor: Colors.green.shade700,
                                     ));
-                                    Navigator.pop(context);
 
                                     Navigator.pushReplacement(
                                       context,

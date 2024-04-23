@@ -28,6 +28,9 @@ abstract class _LoginViewModelBase with Store {
   @observable
   var userId;
 
+  @observable
+  var entryId;
+
   @action
   void setEmail(String value) => email = value;
 
@@ -53,6 +56,7 @@ abstract class _LoginViewModelBase with Store {
       );
       var data = json.decode(response.body);
       userId = data['userId'];
+      entryId = data['entryId'];
       print(response.body);
       print(userId);
       await Future.delayed(const Duration(seconds: 2));
