@@ -19,7 +19,6 @@ class _RegisterPageState extends State<RegisterPage> {
   final usernameController = TextEditingController();
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
-  final RegisterViewModel registerViewModel = RegisterViewModel();
 
   List<bool> _selection = [true, false];
 

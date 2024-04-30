@@ -25,16 +25,6 @@ class _CreateEducatorViewState extends State<CreateEducatorView> {
   final ImagePicker _picker = ImagePicker();
   final CreateActivityViewModel createActivityViewModel = CreateActivityViewModel();
 
-  Future<void> _pickImage() async {
-    final XFile? image = await _picker.pickImage(source:  ImageSource.camera);
-    if (image != null) {
-      setState(() {
-        _imagePathController.text = image.path;
-      });
-    }
-  }
-
-
   @override
   void dispose() {
     _nameController.dispose();

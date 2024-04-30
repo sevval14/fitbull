@@ -73,6 +73,22 @@ mixin _$LoginViewModel on _LoginViewModelBase, Store {
     });
   }
 
+  late final _$entryIdAtom =
+      Atom(name: '_LoginViewModelBase.entryId', context: context);
+
+  @override
+  dynamic get entryId {
+    _$entryIdAtom.reportRead();
+    return super.entryId;
+  }
+
+  @override
+  set entryId(dynamic value) {
+    _$entryIdAtom.reportWrite(value, super.entryId, () {
+      super.entryId = value;
+    });
+  }
+
   late final _$loginCustomerAsyncAction =
       AsyncAction('_LoginViewModelBase.loginCustomer', context: context);
 
@@ -112,7 +128,8 @@ mixin _$LoginViewModel on _LoginViewModelBase, Store {
 email: ${email},
 password: ${password},
 isLoading: ${isLoading},
-userId: ${userId}
+userId: ${userId},
+entryId: ${entryId}
     ''';
   }
 }

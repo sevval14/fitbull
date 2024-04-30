@@ -1,9 +1,7 @@
 import 'dart:convert';
-
 import 'package:fitbull/services/service_path.dart';
 import 'package:mobx/mobx.dart';
 import 'package:http/http.dart' as http;
-
 part 'gym_owner_login_view_model.g.dart';
 final GymOwnerLoginViewModel gymOwnerLoginViewModel = GymOwnerLoginViewModel._internal();
 

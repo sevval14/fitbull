@@ -33,6 +33,31 @@ mixin _$DetailGymViewModel on _DetailGymViewModel, Store {
     return _$fetchEducatorAsyncAction.run(() => super.fetchEducator(id));
   }
 
+  late final _$fetchServiceAsyncAction =
+      AsyncAction('_DetailGymViewModel.fetchService', context: context);
+
+  @override
+  Future<List<Services>> fetchService(int id) {
+    return _$fetchServiceAsyncAction.run(() => super.fetchService(id));
+  }
+
+  late final _$fetchEquipmentAsyncAction =
+      AsyncAction('_DetailGymViewModel.fetchEquipment', context: context);
+
+  @override
+  Future<List<Equipment>> fetchEquipment(int id) {
+    return _$fetchEquipmentAsyncAction.run(() => super.fetchEquipment(id));
+  }
+
+  late final _$createQRCodeAsyncAction =
+      AsyncAction('_DetailGymViewModel.createQRCode', context: context);
+
+  @override
+  Future<int> createQRCode(int userId, int gymId) {
+    return _$createQRCodeAsyncAction
+        .run(() => super.createQRCode(userId, gymId));
+  }
+
   @override
   String toString() {
     return '''

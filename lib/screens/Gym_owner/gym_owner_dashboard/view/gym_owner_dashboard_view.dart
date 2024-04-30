@@ -3,6 +3,7 @@ import 'package:fitbull/screens/Gym_owner/create_equipment/view/create_equipment
 import 'package:fitbull/screens/Gym_owner/create_services/view/create_services_view.dart';
 import 'package:fitbull/screens/Gym_owner/gym_owner_edit_profile/view/gym_owner_edit_profile_view.dart';
 import 'package:fitbull/screens/Gym_owner/qr_code/view/qr_code_view.dart';
+import 'package:fitbull/screens/Gym_owner/total_users/view/total_users_view.dart';
 import 'package:fitbull/screens/login/view/login_view.dart';
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -100,7 +101,7 @@ class _GymOwnerDashboardState extends State<GymOwnerDashboard> {
                         IconButton(
                           icon: Icon(Icons.qr_code),
                           onPressed: () {
-                           // Navigator.of(context).push(MaterialPageRoute(builder: (context) => QRCodeView()));
+                            Navigator.of(context).push(MaterialPageRoute(builder: (context) => QRCodeView()));
 
                           },
                         ),
@@ -148,6 +149,8 @@ class _GymOwnerDashboardState extends State<GymOwnerDashboard> {
                                   leading: Icon(Icons.people,color: Colors.deepPurple,),
                                   title: Text('Total Users'),
                                   onTap: () {
+                                    Navigator.of(context).push(MaterialPageRoute(builder: (context) => TotalUsers()));
+
                                   },
                                 ),
                                 SizedBox(height: 5,),

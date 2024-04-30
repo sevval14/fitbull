@@ -4,6 +4,8 @@ import 'package:fitbull/screens/register/viewmodel/gym_owner_register_view_model
 import 'package:fitbull/services/service_path.dart';
 import 'package:mobx/mobx.dart';
 import 'package:http/http.dart' as http;
+
+import '../model/create_gym_model.dart';
 part 'create_gym_view_model.g.dart';
 
 final CreateGymViewModel createGymViewModel = CreateGymViewModel._internal();
@@ -107,5 +109,29 @@ abstract class _CreateGymViewModelBase with Store {
       return 0;
     }
 
+  }
+
+
+  @action
+  Future<Gym> oneGym(int gymId) async {
+    try {
+      var response = await http.get(
+        Uri.parse("${ServicePath.GYM.path}/$gymId"),
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      );
+      print("${ServicePath.ALL_USERS.path}/$gymId");
+
+      if (response.statusCode == 200) {
+        return Gym.fromJson(jsonDecode(response.body));
+      } else {
+        print('Failed to load gym with status code: ${response.statusCode}');
+        throw Exception('Failed to load gym');
+      }
+    } catch (e) {
+      print("Connection error: $e");
+      throw Exception('Connection error: $e');
+    }
   }
 }
