@@ -11,6 +11,8 @@ enum ServicePath{
   EQUIPMENT,
   SERVICES,
   CREATE_QR_CODE,
+  ALL_USERS,
+  ENTRY_GYM
 }
 extension ServicePathExtenion on ServicePath {
   static const String _baseUrl = "http://172.21.191.34:8080";
@@ -39,6 +41,10 @@ extension ServicePathExtenion on ServicePath {
         return "$_baseUrl/services";
       case ServicePath.CREATE_QR_CODE:
         return "$_baseUrl/gym_entries/generate_qr/";
+      case ServicePath.ALL_USERS:
+        return "$_baseUrl/auth";
+      case ServicePath.ENTRY_GYM:
+        return "$_baseUrl/gym_entries";
     }
   }
 }
