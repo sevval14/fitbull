@@ -1,9 +1,13 @@
 import 'dart:convert';
 
+import 'package:fitbull/screens/register/model/userResponse.dart';
 import 'package:mobx/mobx.dart';
 import 'package:http/http.dart' as http;
 
 import '../../../services/service_path.dart';
+import '../../Gym_owner/qr_code/view_model/qr_code_view_model.dart';
+import '../../register/model/register_model.dart';
+import '../../register/viewmodel/register_view_model.dart';
 part 'login_view_model.g.dart';
 final LoginViewModel loginViewModel = LoginViewModel._internal();
 
@@ -31,11 +35,35 @@ abstract class _LoginViewModelBase with Store {
   @observable
   var entryId;
 
+  @observable
+  String userName="";
+
+  @observable
+  late List<UserResponse> userList= [];
+
+  @observable
+  UserResponse findUser =UserResponse(id: 0, userName: "", email: "", entryId: 0);
+
   @action
   void setEmail(String value) => email = value;
 
   @action
   void setPassword(String value) => password = value;
+
+  @action
+  Future<UserResponse?> findName(String qrUserId) async {
+    await allUsers();
+    for (var user in userList) {
+      print(user.id.toString());
+      print(qrUserId);
+      if (user.id.toString() == qrUserId) {
+        userName = user.userName;
+        findUser=user;
+        return user;
+      }
+    }
+    return null;
+  }
 
   @action
   Future<int> loginCustomer() async {
@@ -59,6 +87,8 @@ abstract class _LoginViewModelBase with Store {
       entryId = data['entryId'];
       print(response.body);
       print(userId);
+      findUser= (await findName(userId.toString()))!;
+
       await Future.delayed(const Duration(seconds: 2));
       return response.statusCode;
     } catch (e) {
@@ -68,4 +98,48 @@ abstract class _LoginViewModelBase with Store {
 
   }
 
+  @action
+  Future<List<UserResponse>> allUsers() async{
+    try{
+      var response = await http.get(
+        Uri.parse(ServicePath.ALL_USERS.path),
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      );
+      var decodedList = jsonDecode(response.body);
+      if (decodedList is List) {
+        userList = decodedList.map<UserResponse>((jsonItem) => UserResponse.fromJson(jsonItem)).toList();
+        print("selam");
+        print(userList);
+      }
+      return userList;
+    }catch(e){
+      print("Connection error: $e");
+      return [];
+    }
+  }
+
+  @action
+  Future<Register?> oneUser(int userPath) async {
+    try {
+      var response = await http.get(
+        Uri.parse("${ServicePath.ALL_USERS.path}/$userPath"),
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      );
+      print("${ServicePath.ALL_USERS.path}/$userPath");  // Debug amaçlı URI'yi yazdır
+
+      if (response.statusCode == 200) {
+        return Register.fromJson(jsonDecode(response.body));
+      } else {
+        print('Failed to load user with status code: ${response.statusCode}');
+        throw Exception('Failed to load user');
+      }
+    } catch (e) {
+      print("Connection error: $e");
+      throw Exception('Connection error: $e'); // Hata fırlatılarak üst katmana bildirilir
+    }
+  }
 }

@@ -89,12 +89,88 @@ mixin _$LoginViewModel on _LoginViewModelBase, Store {
     });
   }
 
+  late final _$userNameAtom =
+      Atom(name: '_LoginViewModelBase.userName', context: context);
+
+  @override
+  String get userName {
+    _$userNameAtom.reportRead();
+    return super.userName;
+  }
+
+  @override
+  set userName(String value) {
+    _$userNameAtom.reportWrite(value, super.userName, () {
+      super.userName = value;
+    });
+  }
+
+  late final _$userListAtom =
+      Atom(name: '_LoginViewModelBase.userList', context: context);
+
+  @override
+  List<UserResponse> get userList {
+    _$userListAtom.reportRead();
+    return super.userList;
+  }
+
+  bool _userListIsInitialized = false;
+
+  @override
+  set userList(List<UserResponse> value) {
+    _$userListAtom
+        .reportWrite(value, _userListIsInitialized ? super.userList : null, () {
+      super.userList = value;
+      _userListIsInitialized = true;
+    });
+  }
+
+  late final _$findUserAtom =
+      Atom(name: '_LoginViewModelBase.findUser', context: context);
+
+  @override
+  UserResponse get findUser {
+    _$findUserAtom.reportRead();
+    return super.findUser;
+  }
+
+  @override
+  set findUser(UserResponse value) {
+    _$findUserAtom.reportWrite(value, super.findUser, () {
+      super.findUser = value;
+    });
+  }
+
+  late final _$findNameAsyncAction =
+      AsyncAction('_LoginViewModelBase.findName', context: context);
+
+  @override
+  Future<UserResponse?> findName(String qrUserId) {
+    return _$findNameAsyncAction.run(() => super.findName(qrUserId));
+  }
+
   late final _$loginCustomerAsyncAction =
       AsyncAction('_LoginViewModelBase.loginCustomer', context: context);
 
   @override
   Future<int> loginCustomer() {
     return _$loginCustomerAsyncAction.run(() => super.loginCustomer());
+  }
+
+  late final _$allUsersAsyncAction =
+      AsyncAction('_LoginViewModelBase.allUsers', context: context);
+
+  @override
+  Future<List<UserResponse>> allUsers() {
+    return _$allUsersAsyncAction.run(() => super.allUsers());
+  }
+
+  late final _$oneUserAsyncAction =
+      AsyncAction('_LoginViewModelBase.oneUser', context: context);
+
+  @override
+  Future<Register?> oneUser(int userPath) {
+    return _$oneUserAsyncAction.run(() => super.oneUser(userPath));
   }
 
   late final _$_LoginViewModelBaseActionController =
@@ -129,7 +205,10 @@ email: ${email},
 password: ${password},
 isLoading: ${isLoading},
 userId: ${userId},
-entryId: ${entryId}
+entryId: ${entryId},
+userName: ${userName},
+userList: ${userList},
+findUser: ${findUser}
     ''';
   }
 }
