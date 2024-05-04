@@ -73,26 +73,6 @@ mixin _$RegisterViewModel on _RegisterViewModelBase, Store {
     });
   }
 
-  late final _$userListAtom =
-      Atom(name: '_RegisterViewModelBase.userList', context: context);
-
-  @override
-  List<Register> get userList {
-    _$userListAtom.reportRead();
-    return super.userList;
-  }
-
-  bool _userListIsInitialized = false;
-
-  @override
-  set userList(List<Register> value) {
-    _$userListAtom
-        .reportWrite(value, _userListIsInitialized ? super.userList : null, () {
-      super.userList = value;
-      _userListIsInitialized = true;
-    });
-  }
-
   late final _$isLoadingAtom =
       Atom(name: '_RegisterViewModelBase.isLoading', context: context);
 
@@ -115,14 +95,6 @@ mixin _$RegisterViewModel on _RegisterViewModelBase, Store {
   @override
   Future<int> registerUser() {
     return _$registerUserAsyncAction.run(() => super.registerUser());
-  }
-
-  late final _$allUsersAsyncAction =
-      AsyncAction('_RegisterViewModelBase.allUsers', context: context);
-
-  @override
-  Future<List<Register>> allUsers() {
-    return _$allUsersAsyncAction.run(() => super.allUsers());
   }
 
   late final _$_RegisterViewModelBaseActionController =
@@ -168,7 +140,6 @@ username: ${username},
 email: ${email},
 password: ${password},
 userId: ${userId},
-userList: ${userList},
 isLoading: ${isLoading}
     ''';
   }
