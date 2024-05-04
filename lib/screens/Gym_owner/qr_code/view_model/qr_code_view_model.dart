@@ -1,6 +1,9 @@
 import 'dart:convert';
 
+import 'package:fitbull/screens/register/model/register_model.dart';
+
 import '../../../../services/service_path.dart';
+import '../../../register/model/userResponse.dart';
 import '../../../register/viewmodel/register_view_model.dart';
 import '../model/qr_data.dart';
 import 'package:mobx/mobx.dart';
@@ -29,8 +32,6 @@ abstract class _QrCodeViewModelBase with Store {
   @observable
   String gymId="";
 
-  @observable
-  String userName ="";
 
   @action
   Future<PermissionStatus> _getCameraPermission() async {
@@ -45,14 +46,14 @@ abstract class _QrCodeViewModelBase with Store {
 
   @action
   Future scan() async {
-      qrData = (await scanner.scan())!;
-      print(qrData);
-      print("SEVVAL");
-      if (qrData == null) {
-        print("data is invalid");
-      }else{
-        splitData();
-      }
+    qrData = (await scanner.scan())!;
+    print(qrData);
+    print("SEVVAL");
+    if (qrData == null) {
+      print("data is invalid");
+    }else{
+      splitData();
+    }
   }
 
   @action
@@ -102,17 +103,6 @@ abstract class _QrCodeViewModelBase with Store {
     }
   }
 
-  @action
-  Future<void> findName(String qrUserId)async{
-    for(var user in registerViewModel.userList){
-      print(user.id.toString());
-      print(qrUserId);
-      if(user.id.toString()==qrUserId){
-        userName=user.username;
-        print(user.username);
-      }
-    }
-  }
 
   @action
   Future<int> entryGym()async{
@@ -137,4 +127,3 @@ abstract class _QrCodeViewModelBase with Store {
     }
   }
 }
-

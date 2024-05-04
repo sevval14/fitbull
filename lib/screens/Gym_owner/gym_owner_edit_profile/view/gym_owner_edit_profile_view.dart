@@ -84,7 +84,7 @@ class _GymOwnerEditProfileState extends State<GymOwnerEditProfile> {
   @override
   Widget build(BuildContext context) {
     print(createGymViewModel.name)
-;    return Scaffold(
+    ;    return Scaffold(
       appBar: AppBar(
         title: Text('Edit Profile',style: TextStyle(color: Colors.blueGrey.shade700,fontWeight: FontWeight.w500)),
       ),
@@ -93,33 +93,32 @@ class _GymOwnerEditProfileState extends State<GymOwnerEditProfile> {
         child: Column(
           children: <Widget>[
             GestureDetector(
-              onTap: () {
-                // Implement image picker logic
-                print('Change profile image');
-              },
-              child: Container(
-                padding: EdgeInsets.all(2),  // Dış sınır ile iç avatar arasında boşluk oluşturur.
-                decoration: BoxDecoration(
-                  color: Colors.blueGrey,  // Dış sınırın rengi
-                  shape: BoxShape.circle,
-                ),
-                child: CircleAvatar(
-                  radius: 50,
-                  backgroundImage: AssetImage('assets/home/teacher.png'),
-                  child: Align(
-                    alignment: Alignment.bottomRight,
-                    child: CircleAvatar(
-                      backgroundColor: Colors.blueGrey,
-                      radius: 16,
-                      child: Icon(
-                        Icons.edit,
-                        size: 20,
-                        color: Colors.white,
+                onTap: () {
+                  print('Change profile image');
+                },
+                child: Container(
+                  padding: EdgeInsets.all(2),  // Dış sınır ile iç avatar arasında boşluk oluşturur.
+                  decoration: BoxDecoration(
+                    color: Colors.blueGrey,  // Dış sınırın rengi
+                    shape: BoxShape.circle,
+                  ),
+                  child: CircleAvatar(
+                    radius: 50,
+                    backgroundImage: AssetImage('assets/home/teacher.png'),
+                    child: Align(
+                      alignment: Alignment.bottomRight,
+                      child: CircleAvatar(
+                        backgroundColor: Colors.blueGrey,
+                        radius: 16,
+                        child: Icon(
+                          Icons.edit,
+                          size: 20,
+                          color: Colors.white,
+                        ),
                       ),
                     ),
                   ),
-                ),
-              )
+                )
 
             ),
             SizedBox(height: 20),
@@ -228,12 +227,12 @@ class _GymOwnerEditProfileState extends State<GymOwnerEditProfile> {
               width: double.infinity,
               child: ElevatedButton(
                 onPressed: () {
-                    _submitForm(context);
-                    print('Profile Updated');
+                  _submitForm(context);
+                  print('Profile Updated');
                 },
                 child: Text('Edit',style: TextStyle(color: Colors.white),),
                 style:  ElevatedButton.styleFrom(
-                 backgroundColor: Colors.blueGrey.shade700 // Butonun iç padding'ini ayarlar
+                    backgroundColor: Colors.blueGrey.shade700 // Butonun iç padding'ini ayarlar
                 ),
 
 

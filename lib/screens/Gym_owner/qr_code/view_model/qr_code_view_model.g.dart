@@ -57,22 +57,6 @@ mixin _$QrCodeViewModel on _QrCodeViewModelBase, Store {
     });
   }
 
-  late final _$userNameAtom =
-      Atom(name: '_QrCodeViewModelBase.userName', context: context);
-
-  @override
-  String get userName {
-    _$userNameAtom.reportRead();
-    return super.userName;
-  }
-
-  @override
-  set userName(String value) {
-    _$userNameAtom.reportWrite(value, super.userName, () {
-      super.userName = value;
-    });
-  }
-
   late final _$_getCameraPermissionAsyncAction = AsyncAction(
       '_QrCodeViewModelBase._getCameraPermission',
       context: context);
@@ -111,14 +95,6 @@ mixin _$QrCodeViewModel on _QrCodeViewModelBase, Store {
         .run(() => super.requestGalleryPermission());
   }
 
-  late final _$findNameAsyncAction =
-      AsyncAction('_QrCodeViewModelBase.findName', context: context);
-
-  @override
-  Future<void> findName(String qrUserId) {
-    return _$findNameAsyncAction.run(() => super.findName(qrUserId));
-  }
-
   late final _$entryGymAsyncAction =
       AsyncAction('_QrCodeViewModelBase.entryGym', context: context);
 
@@ -146,8 +122,7 @@ mixin _$QrCodeViewModel on _QrCodeViewModelBase, Store {
     return '''
 qrData: ${qrData},
 userId: ${userId},
-gymId: ${gymId},
-userName: ${userName}
+gymId: ${gymId}
     ''';
   }
 }

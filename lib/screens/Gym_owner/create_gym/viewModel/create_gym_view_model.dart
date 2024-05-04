@@ -93,8 +93,8 @@ abstract class _CreateGymViewModelBase with Store {
         'taxNumber': taxNumber,
         'webSite': webSite,
         "gymOwnerId":gymOwnerRegisterViewModel.gymOwnerRegisterId != null ?
-      gymOwnerRegisterViewModel.gymOwnerRegisterId :
-      gymOwnerLoginViewModel.gymOwnerId
+        gymOwnerRegisterViewModel.gymOwnerRegisterId :
+        gymOwnerLoginViewModel.gymOwnerId
       }),
       );
       var data = json.decode(response.body);
@@ -134,4 +134,5 @@ abstract class _CreateGymViewModelBase with Store {
       throw Exception('Connection error: $e');
     }
   }
+
 }

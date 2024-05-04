@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'package:fitbull/screens/Gym_owner/qr_code/view_model/qr_code_view_model.dart';
 import 'package:fitbull/screens/login/viewmodel/gym_owner_login_view_model.dart';
+import 'package:fitbull/screens/login/viewmodel/login_view_model.dart';
 import 'package:fitbull/screens/register/viewmodel/register_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -18,7 +19,8 @@ class _QRCodeViewState extends State<QRCodeView> {
 
   @override
   void initState() {
-    registerViewModel.allUsers();
+    loginViewModel.allUsers();
+
     super.initState();
   }
   @override
@@ -26,6 +28,7 @@ class _QRCodeViewState extends State<QRCodeView> {
     qrCodeViewModel.userId = "";
     qrCodeViewModel.gymId = "";
     qrCodeViewModel.qrData = "";
+    loginViewModel.findUser.entryId=0;
     super.dispose();
 
   }
@@ -33,8 +36,7 @@ class _QRCodeViewState extends State<QRCodeView> {
   @override
   Widget build(BuildContext context) {
     print("registerViewModel.userList");
-    print(registerViewModel.userList);
-
+    print(loginViewModel.userList);
     return Scaffold(
       appBar: AppBar(
         title: Text('Scan QR Code'),
@@ -48,7 +50,7 @@ class _QRCodeViewState extends State<QRCodeView> {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Text(qrCodeViewModel.userName == "" ?"Please scan qr code" :qrCodeViewModel.userName,style: TextStyle(color: Colors.black,fontWeight: FontWeight.bold,fontSize: 20),),
+                  Text(loginViewModel.findUser.entryId == 0 ?"Please scan qr code" :loginViewModel.userName,style: TextStyle(color: Colors.black,fontWeight: FontWeight.bold,fontSize: 20),),
                   SizedBox(height: 20,),
                   Container(
                     height: 250,
@@ -59,7 +61,10 @@ class _QRCodeViewState extends State<QRCodeView> {
                         await qrCodeViewModel.requestCameraPermission();
                         await qrCodeViewModel.requestGalleryPermission();
                         await qrCodeViewModel.scan();
-                        await qrCodeViewModel.findName(qrCodeViewModel.userId);
+                        print(qrCodeViewModel.userId);
+                        print("bAK");
+
+                        await loginViewModel.findName(qrCodeViewModel.userId);
 
                         setState(() {
                         });                      },
@@ -119,5 +124,3 @@ class _QRCodeViewState extends State<QRCodeView> {
 
 
 }
-
-

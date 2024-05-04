@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:fitbull/screens/Gym_owner/create_gym/viewModel/create_gym_view_model.dart';
 import 'package:fitbull/screens/Gym_owner/qr_code/view_model/qr_code_view_model.dart';
 import 'package:fitbull/screens/login/viewmodel/gym_owner_login_view_model.dart';
+import 'package:fitbull/screens/login/viewmodel/login_view_model.dart';
 import 'package:fitbull/screens/register/viewmodel/register_view_model.dart';
 import 'package:fitbull/services/service_path.dart';
 import 'package:mobx/mobx.dart';
@@ -34,21 +35,22 @@ abstract class _TotalUserViewModelBase with Store {
       var decodedList = jsonDecode(response.body);
 
       if (decodedList is List) {
-         gymAllUsers = decodedList.map<GymEntry>((jsonItem) => GymEntry.fromJson(jsonItem)).toList();
+        gymAllUsers = decodedList.map<GymEntry>((jsonItem) => GymEntry.fromJson(jsonItem)).toList();
         gymAllUsers = gymAllUsers.where((entry) => entry.gymId == gymOwnerLoginViewModel.gymOwnerGymId).toList();
 
-         print("Filtrelenmiş kullanıcı sayısı: ${gymAllUsers.length}");
-         for (var gymUser in gymAllUsers) {
-           Register? userDetails = await registerViewModel.oneUser(gymUser.userId);
-           userList.add(userDetails!);
-         }
-         print("Filtrelenmiş kullanıcı sayısı: ${userList.length}");
+        print("Filtrelenmiş kullanıcı sayısı: ${gymAllUsers.length}");
+        for (var gymUser in gymAllUsers) {
+          Register? userDetails = await loginViewModel.oneUser(gymUser.userId);
+          userList.add(userDetails!);
+        }
+        print("Filtrelenmiş kullanıcı sayısı: ${userList.length}");
 
       }
     } catch (e) {
       print("Bir hata oluştu: $e");
     }
   }
+
 
 
 }

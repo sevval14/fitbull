@@ -177,6 +177,14 @@ mixin _$CreateGymViewModel on _CreateGymViewModelBase, Store {
     return _$createGymAsyncAction.run(() => super.createGym());
   }
 
+  late final _$oneGymAsyncAction =
+      AsyncAction('_CreateGymViewModelBase.oneGym', context: context);
+
+  @override
+  Future<Gym> oneGym(int gymId) {
+    return _$oneGymAsyncAction.run(() => super.oneGym(gymId));
+  }
+
   late final _$_CreateGymViewModelBaseActionController =
       ActionController(name: '_CreateGymViewModelBase', context: context);
 

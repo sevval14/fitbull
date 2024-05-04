@@ -96,7 +96,7 @@ class _CreateGymPageState extends State<CreateGymPage> {
     return Scaffold(
       appBar: AppBar(
         title:   Text(
-          'Create Your Activity',
+          'Create Your Gym',
           textAlign: TextAlign.center,
           style: TextStyle(
             fontSize: 24,
