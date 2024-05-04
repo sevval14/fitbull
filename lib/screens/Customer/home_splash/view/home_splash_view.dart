@@ -30,6 +30,7 @@ class _HomeSplashViewState extends State<HomeSplashView> with SingleTickerProvid
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar:null,
       body: TabBarView(
         controller: _tabController,
         children: [
