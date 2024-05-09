@@ -109,6 +109,7 @@ class _UserProfileState extends State<UserProfile> {
                               ScaffoldMessenger.of(context).showSnackBar( SnackBar(
                                 content: const Text( "Updated successful!"),backgroundColor: Colors.green.shade700,
                               ));
+                              Navigator.pop(context);
                             }
                             await Future.delayed(const Duration(seconds: 2));
 

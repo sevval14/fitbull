@@ -57,6 +57,7 @@ abstract class _LoginViewModelBase with Store {
       if (user.id.toString() == qrUserId) {
         userName = user.userName;
         findUser=user;
+        print(findUser.userName);
         return user;
       }
     }
