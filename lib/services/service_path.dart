@@ -14,7 +14,7 @@ enum ServicePath{
   ENTRY_GYM
 }
 extension ServicePathExtenion on ServicePath {
-  static const String _baseUrl = "http://192.168.1.138:8080";
+  static const String _baseUrl = "http://192.168.255.68:8080";
 
   String get path {
     switch (this) {
