@@ -50,7 +50,6 @@ abstract class _CreateEducatorViewModel with Store {
         "gymId":gymOwnerLoginViewModel.gymOwnerGymId
       }),
       );
-      print(response.body);
 
       await Future.delayed(const Duration(seconds: 2));
       return response.statusCode;

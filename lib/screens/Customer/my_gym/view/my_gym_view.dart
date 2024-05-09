@@ -1,6 +1,5 @@
 import 'package:fitbull/screens/Customer/my_gym/viewModel/my_gym_view_model.dart';
 import 'package:fitbull/screens/Customer/personal_settings/view/personal_settings_view.dart';
-import 'package:fitbull/screens/Customer/personal_settings/view_model/personal_settings_view_model.dart';
 import 'package:fitbull/screens/login/viewmodel/login_view_model.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -16,6 +15,8 @@ class MyGymView extends StatefulWidget {
 }
 
 class _MyGymViewState extends State<MyGymView> {
+  DateFormat inputFormat = DateFormat("yyyy-MM-dd HH:mm:ss.SSS'Z'");
+  DateFormat outputFormat = DateFormat("yyyy-MM-dd");
 
   @override
   void initState() {
@@ -154,33 +155,49 @@ class _MyGymViewState extends State<MyGymView> {
                                         ],
                                       ),
                                       child: TableCalendar(
-                                         firstDay: DateTime.utc(2010, 10, 16),
-                                         lastDay: DateTime.utc(2030, 3, 14),
+                                         firstDay: DateTime(2010, 10, 16),
+                                         lastDay: DateTime(2030, 3, 14),
                                          focusedDay: DateTime.now(),
-                                         headerVisible: true,
                                         headerStyle: const HeaderStyle(
+
                                           formatButtonVisible: false,
                                           titleCentered: true,
                                         ),
                                          calendarStyle: const CalendarStyle(
+
                                            selectedTextStyle:
                                                TextStyle(fontSize: 12),
                                            todayTextStyle: TextStyle(fontSize: 12),
                                          ),
                                          selectedDayPredicate: (day) {
-                                           return myGymViewModel.copySelected.contains(day);
+                                           List<DateTime> convertedDates = [];
+
+                                           for (String dateString in myGymViewModel.copySelected) {
+                                             DateTime dateTime = outputFormat.parse(dateString);
+
+                                             String formattedDate = inputFormat.format(DateTime(dateTime.year, dateTime.month, dateTime.day));
+
+                                             DateTime formattedDateTime = inputFormat.parse(formattedDate);
+
+                                             convertedDates.add(formattedDateTime);
+                                           }
+
+                                           return convertedDates.contains(DateTime(day.year, day.month, day.day));
                                          },
                                          onDaySelected: (selectedDay, focusedDay) {
-                                           setState(() {
+                                           myGymViewModel.addDate =true;
+                                           var  convert = DateTime.parse(selectedDay.toString()).toUtc();
+                                           DateTime dateTime = inputFormat.parse(convert.toString());
+                                           String formattedDate = outputFormat.format(dateTime);
                                              if (myGymViewModel.copySelected
-                                                 .contains(selectedDay)) {
-                                               myGymViewModel.copySelected.remove(selectedDay);
+                                                 .contains(formattedDate)) {
+                                               myGymViewModel.copySelected.remove(formattedDate);
 
                                              } else {
-                                               myGymViewModel.addDays(selectedDay);
+                                               myGymViewModel.copySelected.add(formattedDate);
 
                                              }
-                                           });
+
 
 
                                          },

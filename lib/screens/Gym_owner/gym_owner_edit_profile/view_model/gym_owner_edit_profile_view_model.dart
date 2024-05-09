@@ -92,9 +92,7 @@ abstract class _GymOwnerEditProfileViewModelBase with Store {
           }),
       );
       var data = json.decode(response.body);
-      print(data);
       int gymId = data["id"];
-      print(gymId);
       await Future.delayed(const Duration(seconds: 2)); // Gerekirse beklemek için
       return response.statusCode;
     } catch (e) {

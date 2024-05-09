@@ -39,7 +39,6 @@ abstract class _GymOwnerLoginViewModelBase with Store {
   Future<int> loginGymOwner() async {
     isLoading = true;
     try {
-      print(email.toString() + password);
       var response = await http.post(
         Uri.parse(ServicePath.GYM_OWNER_LOGIN.path),
         headers: {
@@ -55,10 +54,6 @@ abstract class _GymOwnerLoginViewModelBase with Store {
       var data = json.decode(response.body);
       gymOwnerId = data['userId'];
       gymOwnerGymId = data['gymId'];
-
-      print(response.body);
-      print(gymOwnerId);
-      print(gymOwnerGymId);
 
       await Future.delayed(const Duration(seconds: 2));
       return response.statusCode;

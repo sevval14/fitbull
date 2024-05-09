@@ -83,7 +83,6 @@ class _GymOwnerEditProfileState extends State<GymOwnerEditProfile> {
 
   @override
   Widget build(BuildContext context) {
-    print(createGymViewModel.name)
     ;    return Scaffold(
       appBar: AppBar(
         title: Text('Edit Profile',style: TextStyle(color: Colors.blueGrey.shade700,fontWeight: FontWeight.w500)),
@@ -228,7 +227,6 @@ class _GymOwnerEditProfileState extends State<GymOwnerEditProfile> {
               child: ElevatedButton(
                 onPressed: () {
                   _submitForm(context);
-                  print('Profile Updated');
                 },
                 child: Text('Edit',style: TextStyle(color: Colors.white),),
                 style:  ElevatedButton.styleFrom(

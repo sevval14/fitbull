@@ -42,8 +42,7 @@ abstract class _QrCodeViewModelBase with Store {
   @action
   Future scan() async {
     qrData = (await scanner.scan())!;
-    print(qrData);
-    print("SEVVAL");
+
     if (qrData == null) {
       print("data is invalid");
     }else{
@@ -86,8 +85,7 @@ abstract class _QrCodeViewModelBase with Store {
     if (!status.isGranted) {
 
       final result = await Permission.storage.request();
-      print("HEY");
-      print(result);
+
       if (result.isGranted) {
         print('Gallery permission granted');
       } else {

@@ -128,26 +128,5 @@ class ProfileView extends StatelessWidget {
     );
 
   }
-  _buildCard(BuildContext context,String name ,IconData iconData, Widget directedPage){
-    print(loginViewModel.findUser.entryId);
-    if(name=='Personal Settings'&& loginViewModel.findUser.entryId==0){
-      return SizedBox();
-    }
-    return Card(
-      margin: const EdgeInsets.symmetric(vertical: 8),
-      shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(10)),
-      child: ListTile(
-        leading: Icon(iconData),
-        title: Text(name),
-        onTap: () {
-          if(name == 'Logout'){
-            Navigator.push(context,
-                MaterialPageRoute(builder: (context) => directedPage));
-          }
 
-        },
-      ),
-    );
-  }
 }

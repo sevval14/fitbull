@@ -98,10 +98,7 @@ abstract class _CreateGymViewModelBase with Store {
       }),
       );
       var data = json.decode(response.body);
-      print(data);
-      print(gymOwnerRegisterViewModel.gymOwnerRegisterId);
       gymId=data["id"];
-      print(gymId);
       await Future.delayed(const Duration(seconds: 2));
       return response.statusCode;
     } catch (e) {
@@ -121,7 +118,6 @@ abstract class _CreateGymViewModelBase with Store {
           'Content-Type': 'application/json',
         },
       );
-      print("${ServicePath.ALL_USERS.path}/$gymId");
 
       if (response.statusCode == 200) {
         return Gym.fromJson(jsonDecode(response.body));

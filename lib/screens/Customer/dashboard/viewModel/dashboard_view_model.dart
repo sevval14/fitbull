@@ -18,7 +18,6 @@ abstract class _DashboardViewModel with Store {
       var decodedList = jsonDecode(response.body);
       if (decodedList is List) {
          gymList = decodedList.map<Gym>((jsonItem) => Gym.fromJson(jsonItem)).toList();
-        print(gymList);
       } else {
       }
       return gymList;

@@ -54,8 +54,6 @@ abstract class _LoginViewModelBase with Store {
   Future<UserResponse?> findName(String qrUserId) async {
     await allUsers();
     for (var user in userList) {
-      print(user.id.toString());
-      print(qrUserId);
       if (user.id.toString() == qrUserId) {
         userName = user.userName;
         findUser=user;
@@ -69,8 +67,6 @@ abstract class _LoginViewModelBase with Store {
   Future<int> loginCustomer() async {
     isLoading = true;
     try {
-      print(email.toString() + password);
-      print(ServicePath.CUSTOMER_LOGIN.path);
       var response = await http.post(
         Uri.parse(ServicePath.CUSTOMER_LOGIN.path),
         headers: {
@@ -85,8 +81,7 @@ abstract class _LoginViewModelBase with Store {
       var data = json.decode(response.body);
       userId = data['userId'];
       entryId = data['entryId'];
-      print(response.body);
-      print(userId);
+
       findUser= (await findName(userId.toString()))!;
 
       await Future.delayed(const Duration(seconds: 2));
@@ -110,8 +105,6 @@ abstract class _LoginViewModelBase with Store {
       var decodedList = jsonDecode(response.body);
       if (decodedList is List) {
         userList = decodedList.map<UserResponse>((jsonItem) => UserResponse.fromJson(jsonItem)).toList();
-        print("selam");
-        print(userList);
       }
       return userList;
     }catch(e){
@@ -129,7 +122,6 @@ abstract class _LoginViewModelBase with Store {
           'Content-Type': 'application/json',
         },
       );
-      print("${ServicePath.ALL_USERS.path}/$userPath");  // Debug amaçlı URI'yi yazdır
 
       if (response.statusCode == 200) {
         return Register.fromJson(jsonDecode(response.body));

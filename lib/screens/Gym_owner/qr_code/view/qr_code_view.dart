@@ -35,8 +35,6 @@ class _QRCodeViewState extends State<QRCodeView> {
 
   @override
   Widget build(BuildContext context) {
-    print("registerViewModel.userList");
-    print(loginViewModel.userList);
     return Scaffold(
       appBar: AppBar(
         title: Text('Scan QR Code'),
@@ -61,9 +59,6 @@ class _QRCodeViewState extends State<QRCodeView> {
                         await qrCodeViewModel.requestCameraPermission();
                         await qrCodeViewModel.requestGalleryPermission();
                         await qrCodeViewModel.scan();
-                        print(qrCodeViewModel.userId);
-                        print("bAK");
-
                         await loginViewModel.findName(qrCodeViewModel.userId);
 
                         setState(() {

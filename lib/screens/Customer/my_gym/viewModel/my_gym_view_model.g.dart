@@ -57,17 +57,33 @@ mixin _$MyGymViewModel on _MyGymViewModel, Store {
     });
   }
 
+  late final _$addDateAtom =
+      Atom(name: '_MyGymViewModel.addDate', context: context);
+
+  @override
+  bool get addDate {
+    _$addDateAtom.reportRead();
+    return super.addDate;
+  }
+
+  @override
+  set addDate(bool value) {
+    _$addDateAtom.reportWrite(value, super.addDate, () {
+      super.addDate = value;
+    });
+  }
+
   late final _$copySelectedAtom =
       Atom(name: '_MyGymViewModel.copySelected', context: context);
 
   @override
-  ObservableList<DateTime> get copySelected {
+  ObservableList<String> get copySelected {
     _$copySelectedAtom.reportRead();
     return super.copySelected;
   }
 
   @override
-  set copySelected(ObservableList<DateTime> value) {
+  set copySelected(ObservableList<String> value) {
     _$copySelectedAtom.reportWrite(value, super.copySelected, () {
       super.copySelected = value;
     });
@@ -123,22 +139,12 @@ mixin _$MyGymViewModel on _MyGymViewModel, Store {
   }
 
   @override
-  void addDays(DateTime time) {
-    final _$actionInfo = _$_MyGymViewModelActionController.startAction(
-        name: '_MyGymViewModel.addDays');
-    try {
-      return super.addDays(time);
-    } finally {
-      _$_MyGymViewModelActionController.endAction(_$actionInfo);
-    }
-  }
-
-  @override
   String toString() {
     return '''
 gymEntryId: ${gymEntryId},
 startWeight: ${startWeight},
 goalWeight: ${goalWeight},
+addDate: ${addDate},
 copySelected: ${copySelected},
 gymEntry: ${gymEntry}
     ''';

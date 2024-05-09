@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:fitbull/screens/Customer/my_gym/model/my_gym_model.dart';
+import 'package:intl/intl.dart';
 import 'package:mobx/mobx.dart';
 import 'package:http/http.dart' as http;
 
@@ -27,7 +28,10 @@ abstract class _MyGymViewModel with Store {
   String goalWeight ="";
 
   @observable
-  ObservableList<DateTime> copySelected =ObservableList<DateTime>();
+  bool addDate =false;
+
+  @observable
+  ObservableList<String> copySelected =ObservableList<String>();
 
   @observable
   GymEntry gymEntry = GymEntry(id: 0, userId: 0, gymId: 0, entryTime: DateTime.now(), startWeight: "startWeight", goalWeight: "goalWeight", selectedDays: [], gymName: "gymName", gymLocation: "gymLocation", startHour: "startHour", endHour: "endHour");
@@ -39,19 +43,9 @@ abstract class _MyGymViewModel with Store {
   void setGoalWeight(String value) => goalWeight = value;
 
 
-  @action
-  void addDays(DateTime time){
-    var  convert = DateTime.parse(time.toString()).toUtc();
-    copySelected.add(convert);
-
-  }
-
   Future<int> updateEntryGym(int gymEntryId) async{
+
     try{
-      print(copySelected);
-      var localDates = copySelected.map((date) =>
-      date.toIso8601String()).toList();
-      print(localDates);
       var response = await http.put(Uri.parse('${ServicePath.ENTRY_GYM.path}/$gymEntryId'),
             headers: {
       'Content-Type': 'application/json',
@@ -59,13 +53,11 @@ abstract class _MyGymViewModel with Store {
       body : json.encode({
       "startWeight":startWeight ==""?gymEntry.startWeight:startWeight ,
       "goalWeight":goalWeight==""?gymEntry.goalWeight:goalWeight,
-      "selectedDays":localDates,
+      "selectedDays":copySelected,
       }),
       );
       var data = json.decode(response.body);
-      print(data);
       int gymEntryIdControl = data["id"];
-      print(gymEntryIdControl);
       await Future.delayed(const Duration(seconds: 2));
       return response.statusCode;
     }catch(e){
@@ -84,16 +76,16 @@ abstract class _MyGymViewModel with Store {
           'Content-Type': 'application/json',
         },
       );
-      print(response.body);
       var data = json.decode(response.body);
       gymEntry=GymEntry.fromJson(data);
-      for(var value in myGymViewModel.gymEntry.selectedDays){
-        var convert = DateTime.parse(value).toUtc();
-        if(copySelected.contains(convert)==false){
-          copySelected.add(convert);
+
+      for (String dateString in myGymViewModel.gymEntry.selectedDays) {
+        if(!copySelected.contains(dateString)){
+          copySelected.add(dateString);
         }
+
       }
-      print(gymEntry);
+
     } catch (e) {
       print("Bir hata oluştu: $e");
     }

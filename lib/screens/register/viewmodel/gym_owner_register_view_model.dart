@@ -58,8 +58,6 @@ abstract class _GymOwnerRegisterViewModel with Store {
       await Future.delayed(const Duration(seconds: 2));
       var data = json.decode(response.body);
       gymOwnerRegisterId = data['userId'];
-      print(response.body);
-      print(gymOwnerRegisterId);
       return response.statusCode;
     } catch (e) {
       print("Connection error: $e");

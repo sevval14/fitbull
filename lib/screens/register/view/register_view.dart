@@ -195,9 +195,6 @@ class _RegisterPageState extends State<RegisterPage> {
 
                                 print("GymOwner selected");
                                 int statusCode = await gymOwnerRegisterViewModel.registerGymOwner();
-                                print(usernameController.text);
-                                print(emailController.text);
-                                print(passwordController.text);
 
                                 if(context.mounted){
                                   if (statusCode == 200 || statusCode == 201) {

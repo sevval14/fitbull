@@ -19,8 +19,6 @@ abstract class _ReelsViewModel with Store {
       var decodedList = jsonDecode(response.body);
       if (decodedList is List) {
         activityList = decodedList.map<Activity>((jsonItem) => Activity.fromJson(jsonItem)).toList();
-        print(activityList);
-        print(response.body);
       } else {
       }
       return activityList;

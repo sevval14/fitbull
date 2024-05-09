@@ -38,8 +38,6 @@ abstract class _DetailGymViewModel with Store {
         gym = decodedList
             .map<Gym>((jsonItem) => Gym.fromJson(jsonItem))
             .firstWhere((gym) => gym.id == id, orElse: () => throw Exception('Gym not found'));
-        print(gym);
-        print(gym.capacity);
         return gym;
       } else {
         throw Exception('Data format is not a list');
@@ -61,7 +59,6 @@ abstract class _DetailGymViewModel with Store {
             .map<Activity>((jsonItem) => Activity.fromJson(jsonItem))
             .where((activity) => activity.gymId == id)
             .toList();
-        print(activityList);
       } else {
       }
       return activityList;
@@ -74,7 +71,6 @@ abstract class _DetailGymViewModel with Store {
   Future<List<Educator>> fetchEducator(int id) async {
     final response = await http.get(Uri.parse(ServicePath.EDUCATOR.path));
     var data =json.decode(response.body);
-    print(data);
     if (response.statusCode == 200) {
       var decodedList = jsonDecode(response.body);
       if (decodedList is List) {
@@ -82,7 +78,6 @@ abstract class _DetailGymViewModel with Store {
             .map<Educator>((jsonItem) => Educator.fromJson(jsonItem))
             .where((educator) => educator.gymId == id)
             .toList();
-        print(educatorList);
         return educatorList;
       } else {
         // Handle the case where decodedList is not a List
@@ -97,7 +92,6 @@ abstract class _DetailGymViewModel with Store {
   Future<List<Services>> fetchService(int id) async {
     final response = await http.get(Uri.parse(ServicePath.SERVICES.path));
     var data =json.decode(response.body);
-    print(data);
     if (response.statusCode == 200) {
       var decodedList = jsonDecode(response.body);
       if (decodedList is List) {
@@ -105,7 +99,6 @@ abstract class _DetailGymViewModel with Store {
             .map<Services>((jsonItem) => Services.fromJson(jsonItem))
             .where((services) => services.gymId == id)
             .toList();
-        print(serviceList);
         return serviceList;
       } else {
         // Handle the case where decodedList is not a List
@@ -120,7 +113,6 @@ abstract class _DetailGymViewModel with Store {
   Future<List<Equipment>> fetchEquipment(int id) async {
     final response = await http.get(Uri.parse(ServicePath.EQUIPMENT.path));
     var data =json.decode(response.body);
-    print(data);
     if (response.statusCode == 200) {
       var decodedList = jsonDecode(response.body);
       if (decodedList is List) {
@@ -128,7 +120,6 @@ abstract class _DetailGymViewModel with Store {
             .map<Equipment>((jsonItem) => Equipment.fromJson(jsonItem))
             .where((equipment) => equipment.gymId == id)
             .toList();
-        print(equipmentList);
         return equipmentList;
       } else {
         // Handle the case where decodedList is not a List
@@ -141,7 +132,6 @@ abstract class _DetailGymViewModel with Store {
 
   @action
   Future<int> createQRCode(int userId , int gymId )async{
-    print('${ServicePath.CREATE_QR_CODE.path}$userId/$gymId');
     final response = await http.get(Uri.parse('${ServicePath.CREATE_QR_CODE.path}$userId/$gymId'));
     try {
       if (response.statusCode == 200) {

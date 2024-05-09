@@ -41,8 +41,7 @@ abstract class _CreateActivityViewModel with Store {
 
   @action
   Future<int> createActivity() async {
-    print(gymOwnerLoginViewModel.gymOwnerId);
-    print(gymOwnerLoginViewModel.gymOwnerGymId);
+
     try {
       var response = await http.post(
         Uri.parse(ServicePath.ACTIVITES.path),
@@ -56,7 +55,6 @@ abstract class _CreateActivityViewModel with Store {
         "gymId":gymOwnerLoginViewModel.gymOwnerGymId
       }),
       );
-      print(response.body);
 
       await Future.delayed(const Duration(seconds: 2));
       return response.statusCode;

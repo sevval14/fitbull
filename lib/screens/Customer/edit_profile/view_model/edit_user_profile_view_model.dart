@@ -44,8 +44,7 @@ abstract class _EditProfileViewModelBase with Store {
         }),
       );
       var data = json.decode(response.body);
-      print(data);
-      print("DENEME");
+
       await Future.delayed(const Duration(seconds: 2)); // Gerekirse beklemek için
       return response.statusCode;
     } catch (e) {

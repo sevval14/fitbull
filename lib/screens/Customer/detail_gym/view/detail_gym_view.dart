@@ -178,7 +178,6 @@ class _DetailGymViewState extends State<DetailGymView> {
                       onPressed: ()async {
                         if (_formKey.currentState!.validate()) {
                           _formKey.currentState!.save();
-                          print("Sending email to: ${loginViewModel.email} with gym name: ${data.name}");
 
                           String gymName =data.name;
 

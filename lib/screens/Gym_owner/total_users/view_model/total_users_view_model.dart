@@ -31,7 +31,6 @@ abstract class _TotalUserViewModelBase with Store {
           'Content-Type': 'application/json',
         },
       );
-      print(response.body);
       var decodedList = jsonDecode(response.body);
 
       if (decodedList is List) {
