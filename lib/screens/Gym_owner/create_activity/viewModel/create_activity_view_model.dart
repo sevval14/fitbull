@@ -7,6 +7,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:mobx/mobx.dart';
 import 'package:http/http.dart' as http;
+
+import '../../qr_code/view_model/qr_code_view_model.dart';
 part 'create_activity_view_model.g.dart';
 
 class CreateActivityViewModel = _CreateActivityViewModel with _$CreateActivityViewModel;
@@ -67,11 +69,16 @@ abstract class _CreateActivityViewModel with Store {
 
   @action
   Future<void> pickImage(TextEditingController _imagePathController) async {
-    final XFile? image = await _picker.pickImage(source:  ImageSource.gallery);
-    if (image != null) {
-      _imagePathController.text = image.path;
+    try {
+      final XFile? image = await _picker.pickImage(source: ImageSource.gallery);
+      if (image != null) {
+        _imagePathController.text = image.path;
+      }
+    } catch (e) {
+      print('Failed to pick image: $e');
     }
   }
+
 
   @action
   Future<void> uploadImage(String filePath) async {

@@ -1,10 +1,5 @@
 import 'dart:convert';
-
-import 'package:fitbull/screens/register/model/register_model.dart';
-
 import '../../../../services/service_path.dart';
-import '../../../register/model/userResponse.dart';
-import '../../../register/viewmodel/register_view_model.dart';
 import '../model/qr_data.dart';
 import 'package:mobx/mobx.dart';
 import 'package:http/http.dart' as http;
@@ -91,6 +86,8 @@ abstract class _QrCodeViewModelBase with Store {
     if (!status.isGranted) {
 
       final result = await Permission.storage.request();
+      print("HEY");
+      print(result);
       if (result.isGranted) {
         print('Gallery permission granted');
       } else {

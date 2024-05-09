@@ -138,7 +138,8 @@ class _CreateActivityPageState extends State<CreateActivityPage> {
                 const SizedBox(height: 10),
                 GestureDetector(
                   onTap: (){
-                    createActivityViewModel.pickImage(_imagePathController);},
+                    createActivityViewModel.pickImage(_imagePathController);
+                    },
                     child: AbsorbPointer(
                     child: TextFormField(
                     controller: _imagePathController,
@@ -157,10 +158,7 @@ class _CreateActivityPageState extends State<CreateActivityPage> {
                           borderRadius: BorderRadius.circular(15.0),
                         ),
                         suffixIcon: IconButton(
-                          icon: const Icon(Icons.photo_library),
-                          onPressed: (){
-                            createActivityViewModel.pickImage(_imagePathController);
-                          },
+                          icon: const Icon(Icons.photo_library), onPressed: () {  },
                         ),
                       ),
                       validator: (value) {

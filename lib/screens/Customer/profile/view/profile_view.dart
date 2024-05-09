@@ -113,7 +113,7 @@ class ProfileView extends StatelessWidget {
                     leading: const Icon(Icons.exit_to_app),
                     title: const Text('Logout'),
                     onTap: () {
-
+                      Navigator.pop(context);
                       Navigator.push(context,
                           MaterialPageRoute(builder: (context) => LoginPage()));
                     },

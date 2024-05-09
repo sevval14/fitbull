@@ -1,22 +1,43 @@
-class GymUser {
+class GymEntry {
   final int id;
-  final String userName;
-  final String email;
-  final int entryId;
+  final int userId;
+  final int gymId;
+  final DateTime entryTime;
+  final String startWeight;
+  final String goalWeight;
+  final List<String> selectedDays;
+  final String gymName;
+  final String gymLocation;
+  final String startHour;
+  final String endHour;
 
-  GymUser({
+  GymEntry({
     required this.id,
-    required this.userName,
-    required this.email,
-    required this.entryId,
+    required this.userId,
+    required this.gymId,
+    required this.entryTime,
+    required this.startWeight,
+    required this.goalWeight,
+    required this.selectedDays,
+    required this.gymName,
+    required this.gymLocation,
+    required this.startHour,
+    required this.endHour,
   });
 
-  factory GymUser.fromJson(Map<String, dynamic> json) {
-    return GymUser(
+  factory GymEntry.fromJson(Map<String, dynamic> json) {
+    return GymEntry(
       id: json['id'],
-      userName: json['userName'],
-      email: json['email'],
-      entryId: json['entryId'],
+      userId: json['userId'] ,
+      gymId: json['gymId'],
+      entryTime: DateTime.parse(json['entryTime'] ),
+      startWeight: json['startWeight'] ,
+      goalWeight: json['goalWeight'] ,
+      selectedDays: List<String>.from(json['selectedDays']),
+      gymName: json['gymName'] ,
+      gymLocation: json['gymLocation'],
+      startHour: json['startHour'],
+      endHour: json['endHour'],
     );
   }
 }

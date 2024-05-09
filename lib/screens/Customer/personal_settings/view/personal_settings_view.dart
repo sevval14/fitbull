@@ -1,4 +1,5 @@
 import 'package:fitbull/screens/Customer/edit_profile/view_model/edit_user_profile_view_model.dart';
+import 'package:fitbull/screens/Customer/my_gym/viewModel/my_gym_view_model.dart';
 import 'package:fitbull/screens/Customer/profile/view/profile_view.dart';
 import 'package:fitbull/screens/login/viewmodel/login_view_model.dart';
 import 'package:fitbull/screens/register/model/userResponse.dart';
@@ -15,6 +16,12 @@ class _PersonalSettingsState extends State<PersonalSettings> {
   final TextEditingController _startWeightController = TextEditingController();
   final TextEditingController _goalWeightController = TextEditingController();
   final EditProfileViewModel editProfileViewModel =  EditProfileViewModel();
+
+  @override
+  void initState() {
+    myGymViewModel.getOneGymEntry(loginViewModel.userId);
+    super.initState();
+  }
 
   @override
   void dispose() {
@@ -49,7 +56,7 @@ class _PersonalSettingsState extends State<PersonalSettings> {
           title: Text("Personal Settings"),
         ),
         body:FutureBuilder(
-          future: loginViewModel.findName(loginViewModel.userId.toString()),
+          future: myGymViewModel.getOneGymEntry(loginViewModel.userId),
           builder:(context, snapshot) {
             if (snapshot.connectionState == ConnectionState.waiting) {
               return Center(child: CircularProgressIndicator());
@@ -74,29 +81,29 @@ class _PersonalSettingsState extends State<PersonalSettings> {
 
                     TextFormField(
                       controller: _startWeightController,
-                      decoration: _inputDecoration("Start weight",loginViewModel.findUser.userName ),
+                      decoration: _inputDecoration("Start weight",myGymViewModel.gymEntry.startWeight ),
                     ),
                     SizedBox(height: 20.0),
                     TextFormField(
                       controller: _goalWeightController,
-                      decoration: _inputDecoration("Goal weight", loginViewModel.findUser.email),
+                      decoration: _inputDecoration("Goal weight", myGymViewModel.gymEntry.goalWeight),
                     ),
                     SizedBox(height: 40.0),
                     ElevatedButton(
                       onPressed: () async{
                         if(_startWeightController.text==""){
-                          editProfileViewModel.setUserName(loginViewModel.findUser.userName);
+                          myGymViewModel.setStartWeight(myGymViewModel.gymEntry.startWeight);
                         }else{
-                          editProfileViewModel.setUserName(_startWeightController.text);
+                          myGymViewModel.setStartWeight(_startWeightController.text);
                         }
 
                         if(_goalWeightController.text==""){
-                          editProfileViewModel.setEmail(loginViewModel.findUser.email);
+                          myGymViewModel.setGoalWeight(myGymViewModel.gymEntry.goalWeight);
                         }else{
-                          editProfileViewModel.setEmail(_goalWeightController.text);
+                          myGymViewModel.setGoalWeight(_goalWeightController.text);
                         }
 
-                        int statusCode = await editProfileViewModel.updateProfile();
+                        int statusCode = await myGymViewModel.updateEntryGym(loginViewModel.findUser.entryId);
 
                         if(context.mounted){
                           if (statusCode == 200 || statusCode == 201) {
@@ -106,6 +113,7 @@ class _PersonalSettingsState extends State<PersonalSettings> {
                               ));
                             }
                             await Future.delayed(const Duration(seconds: 2));
+                            Navigator.pop(context);
 
                           }else {
                             ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
