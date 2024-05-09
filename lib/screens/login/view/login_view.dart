@@ -165,6 +165,7 @@ class _LoginPageState extends State<LoginPage> {
                                     ScaffoldMessenger.of(context).showSnackBar( SnackBar(
                                       content: const Text( "Login successful!"),backgroundColor: Colors.green.shade700,
                                     ));
+                                    Navigator.pop(context);
                                     Navigator.pushReplacement(
                                       context,
                                       MaterialPageRoute(builder: (context) =>  const GymOwnerHomeSplashView()),
